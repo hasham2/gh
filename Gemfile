@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'omniauth-facebook'
 gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
