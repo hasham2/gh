@@ -17,19 +17,16 @@ from project directory root
 
 ```
 bundle install
-
 ```
 and then run rake migrations with
 
 ```
 bin/rake db:migrate
-
 ```
 and lastly do the seed to create the default user
 
 ```
 bin/rake db:seed
-
 ```
 
 Credits
