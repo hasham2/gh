@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.1'
-gem 'rails', '4.1.0.rc2'
+gem 'rails', '4.1.0'
 gem 'pg'
 #gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.2'
@@ -15,7 +15,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
 gem 'pundit'
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21, :rbx]
