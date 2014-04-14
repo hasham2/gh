@@ -17,6 +17,11 @@ gem 'omniauth-facebook'
 gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
+
+gem 'shoulda', group: :test
+gem 'poltergeist', group: :test
+gem 'capybara', group: :test
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21, :rbx]
