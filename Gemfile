@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
+
 ruby '2.1.1'
 gem 'rails', '4.1.0'
 gem 'pg'
@@ -18,9 +20,16 @@ gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
 
+# Geolocations
+gem 'geocoder'
+gem 'carmen-rails'
+
+# Testing
 gem 'shoulda', group: :test
 gem 'poltergeist', group: :test
 gem 'capybara', group: :test
+# Assets
+gem 'rails-assets-leaflet-dist', '~> 0.7.2'
 
 group :development do
   gem 'better_errors'

@@ -1,4 +1,7 @@
 %h3 Home
+
+#map
+  
 - if !current_user.nil? and current_user.admin?
   - @users.each do |user|
     %p
