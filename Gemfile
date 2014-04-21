@@ -19,7 +19,8 @@ gem 'omniauth-facebook'
 gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
-
+gem 'sucker_punch', '~> 1.0'
+gem 'paperclip', '~> 4.1'
 # Geolocations
 gem 'geocoder'
 gem 'carmen-rails'

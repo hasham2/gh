@@ -4,11 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   enum role: [:user, :employer, :admin]
+  has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
   after_initialize :set_default_role, :if => :new_record?
   attr_accessor :login
   
   validates :name, uniqueness: {case_sensitive: false}
-
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  
   def set_default_role
     self.role ||= :user
   end
@@ -43,6 +45,10 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+  
+  def send_devise_notification(notification, opts = {})
+    DeviseEmailJob.new.async.perform(notification, self.id, opts)
   end
 
 end
