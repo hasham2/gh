@@ -5,4 +5,5 @@ Gh::Application.routes.draw do
   #  get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   #end
   resources :users
+  resources :certifications
 end
