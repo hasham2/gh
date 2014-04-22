@@ -6,7 +6,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if resource.employer?
       edit_user_registration_path
     else
-      root_path
+      edit_user_registration_path
     end
   end
 

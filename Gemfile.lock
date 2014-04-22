@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/kmayer/devise-async.git
+  revision: f00684f5bdbb2920c13e8e7ecfc3c0b31814ae9f
+  branch: sucker-punch
+  specs:
+    devise-async (0.9.0)
+      devise (~> 3.2)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 6b3f9db8906336d8df80475c71b75613e3fc895b
   specs:
@@ -240,6 +248,7 @@ DEPENDENCIES
   carmen-rails
   coffee-rails (~> 4.0.0)
   devise
+  devise-async!
   geocoder
   haml-rails
   html2haml

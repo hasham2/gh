@@ -16,6 +16,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'devise-async', github: 'kmayer/devise-async', branch: 'sucker-punch' # Needed to add suckerpunch support
 gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, :async, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   enum role: [:user, :employer, :admin]
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
@@ -47,8 +47,4 @@ class User < ActiveRecord::Base
     end
   end
   
-  def send_devise_notification(notification, opts = {})
-    DeviseEmailJob.new.async.perform(notification, self.id, opts)
-  end
-
 end
