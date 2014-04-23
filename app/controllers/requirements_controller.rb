@@ -13,6 +13,7 @@ class RequirementsController < ApplicationController
       end
     end
   end
+ 
   def certification_params
   	params.require(:requirement).permit(:name)
   end

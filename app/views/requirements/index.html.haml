@@ -8,6 +8,8 @@
     .form-group
       .col-sm-offset-2.col-sm-10
         = f.submit "create requirement",id:"set",:class=>"btn btn-primary reset"
-.col-sm-12
+        %br
+        %br
+.col-sm-offset-2.col-sm-4
   %b All requirements
   %table#requirement.table.table-hover= render @requirements
