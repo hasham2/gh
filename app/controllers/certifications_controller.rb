@@ -8,10 +8,8 @@ class CertificationsController < ApplicationController
    
     respond_to do |format|
       if @certification.save
-        format.html { redirect_to certifications_path, notice: 'User was successfully created.' }
+        format.html { redirect_to certification_path, notice: 'User was successfully created.' }
         format.js   {}
-      else
-        format.html { render action: "new" }
       end
     end
   end

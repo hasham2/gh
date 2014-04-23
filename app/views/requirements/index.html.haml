@@ -1,0 +1,13 @@
+.col-sm-12
+  = form_for @requirement,id:"myForm",:class=>"form-horizontal",remote: true do |f|
+    .form-group
+      = f.label :name, 'Name' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = f.text_field :name, id:"test", :class=>"form-control"
+        %br
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit "create requirement",id:"set",:class=>"btn btn-primary reset"
+.col-sm-12
+  %b All requirements
+  %table#requirement.table.table-hover= render @requirements

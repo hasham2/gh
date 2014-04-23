@@ -16,4 +16,5 @@
 //= require bootstrap
 //= require leaflet-dist
 //= require certifications
+//= require requirements
 //= require_tree .
