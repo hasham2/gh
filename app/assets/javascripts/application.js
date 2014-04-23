@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap
 //= require leaflet-dist
+//= require certifications
 //= require_tree .
