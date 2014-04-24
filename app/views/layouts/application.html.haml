@@ -21,11 +21,7 @@
           inputField: '#gmaps-input-address',
           errorField: '#gmaps-error',
           updateUI: function(address, latLng){
-            //console.log(address);
-            //console.log(latLng);
             map.panTo([latLng.k,latLng.A]);
-            //var googleLayer = new L.Google('ROADMAP');
-            //map.addLayer(googleLayer);
           }
         });
         completer.autoCompleteInit({region: 'US', country: 'US'});
