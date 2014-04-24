@@ -9,6 +9,8 @@ gem 'sass-rails', '~> 4.0.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'gmaps-autocomplete-rails', github: 'kristianmandrup/gmaps-autocomplete-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
@@ -16,6 +18,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'devise-async', github: 'kmayer/devise-async', branch: 'sucker-punch' # Needed to add suckerpunch support
 gem 'haml-rails'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'

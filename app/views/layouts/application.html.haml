@@ -4,6 +4,7 @@
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %title= content_for?(:title) ? yield(:title) : 'Gh'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Gh'}"}
+    %script{:type => "text/javascript", :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -14,6 +15,20 @@
       = render 'layouts/messages'
       = yield
     :javascript
+      $(function(){
+        var completer;
+        completer = new GmapsCompleter({
+          inputField: '#gmaps-input-address',
+          errorField: '#gmaps-error',
+          updateUI: function(address, latLng){
+            map.panTo([latLng.k,latLng.A]);
+          }
+        });
+        completer.autoCompleteInit({region: 'US', country: 'US'});
+      });
+      // default map locale
       var map = L.map('map').setView([49.248497,-122.942115],13);
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution: '&copy; OpenStreetMap'}).addTo(map);
-      L.marker([49.24,-122.94]).addTo(map).bindPopup('A Cool Place I should visit').openPopup();
+      //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution: '&copy; OpenStreetMap'}).addTo(map);
+      var googleLayer = new L.Google('ROADMAP');
+      map.addLayer(googleLayer);
+      //L.marker([49.24,-122.94]).addTo(map).bindPopup('A Cool Place I should visit').openPopup();

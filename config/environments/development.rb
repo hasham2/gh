@@ -30,8 +30,8 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       :address   => "smtp.mandrillapp.com",
       :port      => 587,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_APIKEY"]
+      :user_name => "hasham@ballistalabs.com",
+      :password  => "qFf1vObIpBcpS3NxSVzvLg"
     }
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }

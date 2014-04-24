@@ -11,10 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422110402) do
+
+ActiveRecord::Schema.define(version: 20140422120547) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
 
   create_table "certifications", force: true do |t|
     t.string   "title"
@@ -24,6 +27,16 @@ ActiveRecord::Schema.define(version: 20140422110402) do
 
   create_table "requirements", force: true do |t|
     t.string   "name"
+
+  create_table "locations", force: true do |t|
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.boolean  "approx_only"
+    t.string   "lat"
+    t.string   "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

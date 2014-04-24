@@ -1,4 +1,8 @@
 %h3 Home
+#places
+  %form
+    = text_field_tag 'gmaps-input-address', nil, placeholder: 'Enter address to search here ...', size: 75
+%p#gmaps-error
 
 #map
   
