@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424132127) do
+ActiveRecord::Schema.define(version: 20140424133237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "employers", force: true do |t|
+    t.integer  "user_id"
+    t.string   "business_name"
+    t.string   "industry"
+    t.string   "phone"
+    t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -51,13 +61,10 @@ ActiveRecord::Schema.define(version: 20140424132127) do
     t.integer  "role"
     t.string   "provider"
     t.string   "uid"
-    t.string   "company_phone"
-    t.string   "company_website"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "company_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
