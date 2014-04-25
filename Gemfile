@@ -31,8 +31,6 @@ gem 'carmen-rails'
 gem 'shoulda', group: :test
 gem 'poltergeist', group: :test
 gem 'capybara', group: :test
-# Assets
-gem 'rails-assets-leaflet-dist', '~> 0.7.2'
 
 group :development do
   gem 'better_errors'

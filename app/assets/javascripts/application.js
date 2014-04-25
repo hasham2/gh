@@ -16,7 +16,7 @@
 //= require gmaps-auto-complete
 //= require turbolinks
 //= require bootstrap
-//= require leaflet-dist
+//= require leaflet
 //= require leaflet-google
 //= require certifications
 //= require requirements

@@ -16,19 +16,18 @@ ActiveRecord::Schema.define(version: 20140424135033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "certifications", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "employers", force: true do |t|
     t.integer  "user_id"
     t.string   "business_name"
     t.string   "industry"
     t.string   "phone"
     t.string   "website"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-
-  create_table "certifications", force: true do |t|
-    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -45,8 +44,6 @@ ActiveRecord::Schema.define(version: 20140424135033) do
     t.string   "timezone"
     t.float    "lat"
     t.float    "lng"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "requirements", force: true do |t|
