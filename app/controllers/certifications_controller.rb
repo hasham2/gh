@@ -1,8 +1,12 @@
 class CertificationsController < ApplicationController
+  
+  before_filter :authenticate_user!
+
   def index
    @certification = Certification.new
    @certifications = Certification.all
   end
+  
   def create
     @certification = Certification.new(certification_params)
    
@@ -13,9 +17,11 @@ class CertificationsController < ApplicationController
       end
     end
   end
+  
   def edit
     @certification = Certification.find(params[:id])
   end
+  
   def update
     @certification = Certification.find(params[:id])
 
@@ -29,4 +35,5 @@ class CertificationsController < ApplicationController
   def certification_params
   	params.require(:certification).permit(:title)
   end
+
 end

@@ -1,8 +1,12 @@
 class RequirementsController < ApplicationController
+  
+  before_filter authenticate_user!
+
   def index
    @requirement = Requirement.new
    @requirements = Requirement.all
   end
+  
   def create
     @requirement = Requirement.new(certification_params)
    
@@ -13,8 +17,9 @@ class RequirementsController < ApplicationController
       end
     end
   end
- 
+
   def certification_params
   	params.require(:requirement).permit(:name)
   end
+
 end
