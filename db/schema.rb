@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20140424135033) do
     t.datetime "updated_at"
   end
 
+
+  create_table "certifications", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", force: true do |t|
     t.string   "address"
     t.string   "city"
@@ -38,6 +45,14 @@ ActiveRecord::Schema.define(version: 20140424135033) do
     t.string   "timezone"
     t.float    "lat"
     t.float    "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requirements", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

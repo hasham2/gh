@@ -18,3 +18,5 @@
 //= require bootstrap
 //= require leaflet-dist
 //= require leaflet-google
+//= require certifications
+//= require requirements
