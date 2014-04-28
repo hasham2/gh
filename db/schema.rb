@@ -11,22 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20140422120547) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
 
   create_table "certifications", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "requirements", force: true do |t|
-    t.string   "name"
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -37,6 +31,12 @@ ActiveRecord::Schema.define(version: 20140422120547) do
     t.boolean  "approx_only"
     t.string   "lat"
     t.string   "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requirements", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
