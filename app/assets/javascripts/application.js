@@ -23,4 +23,3 @@
 //= require_tree .
 
 //= require leaflet-google
-

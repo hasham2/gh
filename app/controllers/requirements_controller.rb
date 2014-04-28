@@ -13,7 +13,16 @@ class RequirementsController < ApplicationController
       end
     end
   end
- 
+  def destroy
+      @requirement = Requirement.find(params[:id])
+        @requirement.destroy
+      flash[:notice] = "requirements deleted." 
+        respond_to do |format|
+          format.html { redirect_to(certifications_url) }
+          format.js   { render :nothing => true }
+    end
+    
+  end
   def certification_params
   	params.require(:requirement).permit(:name)
   end

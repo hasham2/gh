@@ -7,4 +7,5 @@ Gh::Application.routes.draw do
   resources :users
   resources :certifications
   resources :requirements
+  resources :locations
 end

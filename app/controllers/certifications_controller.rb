@@ -13,19 +13,16 @@ class CertificationsController < ApplicationController
       end
     end
   end
-  def edit
-    @certification = Certification.find(params[:id])
-  end
-  def update
-    @certification = Certification.find(params[:id])
-
-    if @certification.update_attributes(certification_params)
-      redirect_to certifications_path
-    else
-      render "new"
-    end
-   end
   
+  def destroy
+    @certification = Certification.find(params[:id])
+      @certification.destroy
+    flash[:success] = "certification deleted." 
+      respond_to do |format|
+        format.html { redirect_to(certifications_url) }
+        format.js   { render :nothing => true }
+  end
+end
   def certification_params
   	params.require(:certification).permit(:title)
   end

@@ -24,6 +24,7 @@ gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'sucker_punch', '~> 1.0'
 gem 'paperclip', '~> 4.1'
+gem 'carmen-rails'
 # Geolocations
 gem 'geocoder'
 gem 'carmen-rails'
@@ -35,6 +36,7 @@ gem 'capybara', group: :test
 gem 'rails-assets-leaflet-dist', '~> 0.7.2'
 
 group :development do
+  gem 'pry'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21, :rbx]
   gem 'html2haml'

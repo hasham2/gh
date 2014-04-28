@@ -1,3 +1,4 @@
 %tr
   %td= certification.title
-  %td= link_to "edit", edit_certification_path(certification.id) 
+  %td= link_to "delete", certification,method: :delete, data:{confirm: "are you sure?",:remote=>true,:class=>'delete_post'}
+  

@@ -1,2 +1,3 @@
 %tr
   %td= requirement.name
+  %td= link_to "delete", requirement,method: :delete, data:{confirm: "are you sure?",:remote=>true,:class=>'delete_post'}
