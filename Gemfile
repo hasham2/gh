@@ -24,6 +24,7 @@ gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'sucker_punch', '~> 1.0'
 gem 'paperclip', '~> 4.1'
+#gem 'rocket_tag', github: 'asides/rocket_tag'
 # Geolocations
 gem 'geocoder'
 gem 'carmen-rails'
