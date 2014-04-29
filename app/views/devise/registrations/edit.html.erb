@@ -19,6 +19,11 @@
         <%= f.label :avatar, 'Profile Picture' %>
         <%= f.file_field :avatar, class: 'form-control' %>
       </div>
+      <div>
+        <%= image_tag current_user.avatar.url %>
+      </div>
+        
+
     </fieldset>
     
     <fieldset>

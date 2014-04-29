@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  # around_filter :user_time_zone, if: :current_user
   include Pundit
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
     flash[:alert] = "Access denied."
     redirect_to (request.referrer || root_path)
   end
+    
+  # def user_time_zone(&block)
+  #   Time.zone(current_user.time_zone,&block)
+  # end
 
 end

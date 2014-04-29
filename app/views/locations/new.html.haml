@@ -21,6 +21,10 @@
     = f.label :state, 'state' ,:class=>"col-sm-2 control-label text-right"
     .col-sm-4
       = render partial: 'subregion_select', locals: {parent_region: f.object.country}, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :class=>"form-control"
       %br
   .form-group.col-sm-12
     .col-sm-offset-2.col-sm-10
