@@ -20,6 +20,7 @@
 
 //= require certifications
 //= require requirements
+//=require user_steps
 //= require_tree .
 
 //= require leaflet-google

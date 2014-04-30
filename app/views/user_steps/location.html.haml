@@ -1,0 +1,32 @@
+= form_for(@user, url: wizard_path, method: :put) do |f|
+  = f.fields_for :location do |builder|
+    .form-group.col-sm-12
+      = builder.label :address, 'Address' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :address, :class=>"form-control"
+    .form-group.col-sm-12
+      = builder.label :city, 'City' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :city, :class=>"form-control"
+    .form-group.col-sm-12
+      = builder.label :zip, 'Zip' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :zip, :class=>"form-control"
+    
+    .form-group.col-sm-12.fields
+      = builder.label :country, 'Country' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.country_select :country, {priority: %w(US CA), prompt: 'Please select a country',:class=>"form-control"}   
+    .form-group.col-sm-12
+      = builder.label :state, 'state' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = render partial: 'subregion_select', locals: {parent_region: builder.object.country}, :class=>"form-control"
+    .form-group.col-sm-12
+      = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.time_zone_select :time_zone
+        %br
+    .form-group.col-sm-12
+      .col-sm-offset-2.col-sm-10
+        = f.submit "create location",id:"set",:class=>"btn btn-primary reset"
+

@@ -11,16 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429060035) do
+ActiveRecord::Schema.define(version: 20140430115324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "Certifications_Users", id: false, force: true do |t|
+    t.integer "certification_id", null: false
+    t.integer "user_id",          null: false
+  end
+
+  add_index "Certifications_Users", ["certification_id", "user_id"], name: "index_Certifications_Users_on_certification_id_and_user_id", using: :btree
+  add_index "Certifications_Users", ["user_id", "certification_id"], name: "index_Certifications_Users_on_user_id_and_certification_id", using: :btree
 
   create_table "certifications", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "certifications_users", id: false, force: true do |t|
+    t.integer "certification_id", null: false
+    t.integer "user_id",          null: false
+  end
+
+  add_index "certifications_users", ["certification_id", "user_id"], name: "index_certifications_users_on_certification_id_and_user_id", using: :btree
+  add_index "certifications_users", ["user_id", "certification_id"], name: "index_certifications_users_on_user_id_and_certification_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -34,6 +50,8 @@ ActiveRecord::Schema.define(version: 20140429060035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "time_zone"
+    t.integer  "locateable_id"
+    t.string   "locateable_type"
   end
 
   create_table "requirements", force: true do |t|
@@ -41,6 +59,24 @@ ActiveRecord::Schema.define(version: 20140429060035) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string "name"
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -70,6 +106,18 @@ ActiveRecord::Schema.define(version: 20140429060035) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "company_name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "phone_primary"
+    t.integer  "phone_secondary"
+    t.date     "birth_year"
+    t.boolean  "gender"
+    t.string   "skillset"
+    t.string   "criminal_convictions"
+    t.string   "driver_licence"
+    t.string   "licence_class"
+    t.boolean  "has_vehicle"
+    t.integer  "car_pool"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

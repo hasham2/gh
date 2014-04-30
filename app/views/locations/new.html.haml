@@ -1,5 +1,5 @@
 %h1 Location
-= form_for @location,id:"myForm",:class=>"form-horizontal center",remote: true do |f|
+= form_for @location,url: {action: "create"},:class=>"form-horizontal center",remote: true do |f|
   .form-group.col-sm-12
     = f.label :address, 'Address' ,:class=>"col-sm-2 control-label text-right"
     .col-sm-4
@@ -24,7 +24,7 @@
   .form-group.col-sm-12
     = f.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
     .col-sm-4
-      = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :class=>"form-control"
+      = f.time_zone_select :time_zone, :class=>"form-control"
       %br
   .form-group.col-sm-12
     .col-sm-offset-2.col-sm-10
