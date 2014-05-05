@@ -16,6 +16,7 @@
 //= require gmaps-auto-complete
 //= require turbolinks
 //= require bootstrap
+
 //= require leaflet-dist
 
 //= require certifications
@@ -23,5 +24,6 @@
 //=require user_steps
 //= require tagmanager
 //= require_tree .
-
 //= require leaflet-google
+//= require leaflet
+

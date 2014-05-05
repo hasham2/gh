@@ -11,24 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502101722) do
+
+ActiveRecord::Schema.define(version: 20140429115251) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "Certifications_Users", id: false, force: true do |t|
-    t.integer "certification_id", null: false
-    t.integer "user_id",          null: false
-  end
 
-  add_index "Certifications_Users", ["certification_id", "user_id"], name: "index_Certifications_Users_on_certification_id_and_user_id", using: :btree
-  add_index "Certifications_Users", ["user_id", "certification_id"], name: "index_Certifications_Users_on_user_id_and_certification_id", using: :btree
 
   create_table "certifications", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
 
   create_table "certifications_users", id: false, force: true do |t|
     t.integer "certification_id", null: false
@@ -38,6 +35,18 @@ ActiveRecord::Schema.define(version: 20140502101722) do
   add_index "certifications_users", ["certification_id", "user_id"], name: "index_certifications_users_on_certification_id_and_user_id", using: :btree
   add_index "certifications_users", ["user_id", "certification_id"], name: "index_certifications_users_on_user_id_and_certification_id", using: :btree
 
+
+  create_table "employers", force: true do |t|
+    t.integer  "user_id"
+    t.string   "business_name"
+    t.string   "industry"
+    t.string   "phone"
+    t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+
   create_table "locations", force: true do |t|
     t.string   "address"
     t.string   "city"
@@ -45,19 +54,25 @@ ActiveRecord::Schema.define(version: 20140502101722) do
     t.string   "zip"
     t.string   "country"
     t.boolean  "approx_only"
+
     t.string   "lat"
     t.string   "lng"
+
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "timezone"
+    t.float    "lat"
+    t.float    "lng"
+  end
+
+  create_table "requirements", force: true do |t|
+    t.string   "name"
+
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "time_zone"
     t.integer  "locateable_id"
     t.string   "locateable_type"
-  end
-
-  create_table "requirements", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "taggings", force: true do |t|
@@ -100,12 +115,11 @@ ActiveRecord::Schema.define(version: 20140502101722) do
     t.integer  "role"
     t.string   "provider"
     t.string   "uid"
-    t.string   "company_phone"
-    t.string   "company_website"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+
     t.string   "company_name"
     t.string   "first_name"
     t.string   "last_name"

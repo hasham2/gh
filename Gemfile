@@ -24,9 +24,11 @@ gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'sucker_punch', '~> 1.0'
 gem 'paperclip', '~> 4.1'
+
 gem 'wicked'
 gem 'acts-as-taggable-on'
 gem 'tagmanager-rails'
+
 
 # Geolocations
 gem 'geocoder'
@@ -35,8 +37,6 @@ gem 'carmen-rails'
 gem 'shoulda', group: :test
 gem 'poltergeist', group: :test
 gem 'capybara', group: :test
-# Assets
-gem 'rails-assets-leaflet-dist', '~> 0.7.2'
 
 group :development do
   gem 'pry'
