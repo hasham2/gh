@@ -4,12 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :async, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   
-  enum role: [:user, :employer, :admin]
-  enum gender: [:male, :female, :unspecified]
-  enum criminal_convictions: [:yes, :no, :unspecified]
-  enum drivers_licence: [:yes, :no, :unspecified]
-  enum has_vehicle: [:yes, :no, :unspecified]
-  enum car_pool: [:yes, :no, :unspecified]
+
 
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
   after_initialize :set_default_role, :if => :new_record?
