@@ -21,6 +21,7 @@
 //= require certifications
 //= require requirements
 //=require user_steps
+//= require tagmanager
 //= require_tree .
 
 //= require leaflet-google

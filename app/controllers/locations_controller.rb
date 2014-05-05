@@ -1,7 +1,21 @@
 # class LocationsController < ApplicationController
 #   before_filter :authenticate_user!
 #   def new
-#     @location = Location.new
+#   	menu = ["Homedddd","History","Product","Services","ContactUs"]
+
+#   	menu.inject("") do |memo,item|
+#   		binding.pry
+#   	 # puts memo+""
+#   	# puts item.length
+#   	 if memo.length<=item.length
+#   	 	binding.pry
+#   	 	print memo+item
+#   	 	binding.pry
+#   	 else
+#   	 	binding.pry
+#   	 	  print memo
+#   	 end
+#   	end
 #   end
   
 #   def create

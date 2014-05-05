@@ -14,6 +14,7 @@ class UserStepsController < ApplicationController
 		case step
 	    when :personal
 	      @user = current_user
+	      binding.pry
 	    	 @user.update_attributes(user_params)          	 
 	       render_wizard @user
 	    else
@@ -26,11 +27,16 @@ class UserStepsController < ApplicationController
 	end
 	private
 	def user_params
-		params.require(:user).permit(:first_name,:last_name,:phone_primary,:phone_secondary,:birth_year,:gender,:skillset,:criminal_convictions,:driver_licence,:licence_class,:has_vehicle,:car_pool)
+		params.require(:user).permit(:company_name,:first_name,:last_name,:phone_primary,:phone_secondary,:birth_year,:gender,:criminal_convictions,:driver_licence,:licence_class,:has_vehicle,:car_pool,:tag_list)
+
 	end
 	def location_params
-	  params.require(:user).permit(location_attributes: [:address, :city, 
-	  	:zip, :country,:state,:time_zone,])
+	  params.require(:user).permit(location_attributes: [:address,:city,:state,:zip,:country,:time_zone])
 	end
 
 end
+
+
+  
+   
+   

@@ -8,6 +8,6 @@ Gh::Application.routes.draw do
   resources :users
   resources :certifications
   resources :requirements
-  # resources :locations
+   resources :locations
   resources :user_steps
 end

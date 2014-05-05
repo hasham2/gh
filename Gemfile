@@ -26,6 +26,8 @@ gem 'sucker_punch', '~> 1.0'
 gem 'paperclip', '~> 4.1'
 gem 'wicked'
 gem 'acts-as-taggable-on'
+gem 'tagmanager-rails'
+
 # Geolocations
 gem 'geocoder'
 gem 'carmen-rails'

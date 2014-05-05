@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_one :location, as: :locateable
   has_and_belongs_to_many :certifications
   accepts_nested_attributes_for :location
+  acts_as_taggable
 
 
 
