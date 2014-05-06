@@ -23,31 +23,31 @@
   .form-group.col-sm-12
     = f.label :gender, 'Gender' ,:class=>"col-sm-2 control-label text-right"
     .col-sm-4
-      = f.select :gender,[:male,:female], :class=>"form-control"
+      = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
   .form-group.col-sm-12
     = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
     .col-sm-4
       = f.text_field :tag_list, :class=>"form-control tm-input tm-input-info" 
   .form-group.col-sm-12
     = f.label :criminal_convictions, 'CriminalConvictions' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.text_field :criminal_convictions, :class=>"form-control"
+    .col-sm-1.cheklist
+      = f.check_box :criminal_convictions, :class=>"form-control"
   .form-group.col-sm-12
-    = f.label :driver_licence, 'DriversLicence' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.text_field :driver_licence, :class=>"form-control"
+    = f.label :drivers_licence, 'DriversLicence' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-1.cheklist
+      = f.check_box :drivers_licence, :class=>"form-control"
   .form-group.col-sm-12
-    = f.label :licence_class, 'LicenceClass' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.text_field :licence_class, :class=>"form-control"
+    = f.label :drivers_licence_class, 'LicenceClass' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-1.cheklist
+      = f.check_box :drivers_licence_class, :class=>"form-control"
   .form-group.col-sm-12
     = f.label :has_vehicle, 'HasVehicle' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.text_field :has_vehicle, :class=>"form-control"
+    .col-sm-1.cheklist
+      = f.check_box :has_vehicle, :class=>"form-control"
   .form-group.col-sm-12
     = f.label :car_pool, 'CarPool' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.text_field :car_pool, :class=>"form-control"
+    .col-sm-1.cheklist
+      = f.check_box :car_pool, :class=>"form-control"
   = f.submit "continue",id:"set",:class=>"btn btn-primary reset col-sm-offset-2"
 :javascript
   

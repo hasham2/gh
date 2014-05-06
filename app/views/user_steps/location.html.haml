@@ -1,3 +1,5 @@
+%h4 Enter Location
+
 = form_for(@user, url: wizard_path, method: :put) do |f|
   = f.fields_for :location do |builder|
     .form-group.col-sm-12
@@ -20,7 +22,7 @@
     .form-group.col-sm-12
       = builder.label :state, 'state' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
-        = render partial: 'subregion_select', locals: {parent_region: builder.object.country}, :class=>"form-control"
+        = render partial: 'subregion_select', locals: {parent_region: builder.object.country, }, :class=>"form-control"
     .form-group.col-sm-12
       = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4

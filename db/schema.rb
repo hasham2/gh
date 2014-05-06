@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430120527) do
+ActiveRecord::Schema.define(version: 20140506074731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20140430120527) do
     t.boolean  "approx_only"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "timezone"
     t.float    "lat"
     t.float    "lng"
     t.string   "time_zone"
@@ -109,15 +108,15 @@ ActiveRecord::Schema.define(version: 20140430120527) do
     t.datetime "avatar_updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone_primary"
-    t.string   "phone_secondary"
-    t.string   "birth_year"
-    t.integer  "gender"
-    t.integer  "criminal_convictions"
-    t.integer  "drivers_licence"
-    t.integer  "drivers_licence_class"
-    t.integer  "has_vehicle"
-    t.integer  "car_pool"
+    t.integer  "phone_primary"
+    t.integer  "phone_secondary"
+    t.date     "birth_year"
+    t.text     "gender"
+    t.boolean  "criminal_convictions"
+    t.boolean  "drivers_licence"
+    t.boolean  "drivers_licence_class"
+    t.boolean  "has_vehicle"
+    t.boolean  "car_pool"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -17,8 +17,6 @@
 //= require turbolinks
 //= require bootstrap
 
-//= require leaflet-dist
-
 //= require certifications
 //= require requirements
 //=require user_steps

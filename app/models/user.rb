@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   
 
-
+  enum role: [:user, :employer, :admin]
+  
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
   after_initialize :set_default_role, :if => :new_record?
   attr_accessor :login
