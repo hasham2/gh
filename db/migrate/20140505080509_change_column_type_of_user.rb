@@ -10,8 +10,8 @@ class ChangeColumnTypeOfUser < ActiveRecord::Migration
 		change_column :users, :has_vehicle, 'boolean USING CAST(has_vehicle AS boolean)'
 		change_column :users, :car_pool,  'boolean USING CAST(car_pool AS boolean)'
 		change_column :users, :gender,  'text USING CAST(gender AS text)' 
-		change_column :users, :phone_primary,  'int USING CAST(first_name AS int)' 
-		change_column :users, :phone_secondary,  'int USING CAST(first_name AS int)' 
+		change_column :users, :phone_primary,  'int USING CAST(phone_primary AS int)' 
+		change_column :users, :phone_secondary,  'int USING CAST(phone_secondary AS int)' 
 	   end
 	   def down
 
@@ -22,8 +22,8 @@ class ChangeColumnTypeOfUser < ActiveRecord::Migration
 	   	change_column :users, :drivers_licence, 'integer USING CAST(drivers_licence AS integer)'
 	   	change_column :users, :criminal_convictions,  'integer USING CAST(criminal_convictions AS integer)'
 	    change_column :users, :gender,  'text USING CAST(gender AS text)' 
-	    change_column :users, :phone_primary,  'text USING CAST(first_name AS text)' 
-	    change_column :users, :phone_secondary,  'text USING CAST(first_name AS text)' 
+	    change_column :users, :phone_primary,  'text USING CAST(phone_primary AS text)' 
+	    change_column :users, :phone_secondary,  'text USING CAST(phone_secondary AS text)' 
 	    execute 'ALTER TABLE users ALTER COLUMN birth_year TYPE integer USING (birth_year::text::integer)'
 	   	
 	   end

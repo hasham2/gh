@@ -19,7 +19,6 @@ class UserStepsController < ApplicationController
 	    	 @user.update_attributes(user_params)          	 
 	       render_wizard @user
 	    else
-	    	binding.pry
 	      @user.update_attributes(location_params)
 	       render_wizard @location
 	  end
