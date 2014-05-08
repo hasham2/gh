@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20140508012217) do
 
   # These are extensions that must be enabled in order to support this database
@@ -22,6 +23,22 @@ ActiveRecord::Schema.define(version: 20140508012217) do
     t.datetime "updated_at"
   end
 
+  create_table "certifications_jobs", id: false, force: true do |t|
+    t.integer "certification_id"
+    t.integer "job_id"
+  end
+
+  add_index "certifications_jobs", ["certification_id", "job_id"], name: "index_certifications_jobs_on_certification_id_and_job_id", using: :btree
+
+  create_table "certifications_users", id: false, force: true do |t|
+    t.integer "certification_id", null: false
+    t.integer "user_id",          null: false
+  end
+
+  add_index "certifications_users", ["certification_id", "user_id"], name: "index_certifications_users_on_certification_id_and_user_id", using: :btree
+  add_index "certifications_users", ["user_id", "certification_id"], name: "index_certifications_users_on_user_id_and_certification_id", using: :btree
+
+
   create_table "employers", force: true do |t|
     t.integer  "user_id"
     t.string   "business_name"
@@ -31,6 +48,28 @@ ActiveRecord::Schema.define(version: 20140508012217) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "jobs", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.integer  "hours_per_day"
+    t.integer  "work_duration"
+    t.float    "desired_wage"
+    t.float    "max_wage"
+    t.boolean  "desired_wage_is_firm", default: false
+    t.date     "start_date"
+    t.datetime "listing_expires_on"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jobs_requirements", id: false, force: true do |t|
+    t.integer "job_id"
+    t.integer "requirement_id"
+  end
+
+  add_index "jobs_requirements", ["job_id", "requirement_id"], name: "index_jobs_requirements_on_job_id_and_requirement_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -46,6 +85,19 @@ ActiveRecord::Schema.define(version: 20140508012217) do
     t.string   "time_zone"
     t.integer  "locateable_id"
     t.string   "locateable_type"
+  end
+
+  create_table "photos", force: true do |t|
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
+    t.string   "caption"
+    t.boolean  "is_primary"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "requirements", force: true do |t|

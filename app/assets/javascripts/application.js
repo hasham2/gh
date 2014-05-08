@@ -16,10 +16,11 @@
 //= require gmaps-auto-complete
 //= require turbolinks
 //= require bootstrap
-
+//= require leaflet
+//= require leaflet-google
 //= require certifications
 //= require requirements
-//=require user_steps
+//= require user_steps
 //= require tagmanager
 //= require jquery.tokeninput
 //= require_tree .
