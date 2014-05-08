@@ -35,29 +35,25 @@ jQuery(function() {
 });
 
 function populate_second_select(currentId){
-alert(currentId); 
-  var e = document.getElementById(currentId);
-  var selectedText = e.options[e.selectedIndex].text;
-  alert(selectedText);
-$.ajax({
+  alert(currentId); 
+  $.ajax({
      method:'GET',
      url:'./state_response',
      data: {value:selectedText},
      success:function(result)
      {
 
-     	  var select = $("#user_location_attributes_state");
-     	 select.children().remove();
-     	 alert(result);
-     	 
-     	  var myJsonString = JSON.stringify(result)
-     	  alert(myJsonString);
+         ////var select = $("#user_location_attributes_state");
+        ////select.children().remove();
+        ////alert(result);
+        
+         ////var myJsonString = JSON.stringify(result)
+         ////alert(myJsonString);
     
      
 
        
-     	 
-      }
-   });
-
+        
+      ////}
+   /*[>});<]*/
 }
