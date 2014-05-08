@@ -28,12 +28,10 @@ class UserStepsController < ApplicationController
 	end
 
 	def tags 
-		# @tags = current_user.certificate_list.where("tags.name LIKE ?", "%#{params[:q]}%")
-		@tag = User.all
-	  # @tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%") 
-	  # binding.pry
+		
+		@tag = Cetification.all
 	  respond_to do |format|
-	    # format.json { render :json => @tags.map{|t| {:id => t.name, :name => t.name }}}
+	  
 	    format.json{ render :json =>@tag }
 	  end
 	end
