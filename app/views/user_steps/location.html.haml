@@ -17,12 +17,11 @@
     .form-group.col-sm-12.fields
       = builder.label :country, 'Country' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
-        = builder.select :country, @country.keys ,{:prompt => 'Select the Type'}, {:onChange => "populate_second_select(this.id)"}
+        = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select the Type'}, {:onChange => "populate_second_select(this.id)"}
     .form-group.col-sm-12.fields
       = builder.label :state, 'State' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
-        = builder.select :state, [''],{:prompt => 'Select the Type'}
-    .form-group.col-sm-12.fields#replace
+        = builder.select :state,{:prompt => true}
     .form-group.col-sm-12
       = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4

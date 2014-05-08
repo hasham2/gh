@@ -23,6 +23,8 @@
 //= require user_steps
 //= require tagmanager
 //= require jquery.tokeninput
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 //= require leaflet-google
 //= require leaflet
@@ -35,25 +37,11 @@ jQuery(function() {
 });
 
 function populate_second_select(currentId){
-  alert(currentId); 
+  var e = document.getElementById(currentId);
+  var selectedText = e.options[e.selectedIndex].text;
   $.ajax({
      method:'GET',
      url:'./state_response',
-     data: {value:selectedText},
-     success:function(result)
-     {
-
-         ////var select = $("#user_location_attributes_state");
-        ////select.children().remove();
-        ////alert(result);
-        
-         ////var myJsonString = JSON.stringify(result)
-         ////alert(myJsonString);
-    
-     
-
-       
-        
-      ////}
-   /*[>});<]*/
+     data: {value:selectedText}
+   });
 }

@@ -1,1 +1,2 @@
-$('#location_state').html("<%= options_for_select(@states.collect(&:reverse)) %>")
+
+$("<%= escape_javascript(options_for_select(@states.collect(&:reverse)) ) %>").appendTo("#user_location_attributes_state");

@@ -1,13 +1,13 @@
 class UserStepsController < ApplicationController
 	include Wicked::Wizard
-	steps :personal,:location,:skill,:more
+	steps :personal,:location,:skill,:work_hours
 
 	before_action :authenticate_user!
 
 	def show
 		@user = current_user
 		@user.build_location
-		country_states_all
+		@user.work_hours.build
         render_wizard
 
 	end
@@ -20,9 +20,12 @@ class UserStepsController < ApplicationController
 	    when :location
 	      @user.update_attributes(location_params)
 	       render_wizard @user
-	   else
+	 	when :skill
 	   	@user.update_attributes(tag_params)
 	   	render_wizard @user
+	     else
+   	   	   @user.update_attributes(work_hours_params)
+   	       render_wizard @user
 
 	  end
 	end
@@ -36,6 +39,7 @@ class UserStepsController < ApplicationController
 	  end
 	end
 	def state_response
+		state = params[:value]
 		@states = COUNTRIES_STATES[state]
 		respond_to do |format|
 		  format.js
@@ -54,5 +58,9 @@ class UserStepsController < ApplicationController
 	
   def tag_params
 		params.require(:user).permit(:tag_list,:certificate_list)
-	end
+  end
+  def work_hours_params
+  	
+   	params.require(:user).permit(work_hours_attributes: [:day_of_week, :start_time, :end_time])
+  end
 end
