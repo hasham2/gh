@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_one :location, as: :locateable
-  has_and_belongs_to_many :certifications
+  has_many :certifications, as: :certificable
   accepts_nested_attributes_for :location
   has_many :work_hours
   accepts_nested_attributes_for :work_hours

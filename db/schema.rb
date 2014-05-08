@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508184525) do
+ActiveRecord::Schema.define(version: 20140508200202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,14 +20,9 @@ ActiveRecord::Schema.define(version: 20140508184525) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "certificable_id"
+    t.string   "certificable_type"
   end
-
-  create_table "certifications_jobs", id: false, force: true do |t|
-    t.integer "certification_id"
-    t.integer "job_id"
-  end
-
-  add_index "certifications_jobs", ["certification_id", "job_id"], name: "index_certifications_jobs_on_certification_id_and_job_id", using: :btree
 
   create_table "employers", force: true do |t|
     t.integer  "user_id"

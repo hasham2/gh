@@ -3,6 +3,6 @@ class Job < ActiveRecord::Base
   has_one :location, as: :locateable
   has_many :photos, as: :photoable
 
-  has_and_belongs_to_many :certifications
+  has_many :certifications, as: :certificable
   has_and_belongs_to_many :requirements
 end
