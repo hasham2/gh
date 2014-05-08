@@ -32,7 +32,6 @@ gem 'tagmanager-rails'
 
 # Geolocations
 gem 'geocoder'
-gem 'carmen-rails'
 # Testing
 gem 'shoulda', group: :test
 gem 'poltergeist', group: :test

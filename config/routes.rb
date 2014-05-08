@@ -4,8 +4,10 @@ Gh::Application.routes.draw do
   #devise_scope :user do
   #  get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   #end
-  get '/user_steps/subregion_options' => 'user_steps#subregion_options'
-  resources :users
+  resources :users 
+  get "user_steps/tags" => "user_steps#tags", :as => :tags
+  
+  get "user_steps/state_response"
   resources :certifications
   resources :requirements
    resources :locations

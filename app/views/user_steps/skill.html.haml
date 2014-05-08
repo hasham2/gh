@@ -1,0 +1,30 @@
+%h4 Your skill
+
+= form_for(@user, url: wizard_path, method: :put) do |f|
+  .form-group.col-sm-12
+    = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
+    .col-sm-4
+      = f.text_field :tag_list, :class=>"tm-input tm-input-info" 
+  .form-group.col-sm-12
+    = f.label :certificate_list, 'Add Certificate' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :certificate_list, :class=>"tm-input"  
+    .form-group.col-sm-12
+      .col-sm-offset-2.col-sm-10
+        = f.submit "continue",id:"set",:class=>"btn btn-primary reset"
+:javascript
+
+  jQuery(".tm-input").tagsManager({
+   delimiters: [9, 13, 44],
+    blinkBGColor_1: '#FFFF9C',
+   blinkBGColor_2: '#CDE69C',
+  }  
+  )
+  $('form').submit(function() {
+  var a= document.getElementsByName("hidden-user[tag_list]")[0].value;
+    $('#user_tag_list').val(a);
+        document.getElementsById("user_tag_list").val(a);
+  });
+
+
+

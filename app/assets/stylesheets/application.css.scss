@@ -14,6 +14,7 @@
  *= require_self
  *= require jquery.ui.all
  *= require tagmanager
+ *= require token-input-facebook
 
  *= require leaflet
 
@@ -21,10 +22,8 @@
 
 #map{ height: 180px}
 
-
-
-
 .cheklist{
 	margin-top: -11px !important;
 	
 }
+

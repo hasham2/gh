@@ -14,15 +14,15 @@
       = builder.label :zip, 'Zip' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
         = builder.text_field :zip, :class=>"form-control"
-    
     .form-group.col-sm-12.fields
       = builder.label :country, 'Country' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
-        = builder.country_select :country, {priority: %w(US CA), prompt: 'Please select a country',:class=>"form-control"}   
-    .form-group.col-sm-12
-      = builder.label :state, 'state' ,:class=>"col-sm-2 control-label text-right"
+        = builder.select :country, @country.keys ,{:prompt => 'Select the Type'}, {:onChange => "populate_second_select(this.id)"}
+    .form-group.col-sm-12.fields
+      = builder.label :state, 'State' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
-        = render partial: 'subregion_select', locals: {parent_region: builder.object.country, }, :class=>"form-control"
+        = builder.select :state, [''],{:prompt => 'Select the Type'}
+    .form-group.col-sm-12.fields#replace
     .form-group.col-sm-12
       = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-4
