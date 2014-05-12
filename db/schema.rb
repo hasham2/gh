@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508200202) do
+
+ActiveRecord::Schema.define(version: 20140509124432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +33,9 @@ ActiveRecord::Schema.define(version: 20140508200202) do
     t.string   "website"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.date     "formation_year"
+    t.text     "additional_information"
   end
 
   create_table "jobs", force: true do |t|
@@ -48,6 +52,13 @@ ActiveRecord::Schema.define(version: 20140508200202) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "jobs_metrics", id: false, force: true do |t|
+    t.integer "job_id"
+    t.integer "metric_id"
+  end
+
+  add_index "jobs_metrics", ["job_id", "metric_id"], name: "index_jobs_metrics_on_job_id_and_metric_id", using: :btree
 
   create_table "jobs_requirements", id: false, force: true do |t|
     t.integer "job_id"
@@ -70,6 +81,19 @@ ActiveRecord::Schema.define(version: 20140508200202) do
     t.string   "time_zone"
     t.integer  "locateable_id"
     t.string   "locateable_type"
+  end
+
+  create_table "metric_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "metrics", force: true do |t|
+    t.integer  "metric_type_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photos", force: true do |t|
