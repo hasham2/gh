@@ -31,8 +31,7 @@
 
 jQuery(function() {
    $('#user_certificate_list').tokenInput('./tags.json', {
-    theme: 'facebook',
-    minChars: 2,  
+    propertyToSearch: 'title'
   });
 });
 

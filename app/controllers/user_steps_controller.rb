@@ -8,17 +8,21 @@ class UserStepsController < ApplicationController
 		@user = current_user
 		@user.build_location
 		@user.work_hours.build
-		render_wizard
+		case step
+		    when :skill
+		      skip_step if @user.employer?
+		    end
+		    render_wizard
 	end
 	def update
 		@user = current_user
 		case step
 		when :personal
 			@user.update_attributes(user_params)          	 
-			render_wizard @user
+			 render_wizard @user
 		when :location
-			@user.update_attributes(location_params)
-			render_wizard @user
+			 @user.update_attributes(location_params)
+			 render_wizard @user
 		when :skill
 			@user.update_attributes(tag_params)
 			render_wizard @user
@@ -31,10 +35,9 @@ class UserStepsController < ApplicationController
 
 	def tags 
 		
-		@tag = Cetification.all
-		respond_to do |format|
-
-			format.json{ render :json =>@tag }
+		     @tag = Certification.all
+		 respond_to do |format|
+			format.json{ render :json =>@tag.where("title like ?","%#{params[:q]}%") }
 		end
 	end
 	def state_response
@@ -48,7 +51,7 @@ class UserStepsController < ApplicationController
 	private
 	
 	def user_params
-		params.require(:user).permit(:company_name,:first_name,:last_name,:phone_primary,:phone_secondary,:birth_year,:gender,:criminal_convictions,:drivers_licence_class,:drivers_licence,:has_vehicle,:car_pool)
+		params.require(:user).permit(:company_name,:first_name,:last_name,:phone_primary,:phone_secondary,:birth_year,:gender,:criminal_convictions,:drivers_licence_class,:drivers_licence,:has_vehicle,:car_pool,:avatar)
 	end
 
 	def location_params
