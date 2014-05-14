@@ -25,10 +25,12 @@
 //= require jquery.tokeninput
 //= require moment
 //= require bootstrap-datetimepicker
+
 //= require_tree .
 //= require leaflet-google
 //= require leaflet
 //= require turbolinks
+
 
 jQuery(function() {
    $('#user_certificate_list').tokenInput('./tags.json', {
