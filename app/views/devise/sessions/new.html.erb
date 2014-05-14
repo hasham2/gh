@@ -1,33 +1,50 @@
-<div class="authform">
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
-    <h3>Log in</h3>
-    <%= devise_error_messages! %>
-    <div class="form-group">
-      <% if devise_mapping.omniauthable? %>
-        <% resource_class.omniauth_providers.each do |provider| %>
-          <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>
-        <% end -%>
-      <% end -%>  
-    </div>
-    <div class="form-group">
-      <%- if devise_mapping.registerable? %>
-        <%= link_to 'Sign up', new_registration_path(resource_name), class: 'right'  %>
-      <% end -%>
-      <%= f.label :login, 'Username or Email' %>
-      <%= f.text_field :login, :autofocus => true, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%- if devise_mapping.recoverable? %>
-        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
-      <% end -%>
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-    </div>
-      <%= f.submit 'Log in', :class => 'button right' %>
-      <% if devise_mapping.rememberable? -%>
-        <div class="checkbox">
-          <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-xs-offset-4">
+        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+      <div class="login-box">
+        <h1>Log in</h1>
+        <%= devise_error_messages! %>
+
+        <% if devise_mapping.omniauthable? %>
+          <% resource_class.omniauth_providers.each do |provider| %>
+            <%= link_to omniauth_authorize_path(resource_name, provider) do %>
+              <%= image_tag('/assets/sigin-facebook-button.png' , :class=>"center-block")   %>
+            <% end -%>
+          <% end -%>
+        <% end -%>  
+        <h5>------------------------------------------- <b class="or">OR</b> ------------------------------------------- </h5>
+        <div class="username ">
+
+          <h2 class="pull-left"><%= f.label :login, 'Username or Email' %></h2>
+          <h3  class="pull-right">
+            <%- if devise_mapping.registerable? %>
+              <%= link_to 'Sign up', new_registration_path(resource_name), class: 'right'  %>
+            <% end -%>
+          </h3>
+          <div class="col-lg-12">
+            <%= f.text_field :login, :autofocus => true, class: 'form-control' %>
+          </div>
+          <h2 class="pull-left"><%= f.label :password %></h2>
+          <h3  class="pull-right">
+            <%- if devise_mapping.recoverable? %>
+              <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+            <% end -%>
+          </h3>
+          <div class="col-lg-12">
+            <%= f.password_field :password, class: 'form-control' %>
+          </div>
+          <div class="col-lg-12">
+            <label class="checkbox log-check pull-left">
+              <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+            </label>
+             <%= f.submit 'Log in', :class => 'btn btn-success pull-right login-button' %> 
+          </div>
         </div>
-      <% end -%>
-  <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <!--/row--> 
+  
 </div>

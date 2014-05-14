@@ -1,12 +1,127 @@
-%h3 Home
-#places
-  %form
-    = text_field_tag 'gmaps-input-address', nil, placeholder: 'Enter address to search here ...', size: 75
-%p#gmaps-error
+.container
+  .row
+    .col-xs-12.col-sm-10.col-sm-10cu.pull-left
+      =render 'slider'
+      .row
+        .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
+          %h2
+            %img{:src => "/assets/jobs-icon.png"}/
+          %h2 Look for Jobs
+          %h3
+            Find local jobs
+            %br
+              %br
+        / /span
+        .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
+          %h2
+            %img{:src => "/assets/find-local-icon.png"}/
+          %h2 Look for Employees
+          %h3
+            Find local employees
+            %br
+              %br
+        / /span
+        .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
+          %h2
+            %img{:src => "/assets/advertise-icon.png"}/
+          %h2 Advertise
+          %h3
+            Advertise for jobs,services,
+            %br
+              %br
+              and products
+        / /span
+      .row
+        .col-lg-12
+          %ul.contact-navi
+            %li.best
+              %a{:href => "#"}
+                %i.about-us-icon> about
+                About us
+            %li
+              %a{:href => "#"}
+                %i.new-icon> news
+                News
+            %li
+              %a{:href => "#"}
+                %i.contact-icon> contact
+                Contact us
+            %li
+              %a{:href => "#"}
+                %i.advertise-icon> Advertise
+                Advertise
+            %li
+              %a{:href => "#"}
+                %i.advertise-icon> Terms of Service
+                Terms of Service
+            %li
+              %a{:href => "#"}
+                %i.help-icon> Help
+                Help
+      .row
+        .col-sm-11.col-sm-11c.our-partners
+          %h2 Our Partners
+          %hr
+            .partnerslogos
+              %img{:src => "/assets/Partners-logo1.png"}
+                %img{:src => "/assets/Partners-logo2.png"}
+                  %img{:src => "/assets/Partners-logo3.png"}
+                    %img{:src => "/assets/Partners-logo4.png"}
+                      %img{:src => "/assets/Partners-logo5.png"}
+    .col-sm-3.col-sm-3cu.right-barbg.pull-right
+      .recent-jobs
+        %h2 Recent jobs
+        %hr
+          %h5 April 17, 2014
+          %h3
+            Quaternion: design you
+            %br
+              like
+          %img.img-responsive.mg-res{:src => "/assets/new-image.png"}
+            %p
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
+              %a{:href => ""}
+                %img{:src => "/assets/arrow.png"}/
+      .recent-jobs
+        %h5 April 17, 2014
+        %h3
+          Quaternion: design you
+          %br
+            like
+        %img.img-responsive.mg-res{:src => "/assets/twitter-img.png"}
+          %p
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
+            %a{:href => ""}
+              %img{:src => "/assets/arrow.png"}/
+    .col-sm-3.col-sm-3cu.right-barbg.featured-Jobs
+      .recent-jobs
+        %h2 Featured Jobs
+        %hr
+          %img.img-responsive.featured-res{:src => "/assets/featured-img.png"}
+            %h3 Wordpress Themes
+            %p
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to...
+              %a{:href => "#"}
+                %img{:src => "/assets/arrow.png"}/
+    .col-sm-3.pull-right
+      .advertise-here
+        %h2 Advertise Here
 
-#map
-  
-- if !current_user.nil? and current_user.admin?
-  - @users.each do |user|
-    %p
-      User: #{link_to user.email, user} Role: #{user.role unless user.role.nil?}
+  / /row
+/ /.container
+%footer
+  .container
+    .col-lg-3.col-xs-offset-5
+      .Soical-icon
+        %a{:href => "#"}
+          %img{:src => "/assets/facebook.png"}/
+        %a{:href => "#"}
+          %img{:src => "/assets/twitter-icon.png"}/
+        %a{:href => "#"}
+          %img{:src => "/assets/gmail-icon.png"}/
+        %a{:href => "#"}
+          %img{:src => "/assets/youtube-icon.png"}/
+      %p.copyright
+        \&copy; 2014
+        = succeed ".com" do
+          %b Greatest Hire
