@@ -21,8 +21,4 @@ class ApplicationController < ActionController::Base
     redirect_to (request.referrer || root_path)
   end
     
-  # def user_time_zone(&block)
-  #   Time.zone(current_user.time_zone,&block)
-  # end
-
 end

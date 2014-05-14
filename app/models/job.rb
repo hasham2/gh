@@ -5,4 +5,5 @@ class Job < ActiveRecord::Base
 
   has_many :certifications, as: :certificable
   has_and_belongs_to_many :requirements
+  has_and_belongs_to_many :metrics
 end

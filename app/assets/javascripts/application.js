@@ -11,10 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require gmaps-auto-complete
-//= require turbolinks
 //= require bootstrap
 //= require leaflet
 //= require leaflet-google
@@ -29,6 +29,7 @@
 //= require_tree .
 //= require leaflet-google
 //= require leaflet
+//= require turbolinks
 
 
 jQuery(function() {
