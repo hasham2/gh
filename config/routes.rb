@@ -9,6 +9,7 @@ Gh::Application.routes.draw do
   
   get "user_steps/state_response"
   resources :certifications
+  resources :jobs
   resources :requirements
   resources :locations
   resources :user_steps
