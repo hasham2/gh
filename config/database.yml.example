@@ -47,6 +47,14 @@ test:
   database: gh_test
   pool: 5
 
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: gh_staging
+  pool: 5
+  username: greatesthire
+  password:
+
 production:
   adapter: postgresql
   encoding: unicode
