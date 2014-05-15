@@ -14,18 +14,22 @@ class User < ActiveRecord::Base
   
   validates :name, uniqueness: {case_sensitive: false}
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+
   has_many :jobs
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
   has_many :certifications, as: :certificable
   has_one :employer # if role == "employer"
+  accepts_nested_attributes_for :employer
   
   has_many :work_hours
   accepts_nested_attributes_for :work_hours
 
   acts_as_taggable 
-  acts_as_taggable_on :certificates
+  acts_as_taggable_on :certificates,:business_activity
+
 
 
   
