@@ -106,10 +106,17 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    dotenv (0.7.0)
     erubis (2.7.0)
     execjs (2.0.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
+    foreman (0.66.0)
+      dotenv (~> 0.7.0)
+      thor (~> 0.19.1)
     geocoder (1.1.9)
     haml (4.1.0.beta.1)
       tilt
@@ -195,6 +202,7 @@ GEM
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-timeout (0.0.4)
     rails (4.1.0)
       actionmailer (= 4.1.0)
       actionpack (= 4.1.0)
@@ -292,6 +300,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   devise-async!
+  figaro
+  foreman
   geocoder
   gmaps-autocomplete-rails!
   haml-rails
@@ -307,6 +317,7 @@ DEPENDENCIES
   puma
   pundit
   quiet_assets
+  rack-timeout
   rails (= 4.1.0)
   rails_layout
   sass-rails (~> 4.0.2)
