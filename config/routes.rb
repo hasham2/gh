@@ -9,9 +9,13 @@ Gh::Application.routes.draw do
   get "user_steps/tags" => "user_steps#tags", :as => :tags
   
   get "user_steps/state_response"
+  get "job_steps/state_response"
+
   resources :certifications
+  resources :jobs
   resources :requirements
   resources :locations
   resources :user_steps
   resources :business_activities
+  resources :job_steps
 end

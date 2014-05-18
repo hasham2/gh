@@ -1,0 +1,21 @@
+%h1 Images
+
+= form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+  = f.fields_for :photos do |photo|
+    .form-group.col-sm-12
+      = photo.label :caption, 'Caption' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = photo.text_field :caption, :class=>"form-control"
+    .form-group.col-sm-12
+      = photo.label :is_primary, 'Is Primary?' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = photo.check_box :is_primary, :class=>"form-control"
+    .form-group.col-sm-12
+      = photo.label :image, 'Upload Photo' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = photo.file_field :image, :class=>"form-control"
+
+
+    .form-group.col-sm-12
+      .col-sm-offset-2.col-sm-10
+        = f.submit "Next",:class=>"btn btn-primary reset"
