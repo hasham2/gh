@@ -1,4 +1,5 @@
 Gh::Application.routes.draw do
+
   root :to => "home#index"
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :confirmations => "users/confirmations"}
   #devise_scope :user do
@@ -12,4 +13,5 @@ Gh::Application.routes.draw do
   resources :requirements
   resources :locations
   resources :user_steps
+  resources :business_activities
 end
