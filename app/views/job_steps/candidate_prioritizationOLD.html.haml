@@ -1,0 +1,17 @@
+%h1 Candidate Prioritization
+
+= form_for(@job, url: wizard_path, method: :put) do |f|
+  = f.fields_for :metrics do |metric|
+    .form-group.col-sm-12
+      = metric.label :metric_type_id, 'Metric Type' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Select Metric Type'}, :class=>"form-control"
+    .form-group.col-sm-12
+      = metric.label :value, 'Metric Value' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = metric.text_field :value, :class=>"form-control"
+
+    .form-group.col-sm-12
+      .col-sm-offset-2.col-sm-10
+        = f.submit "Next",:class=>"btn btn-primary reset"
+

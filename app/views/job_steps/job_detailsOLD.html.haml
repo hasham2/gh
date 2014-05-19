@@ -1,0 +1,76 @@
+%h1 Job Details
+
+= form_for @job, url:wizard_path, method: :put, :class=>"form-horizontal center" do |f| 
+  .form-group.col-sm-12
+    = f.label :title, 'Title' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :title, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :hours_per_day, 'Hours Per Day' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :hours_per_day, :class=>"form-control"
+
+  .form-group.col-sm-12
+    = f.label :work_duration, 'Work Duration' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :work_duration, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :desired_wage, 'Desired Wage' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :desired_wage, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :max_wage, 'Max Wage' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :max_wage, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :desired_wage_is_firm, 'Desired Wage Is Firm?' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.check_box:desired_wage_is_firm, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :start_date, 'Start Date' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.date_select :start_date, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :listing_expires_on, 'Listing Expires On' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :listing_expires_on, :class=>"form-control"
+  .form-group.col-sm-12
+    = f.label :description, 'Description' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :description, :class=>"form-control"
+
+
+  %h4 Enter Location
+
+  = f.fields_for :location do |builder|
+    .form-group.col-sm-12
+      = builder.label :address, 'Address' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :address, :class=>"form-control"
+    .form-group.col-sm-12
+      = builder.label :city, 'City' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :city, :class=>"form-control"
+    .form-group.col-sm-12
+      = builder.label :zip, 'Zip' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.text_field :zip, :class=>"form-control"
+    .form-group.col-sm-12.fields
+      = builder.label :country, 'Country' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
+    .form-group.col-sm-12.fields
+      = builder.label :state, 'State' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.select :state,{:prompt => true}
+    .form-group.col-sm-12
+      = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = builder.time_zone_select :time_zone
+    .form-group.col-sm-12
+      .col-sm-4
+        = f.submit "continue",:class=>"btn btn-primary"
+        %br
+        %br    
+
+ 

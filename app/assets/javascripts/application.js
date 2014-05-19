@@ -16,15 +16,20 @@
 //= require jquery.ui.all
 //= require gmaps-auto-complete
 //= require bootstrap
+
 //= require leaflet
 //= require leaflet-google
 //= require certifications
 //= require requirements
 //= require user_steps
+//= require job_steps
 //= require tagmanager
 //= require jquery.tokeninput
 //= require moment
 //= require bootstrap-datetimepicker
+
+//= require carousel
+//= require simple-slider
 
 //= require_tree .
 //= require leaflet-google
