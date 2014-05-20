@@ -1,0 +1,52 @@
+.container
+  .col-lg-12
+    %h2 Create Job Listing
+.container
+  .row.job-listingout
+    .col-lg-12
+      %h2 Progress Indictor : Step 1 of 5
+      .col-lg-12
+        .job-listf
+          %h2
+            %a{href: "job_details.html"} Job Details
+            %img{src: "/assets/arrow-icon.png"}/
+        .Candidate-icon
+          %h2
+            %a{href: "candidate-prioritization.html"} Candidate Prioritization
+            %img{src: "/assets/arrow-icon.png"}/
+        .image-icon
+          %h2
+            %a{href: "image.html"} Images
+            %img{src: "/assets/arrow-icon.png"}/
+        .education-icon
+          %h2
+            %a{href: "education_certifications.html"}
+              Education and
+              Certifications
+            %img{src: "/assets/arrow-icon.png"}/
+        .payments-icon
+          %h2
+            %a{href: "payments.html"} Payments
+    .col-lg-12.location-box
+      %h2 Employee Prioritization Metrics
+      = form_for(@job, url: wizard_path, method: :put) do |f|
+        = f.fields_for :metrics do |metric|
+          .col-lg-12
+            .col-lg-4
+              .checkbox.checkbox2
+                %label
+                  = metric.check_box :_destroy, {}, '0', '1' 
+                  Enable 1
+              .btn-group.menunnleft
+                = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control", :style=>"width:90px;"
+            .col-lg-6.reting
+              .col-lg-4
+                %h2 Least Important
+              .col-lg-3
+                = metric.text_field :value, :'data-slider'=>"true" , :'data-slider-highlight'=>"true", :'data-slider-range'=>"1,5", :'data-slider-step'=>"1"
+              .col-lg-4{style: "margin:0 0 0 0px;"}
+                %h2 Most Important
+        .col-lg-12.btnnextstep
+          %button.btn.btn-success.pull-left.btn-nextstep
+            = f.submit
+    %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Proceed to Next Step

@@ -8,9 +8,11 @@ class JobStepsController < ApplicationController
 
 		@job = @user.jobs.build
 		@job.build_location
-		@job.metrics.build
 		@job.photos.build
-
+        case step
+        when :candidate_prioritization
+        5.times{@job.metrics.build}
+        end
 	  	render_wizard
 	end
 
@@ -47,7 +49,7 @@ class JobStepsController < ApplicationController
 
 	def candidate_prioritization_params
 		# binding.pry
-		params.require(:job).permit(metrics_attributes:[:metric_type_id, :value])
+		params.require(:job).permit(metrics_attributes:[:metric_type_id, :value,:_destroy])
 	end
 
 	def images_params
