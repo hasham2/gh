@@ -6,8 +6,7 @@ class JobStepsController < ApplicationController
 	def show
 		@user = current_user
 		@job  = @user.jobs.build
-		@job.build_location
-		 
+		@job.build_location 
          case step
          when :candidate_prioritization
          5.times{@job.metrics.build}
@@ -20,16 +19,15 @@ class JobStepsController < ApplicationController
 	def update
 	  
 	  @user = current_user
-	  binding.pry
 	   case step
 	   when :job_details
 	   @user.update_attributes(job_details_params)
 	   render_wizard @user
 	   when :candidate_prioritization
-	   	binding.pry
 	   @user.update_attributes(candidate_prioritization_params)
 	   render_wizard @user
 	   when :images
+	   binding.pry
 	   @user.update_attributes(images_params)	  	
 	   render_wizard @user
 	   end
