@@ -17,16 +17,19 @@ class User < ActiveRecord::Base
 
 
   has_many :jobs
+  accepts_nested_attributes_for :jobs
+
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
-  has_many :certifications, as: :certificable
   has_one :employer # if role == "employer"
   accepts_nested_attributes_for :employer
-  
+
   has_many :work_hours
   accepts_nested_attributes_for :work_hours
-
+  
+  has_many :certifications, as: :certificable
+  
   acts_as_taggable 
   acts_as_taggable_on :certificates,:business_activity
 
