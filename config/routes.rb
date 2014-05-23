@@ -11,6 +11,8 @@ Gh::Application.routes.draw do
   
   get "job_steps/state_response"
 
+  post "job_steps/add_certification"
+
   resources :certifications
   resources :jobs
   resources :requirements

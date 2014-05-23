@@ -1,0 +1,87 @@
+<div class="container">
+<div class="col-lg-12"><h2>Create Job Listing</h2></div></div>
+<div class="container">
+
+  <div class="row  job-listingout">
+
+  <%= render 'progress_indicator' %>    
+    
+    
+
+<div class="col-lg-12 education_outtop">
+  <%= form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f| %>
+<div class="col-lg-3 education_box1">
+ <h2>Job Category </h2>
+<div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox">
+    <label>
+      <input type="checkbox">Supervisor
+    </label>
+  </div></div>
+<div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Individual
+    </label>
+  </div></div>  
+  
+  
+</div>
+
+<div class="col-lg-3 education_box1 education_box2">
+ <h2>Job Requirements</h2>
+<div class="col-lg-12 pull-left checkjob" style="width:115px;">
+  <div id="align_check_boxes" class=" education_checkbox">
+  <%= f.collection_check_boxes(:requirement_ids, Requirement.all, :id, :name ) %>
+  </div>
+</div>    
+      
+</div>
+
+<div class="col-lg-3 education_box1 education_box2">
+ <h2>Education and <br>
+
+Certifications</h2>
+<div class="col-lg-12 pull-left checkjob">
+  <div id="align_check_boxes" class="all_certifications education_checkbox">
+    <%= f.collection_check_boxes(:certification_ids, Certification.all, :id, :title ) %>
+  </div>
+</div>
+
+<div class="col-lg-12" >
+      <div style="width:246px; margin:40px 0 0 0">
+    <button type="button" id="add_certification" class="btn btn-success pull-left btn-educationdelete">Add</button>
+    <div class="col-sm-9 pull-right" style="margin:-27px 0 0 0;">
+      <input type="text" placeholder="" id="add_certification_value" class="form-control">
+    </div> 
+    </div>
+    
+    
+    
+      </div>   
+ 
+  
+  
+  
+</div>
+
+</div>
+
+    
+   
+
+
+  
+<div class="col-lg-12 btnnextstep">
+
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Return to Previous Step</button>
+ 
+  <%= f.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" %>
+
+</div>  
+<% end %>  
+</div>
+
+  <!--/row--> 
+  
+</div>

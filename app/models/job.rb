@@ -3,10 +3,10 @@ class Job < ActiveRecord::Base
   has_one :location, as: :locateable
   has_many :photos, as: :photoable
 
-  has_many :certifications, as: :certificable
+  has_and_belongs_to_many :certifications
   has_and_belongs_to_many :requirements
   has_and_belongs_to_many :metrics
 
-  accepts_nested_attributes_for :location, :metrics, :photos
+  accepts_nested_attributes_for :location, :metrics, :photos, :requirements, :certifications
 
 end

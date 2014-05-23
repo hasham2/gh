@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
-  has_many :certifications, as: :certificable
+  has_and_belongs_to_many :certifications
   has_one :employer # if role == "employer"
   
   has_many :work_hours
