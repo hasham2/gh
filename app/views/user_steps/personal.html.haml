@@ -49,4 +49,51 @@
       = f.label :car_pool, 'CarPool' ,:class=>"col-sm-2 control-label text-right"
       .col-sm-1.cheklist
         = f.check_box :car_pool, :class=>"control"
+  - else
+    = f.fields_for :employer do |builder|
+      .form-group.col-sm-12
+        = builder.label :business_name, 'BusinessName' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :business_name, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :industry, 'Industry' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :industry, :class=>"form-control" 
+      .form-group.col-sm-12
+        = builder.label :phone, 'Phone' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :phone, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :website, 'Website' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :website, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :description, 'Description' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_area :description, :class=>"form-control"
+      .form-group.col-sm-12
+        = f.label :business_activity_list, 'BusinessActivityKeyword' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = f.text_field :business_activity_list, :class=>"tm-input"  
+      .form-group.col-sm-12
+        = builder.label :formation_year, 'FormationYear' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :additional_information, 'AdditionalInformation' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_area :additional_information,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
   = f.submit "continue",id:"set",:class=>"btn btn-primary reset col-sm-offset-2"
+:javascript
+
+  jQuery(".tm-input").tagsManager({
+   delimiters: [9, 13, 44],
+    blinkBGColor_1: '#FFFF9C',
+   blinkBGColor_2: '#CDE69C',
+  }  
+  )
+  jQuery(function() {
+     $('#user_business_activity_list').tokenInput('./tags.json', {
+      propertyToSearch: 'title'
+    });
+  });s

@@ -27,9 +27,11 @@
 //= require jquery.tokeninput
 //= require moment
 //= require bootstrap-datetimepicker
-
 //= require carousel
 //= require simple-slider
+
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 
 //= require_tree .
 //= require leaflet-google

@@ -5,39 +5,36 @@ class JobStepsController < ApplicationController
 
 	def show
 		@user = current_user
-
-		@job = @user.jobs.build
+		@job  = @user.jobs.build
 		@job.build_location
-		@job.metrics.build
-		@job.photos.build
-		@job.requirements.build
-		@job.certifications.build
-	  	render_wizard
+
+         case step
+         when :candidate_prioritization
+         5.times{@job.metrics.build}
+         when :images  
+         @job.photos.build
+     	 when :education_and_certifications
+     	 	@job.requirements.build
+     	 	@job.certifications.build
+         end
+	  	 render_wizard
 	end
 
 	def update
-	  @user = current_user
-	  @job = @user.jobs.build
-	  case step
-	  when :job_details
-	  @job.update_attributes(job_details_params)
-	  render_wizard @job
-	  when :candidate_prioritization
-	  @job.update_attributes(candidate_prioritization_params)
-	  render_wizard @job
-	  when :images
-	  @job.update_attributes(images_params)	  	
-	  render_wizard @job
-	  when :education_and_certifications
- 		 	
-		 # @requirements = params[:job][:requirements_attributes]["0"][:name]
-		 #  @requirements.each do |req|
-		 #  	binding.pry
-		 # 	@job.update_attributes(:requirements_attributes=>{:name=>req})	  
-		 # end 
-
-		 @job.update_attributes(education_and_certifications_params)	  	
-	  	render_wizard @job 	
+  		@user = current_user
+  		case step
+  		when :job_details
+  		@user.update_attributes(job_details_params)
+  		render_wizard @user
+  		when :candidate_prioritization
+  		@user.update_attributes(candidate_prioritization_params)
+  		render_wizard @user
+  		when :images
+  		@user.update_attributes(images_params)	  	
+  		render_wizard @user
+  		when :education_and_certifications
+	 	@user.update_attributes(education_and_certifications_params)	  	
+  		render_wizard @user
 
 	  end
 
@@ -62,21 +59,24 @@ class JobStepsController < ApplicationController
 	end
 
 
-
-
-	def job_details_params
-		params.require(:job).permit(:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description, location_attributes: [:address,:city,:zip,:country,:state,:time_zone])
+	def job_details_params	
+		params.require(:user).permit(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description, location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
 	end
 
 	def candidate_prioritization_params
-		params.require(:job).permit(metrics_attributes:[:metric_type_id, :value])
+		params.require(:user).permit!
 	end
 
 	def images_params
-		params.require(:job).permit(photos_attributes:[:caption, :is_primary, :image])
+		# binding.pry
+		params.require(:user).permit!
 	end
 
 	def education_and_certifications_params
-		  params.require(:job).permit(:requirement_ids => [], :certification_ids => [])
+		   params.require(:user).permit(jobs_attributes:[:requirement_attributes[:name  => [] ]])
 	end
 end
+
+	# def images_params
+	# 	params.require(:job).permit(photos_attributes:[:caption, :is_primary, :image])
+	# end

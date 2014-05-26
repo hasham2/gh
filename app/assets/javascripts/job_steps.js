@@ -50,3 +50,15 @@ $(document).ready(function(){
 });
 
 
+
+// jQuery(function() {
+//   return $('.upload_image').fileupload();
+// });
+
+jQuery(function() {
+	$('#job_photos_attributes_0_image').fileupload();
+});
+
+
+
+

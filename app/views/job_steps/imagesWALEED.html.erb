@@ -1,0 +1,30 @@
+<div class="col-sm-12">
+  <%= image_tag @job.photos.last.image.url(:thumb)  %>
+</div>
+<%= form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f| %>
+  <%= f.fields_for :jobs do |j| %>
+    <%= j.fields_for :photos do |photo| %>
+      <div class="form-group col-sm-12">
+        <div class="col-sm-4">
+          <%= photo.file_field :image,:multiple=>true,name:"user_jobs_attributes_6_photos_attributes_0_image" ,:class=>"form-control",:style=>"" %>
+        </div>
+      </div>
+      <div class="form-group col-sm-12">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= button_tag(type: 'button',id: 'test') do %>
+            <%= content_tag(:strong, 'ADD pic') %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+<script>
+  
+  $('#test').on('click',function(){
+    jQuery('#user_jobs_attributes_0_photos_attributes_0_image').trigger('click');
+  })
+
+</script>
