@@ -34,7 +34,11 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :certificates,:business_activity
 
 
-
+  # before_save      :set_apply_id_for_nested_objects, on: :create
+  # def set_apply_id_for_nested_objects
+  #   jobs.each { |user| user.job = self }
+    
+  # end
   
 
   def set_default_role

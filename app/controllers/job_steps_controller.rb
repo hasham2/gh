@@ -2,34 +2,39 @@ class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications, :payments
-
+	
 	def show
 		@user = current_user
-		@job  = @user.jobs.build
-		@job.build_location 
-         case step
-         when :candidate_prioritization
-         5.times{@job.metrics.build}
-         when :images  
-         @job.photos.build
-         end
-	  	 render_wizard
+		@met = @user.jobs.last
+     case step      
+     when :job_details	 
+     	if session[:job_id]==nil
+     	@job = @user.jobs.build
+     	@job.build_location
+        end
+     when :candidate_prioritization
+     	5.times{@met.metrics.build}	
+     when :images 
+      @met.photos.build
+      end
+	   render_wizard
 	end
 
 	def update
 	  
 	  @user = current_user
+	  @met = @user.jobs.last
 	   case step
 	   when :job_details
 	   @user.update_attributes(job_details_params)
+	   session[:job_id]=@user.jobs.last.id
 	   render_wizard @user
 	   when :candidate_prioritization
-	   @user.update_attributes(candidate_prioritization_params)
-	   render_wizard @user
+	   @met.assign_attributes(candidate_prioritization_params)
+	   render_wizard @met
 	   when :images
-	   binding.pry
-	   @user.update_attributes(images_params)	  	
-	   render_wizard @user
+	   @met.update_attributes(images_params)	  	
+	   render_wizard @met
 	   end
 	end
 
@@ -45,15 +50,15 @@ class JobStepsController < ApplicationController
 
 
 	def job_details_params	
-		params.require(:user).permit(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
+		params.require(:user).permit!#(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
 	end
 
 	def candidate_prioritization_params
-		params.require(:user).permit!
+		params.require(:job).permit!
 	end
 
 	def images_params
-		params.require(:user).permit!
+		params.require(:job).permit!
 	end
 
 end

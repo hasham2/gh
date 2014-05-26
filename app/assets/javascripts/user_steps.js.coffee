@@ -11,5 +11,5 @@ jQuery ->
    event.preventDefault()
 
 jQuery ->
-  $('#user_jobs_attributes_2_photos_attributes_0_image').fileupload()
+  $('#job_photos_attributes_0_image').fileupload()
   

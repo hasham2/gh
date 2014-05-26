@@ -1,18 +1,17 @@
 .col-sm-12
-  = image_tag @job.photos.last.image.url(:thumb) 
-= form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
-  = f.fields_for :jobs do |j|
-    = j.fields_for :photos do |photo|
-      .form-group.col-sm-12
-        .col-sm-4
-          = photo.file_field :image,:multiple=>true,name:"job[photos_attributes][0][image]" ,:class=>"form-control",:style=>"display:none"
-      .form-group.col-sm-12
-        .col-sm-offset-2.col-sm-10
-          = button_tag(type: 'button',id: 'test') do
-            = content_tag(:strong, 'ADD pic')
+  = image_tag @met.photos.last.image.url(:thumb) 
+= form_for(@met, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+  = f.fields_for :photos do |photo|
+    .form-group.col-sm-12
+      .col-sm-4
+        = photo.file_field :image,:multiple=>true,name:"job[photos_attributes][0][image]" ,:class=>"form-control",:style=>"display:none"
+    .form-group.col-sm-12
+      .col-sm-offset-2.col-sm-10
+        = button_tag(type: 'button',id: 'test') do
+          = content_tag(:strong, 'ADD pic')
 :javascript
   $('#test').on('click',function(){
-    jQuery('#user_jobs_attributes_2_photos_attributes_0_image').trigger('click');
+    jQuery('#job_photos_attributes_0_image').trigger('click');
   })
   
   

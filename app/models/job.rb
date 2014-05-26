@@ -13,5 +13,5 @@ class Job < ActiveRecord::Base
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
-
+  
 end
