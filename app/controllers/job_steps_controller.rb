@@ -2,7 +2,7 @@ class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications, :payments
-	
+
 	def show
 		@user = current_user
 		@met = @user.jobs.last
@@ -20,7 +20,7 @@ class JobStepsController < ApplicationController
 	end
 
 	def update
-	  
+
 	  @user = current_user
 	  @met = @user.jobs.last
 	   case step

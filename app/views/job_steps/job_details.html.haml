@@ -4,30 +4,7 @@
 .container
   .row.job-listingout
     .container
-      .col-lg-12
-        %h2 Progress Indictor : Step 1 of 5
-        .col-lg-12
-          .job-listf
-            %h2
-              %a{:href => "job_details.html"} Job Details
-              %img{:src => "/assets/arrow-icon.png"}/
-          .Candidate-icon
-            %h2
-              %a{:href => "candidate-prioritization.html"} Candidate Prioritization
-              %img{:src => "/assets/arrow-icon.png"}/
-          .image-icon
-            %h2
-              %a{:href => "image.html"} Images
-              %img{:src => "/assets/arrow-icon.png"}/
-          .education-icon
-            %h2
-              %a{:href => "education_certifications.html"}
-                Education and
-                Certifications
-              %img{:src => "/assets/arrow-icon.png"}/
-          .payments-icon
-            %h2
-              %a{:href => "payments.html"} Payments
+      = render 'progress_indicator'
     = form_for @user, url:wizard_path, method: :put, :class=>"form-horizontal center" do |f|
       = f.fields_for :jobs do |j|
         .col-lg-12.topfilde

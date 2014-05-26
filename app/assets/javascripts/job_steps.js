@@ -34,6 +34,31 @@ $(document).ready(function(){
 	});
 
 
+	$('#add_certification').click(function(){
+		var new_certification =	$('#add_certification_value').val();
+		// alert(new_certification);
+		$.ajax({
+		   method:'post',
+		   url:'./add_certification',
+		   data: {value:new_certification}
+		 });
+
+		$('#add_certification_value').val("");
+
+	});
+
 });
+
+
+
+// jQuery(function() {
+//   return $('.upload_image').fileupload();
+// });
+
+jQuery(function() {
+	$('#job_photos_attributes_0_image').fileupload();
+});
+
+
 
 

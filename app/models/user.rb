@@ -22,13 +22,12 @@ class User < ActiveRecord::Base
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
+  has_and_belongs_to_many :certifications
   has_one :employer # if role == "employer"
   accepts_nested_attributes_for :employer
 
   has_many :work_hours
   accepts_nested_attributes_for :work_hours
-  
-  has_many :certifications, as: :certificable
   
   acts_as_taggable 
   acts_as_taggable_on :certificates,:business_activity
