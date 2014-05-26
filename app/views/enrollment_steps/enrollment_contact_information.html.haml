@@ -25,88 +25,57 @@
     .container
       .row
         .col-lg-8
-          %form.form-horizontal{role: "form"}
+          = form_for @user,url: wizard_path,:role=>"form" do |f|
             .form-group
-              %label.col-sm-2.control-label{for: "inputEmail3"} Frist Name
+              = f.label :first_name, 'Frist Name' ,:class=>"col-sm-2 control-label text-right"
               .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "John", type: "email"}/
+                = f.text_field :first_name, :class=>"form-control"
             .form-group
-              %label.col-sm-2.control-label{for: "inputPassword3"} Last Name
+              = f.label :last_name, 'Last Name' ,:class=>"col-sm-2 control-label text-right"
               .col-sm-8
-                %input#inputPassword3.form-control{placeholder: "Doe", type: "password"}/
-    .container
-      .col-lg-11.location-box
-        %h2 Address
-        .col-lg-8
-          %form.form-horizontal{role: "form"}
-            .form-group
-              %label.col-sm-3.control-label.control-labell2{for: "inputEmail3"}
-                Street Address
-                %br>/
-                Line 1
-              .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "13 Careerville Drive", type: "email"}/
-            .form-group
-              %label.col-sm-3.control-label.control-labell2{for: "inputEmail3"}
-                Street Address
-                %br>/
-                Line 2
-              .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "Suite 100", type: "email"}/
-            .form-group
-              %label.col-sm-3.control-label{for: "inputEmail3"} City
-              .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "Toronto", type: "email"}/
-            .form-group
-              %label.col-sm-3.control-label{for: "inputEmail3"} Country
-              .btn-group.menunlefttt
-                %button.btn.btn-default{type: "button"} Canada
-                %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                  %span.caret
-                  %span.sr-only Toggle Dropdown
-                %ul.dropdown-menu.dropdown-menunn{role: "menu"}
-                  %li
-                    %a{href: "#"} Rating
-                  %li
-                    %a{href: "#"} Another action
-                  %li
-                    %a{href: "#"} Something else here
-                  %li.divider
-                  %li
-                    %a{href: "#"} Separated link
-            .form-group
-              %label.col-sm-3.control-label{for: "inputEmail3"} Provice or State
-              .btn-group.menunlefttt
-                %button.btn.btn-default{type: "button"} Yukon
-                %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                  %span.caret
-                  %span.sr-only Toggle Dropdown
-                %ul.dropdown-menu.dropdown-menunn{role: "menu"}
-                  %li
-                    %a{href: "#"} Rating
-                  %li
-                    %a{href: "#"} Another action
-                  %li
-                    %a{href: "#"} Something else here
-                  %li.divider
-                  %li
-                    %a{href: "#"} Separated link
-            .form-group
-              %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
-              .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "Toronto", type: "email"}/
-    .container
-      .row
-        .col-lg-8.topmrg
-          %form.form-horizontal{role: "form"}
-            .form-group
-              %label.col-sm-2.control-label.control-labell2{for: "inputEmail3"} Primary Phone Number
-              .col-sm-8
-                %input#inputEmail3.form-control{placeholder: "555.555.5555", type: "email"}/
-            .form-group
-              %label.col-sm-2.control-label.control-labell2{for: "inputPassword3"} Phone Number Secondary
-              .col-sm-8
-                %input#inputPassword3.form-control{placeholder: "555.555.5555", type: "password"}/
+                = f.text_field :last_name, :class=>"form-control" 
+
+            .container
+              .col-lg-11.location-box
+                %h2 Address
+                .col-lg-8
+                  = f.fields_for :location, role: "form" do |builder|
+                    .form-group
+                      = builder.label :address, 'Street Address' ,:class=>"col-sm-3 control-label text-right"
+                      .col-sm-8
+                        = builder.text_field :address, :class=>"form-control"
+                    .form-group
+                      = builder.label :address, 'Street Address Line2' ,:class=>"col-sm-3 control-label text-right"              
+                      .col-sm-8
+                        = builder.text_field :address, :class=>"form-control", placeholder: "Suite 100"              
+                    .form-group
+                      = builder.label :city, 'City' ,:class=>"col-sm-3 control-label text-right"
+                      .col-sm-8
+                        = builder.text_field :city, :class=>"form-control",placeholder: "Toronto"
+                    .form-group
+                      = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
+                      .btn-group.menunlefttt
+                        = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
+                    .form-group
+                      = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
+                      .btn-group.menunlefttt
+                        = builder.select :state,{:prompt => true}
+                    .form-group
+                      %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
+                      .col-sm-8
+                        %input#inputEmail3.form-control{placeholder: "Toronto", type: "email"}/
+            .container
+              .row
+                .col-lg-8.topmrg
+                  %form.form-horizontal{role: "form"}
+                    .form-group
+                      = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
+                      .col-sm-8
+                        = f.text_field :last_name, :class=>"form-control",placeholder: "555.555.5555" 
+                    .form-group
+                      = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
+                      .col-sm-8
+                        %input#inputPassword3.form-control{placeholder: "555.555.5555", type: "password"}/
     .col-lg-12.btnnextstep
       %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Next Step
   / /row
@@ -126,11 +95,9 @@
         \© 2014
         = succeed ".com" do
           %b Greatest Hire
-    /
-      Bootstrap core JavaScript
-      \==================================================
-    / Placed at the end of the document so the pages load faster
-    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
-    %script{src: "js/bootstrap.min.js"}
-    %script{src: "js/carousel.js"}
-    %script{src: "js/simple-slider.js"}
+
+:javascript
+  window.onload = function()
+    {
+      $("#edit_user_6").addClass("form-horizontal");
+    }

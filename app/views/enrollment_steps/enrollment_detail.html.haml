@@ -25,32 +25,31 @@
         .container
           .row
             .col-lg-8
-              %form.form-horizontal{role: "form"}
+              = form_for(@user, url: wizard_path, method: :put) do |f|
                 .form-group
-                  %label.col-sm-2.control-label{for: "inputEmail3"} Skillsete
+                  = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
                   .col-sm-8
-                    %input#inputEmail3.form-control{placeholder: "Truck driving, 3.5, forklift operation, 2, interior painting,1.5", type: "email"}/
+                    = f.text_field :tag_list, :class=>"tm-input tm-input-info form-control" 
                 .form-group
-                  %label.col-sm-2.control-label.control-labell2{for: "inputPassword3"} Education and Certifications
+                  = f.label :certificate_list, 'Education and Certifications' ,:class=>"col-sm-2 control-label text-right"
                   .col-sm-8
-                    %input#inputPassword3.form-control{placeholder: "High school diploma, 2009, community service award, 2010-2011", type: "password"}/
-        .container
-          .col-lg-11.location-box
-            %h2 Transportation Details
-            .col-lg-8
-              %form.form-horizontal{role: "form"}
-                .checkbox.checkbox2.transportation
-                  %label
-                    %input{type: "checkbox"}>/
-                    Drivers License
-                .checkbox.checkbox2.transportation
-                  %label
-                    %input{type: "checkbox"}>/
-                    Has Vehicle
-                .checkbox.checkbox2.transportation
-                  %label
-                    %input{type: "checkbox"}>/
-                    Willing to Carpool
+                    = f.text_field :certificate_list, :class=>"tm-input" ,placeholder: "High school diploma, 2009, community service award, 2010-2011" 
+
+                .container
+                  .col-lg-11.location-box
+                    %h2 Transportation Details
+                    .col-lg-8
+                      .form-horizontal{role: "form"}
+                        .checkbox.checkbox2.transportation
+                          = f.check_box :drivers_licence, :class=>"control"
+                          = f.label :drivers_licence, 'Drivers License'
+                        .checkbox.checkbox2.transportation  
+                          = f.check_box :has_vehicle, :class=>"control "
+                          = f.label :has_vehicle, 'Has Vehicle' 
+                        .checkbox.checkbox2.transportation
+                          = f.check_box :car_pool, :class=>"control"
+                          = f.label :car_pool, ' Willing to Carpool' 
+                 
         .container
           .row
             .col-lg-11
@@ -119,11 +118,9 @@
             \© 2014
             = succeed ".com" do
               %b Greatest Hire
-    /
-      Bootstrap core JavaScript
-      \==================================================
-    / Placed at the end of the document so the pages load faster
-    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"}
-    %script{src: "js/bootstrap.min.js"}
-    %script{src: "js/carousel.js"}
-    %script{src: "js/simple-slider.js"}
+:javascript
+  window.onload = function()
+    {
+      $("#edit_user_6").addClass("form-horizontal");
+    }
+    

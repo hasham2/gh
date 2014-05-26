@@ -8,10 +8,9 @@ class JobStepsController < ApplicationController
 		@met = @user.jobs.last
      case step      
      when :job_details	 
-     	if session[:job_id]==nil
+    
      	@job = @user.jobs.build
      	@job.build_location
-        end
      when :candidate_prioritization
      	5.times{@met.metrics.build}	
      when :images 
