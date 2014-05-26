@@ -1,39 +1,44 @@
 class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
-	steps :job_details, :candidate_prioritization, :images, :education_and_certifications, :payments
+	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
 
 	def show
 		@user = current_user
-		@met = @user.jobs.last
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
      case step      
      when :job_details	 
-    
-     	@job = @user.jobs.build
-     	@job.build_location
+
      when :candidate_prioritization
-     	5.times{@met.metrics.build}	
+     	4.times{@job.metrics.build}	
      when :images 
-      @met.photos.build
-      end
+      
+     when :education_and_certifications
+     end
 	   render_wizard
 	end
 
 	def update
 
-	  @user = current_user
-	  @met = @user.jobs.last
+		@user = current_user
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
 	   @user.update_attributes(job_details_params)
 	   session[:job_id]=@user.jobs.last.id
 	   render_wizard @user
 	   when :candidate_prioritization
-	   @met.assign_attributes(candidate_prioritization_params)
-	   render_wizard @met
+	   @job.assign_attributes(candidate_prioritization_params)
+	   render_wizard @job
 	   when :images
-	   @met.update_attributes(images_params)	  	
-	   render_wizard @met
+	   @job.update_attributes(images_params)	  	
+	   render_wizard @job
+	   when :education_and_certifications
+	   @job.update_attributes(education_and_certifications_params)
+	   render_wizard @job
+	   	# session[:job_id] = nil
 	   end
 	end
 
@@ -45,7 +50,15 @@ class JobStepsController < ApplicationController
 		end
 	end
 
-
+	def add_certification
+	  @certification = Certification.new(:title => params[:value])
+	  respond_to do |format|
+	    if @certification.save
+	    	format.js 
+	    	# format.json   {render json: @certification }
+	    end
+	  end
+	end
 
 
 	def job_details_params	
@@ -57,6 +70,10 @@ class JobStepsController < ApplicationController
 	end
 
 	def images_params
+		params.require(:job).permit!
+	end
+
+	def education_and_certifications_params
 		params.require(:job).permit!
 	end
 

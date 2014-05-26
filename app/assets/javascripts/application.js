@@ -23,6 +23,7 @@
 //= require requirements
 //= require user_steps
 //= require job_steps
+//= require jobs
 //= require tagmanager
 //= require jquery.tokeninput
 //= require moment

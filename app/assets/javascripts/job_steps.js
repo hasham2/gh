@@ -6,29 +6,29 @@ $(document).ready(function(){
 	var country=""
 	var state=""
 
-	$('#job_location_attributes_address').change(function(){
-		 address = $('#job_location_attributes_address').val();
+	$('.address_field').change(function(){
+		  address = $('.address_field').val();
 		 address = address+","
 		$('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_city').change(function(){
-		 city = $('#job_location_attributes_city').val();
+	$('.city_field').change(function(){
+		 city = $('.city_field').val();
 		 city = city+","
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_state').change(function(){
-		 state = $('#job_location_attributes_state').val();
+	$('#user_jobs_attributes_0_location_attributes_state').change(function(){
+		 state = $('#user_jobs_attributes_0_location_attributes_state').val();
 		 state = state+","
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_country').change(function(){
-		 country = $('#job_location_attributes_country').val();
+	$('#user_jobs_attributes_0_location_attributes_country').change(function(){
+		 country = $('#user_jobs_attributes_0_location_attributes_country').val();
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
@@ -51,13 +51,10 @@ $(document).ready(function(){
 
 
 
-// jQuery(function() {
-//   return $('.upload_image').fileupload();
-// });
-
 jQuery(function() {
 	$('#job_photos_attributes_0_image').fileupload();
 });
+
 
 
 
