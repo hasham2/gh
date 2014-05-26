@@ -65,6 +65,6 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-  after :published, 'deploy:start'
+  after :published, 'misc:seed'
 
 end
