@@ -35,7 +35,7 @@ namespace :deploy do
   task :start do
     on roles(:app), in: :sequence do
       # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S start gh"
+      execute "echo secret0ne | sudo -S start ghstage"
     end
   end
   
@@ -43,7 +43,7 @@ namespace :deploy do
   task :stop do
     on roles(:app), in: :sequence do
       # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S stop gh"
+      execute "echo secret0ne | sudo -S stop ghstage"
     end
   end
 
@@ -51,7 +51,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence do
       # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S restart gh"
+      execute "echo secret0ne | sudo -S restart ghstage"
     end
   end
 
