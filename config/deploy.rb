@@ -49,13 +49,13 @@ namespace :deploy do
     #end
   #end
 
-  #desc 'Restart application'
-  #task :restart do
-    #on roles(:app), in: :sequence do
-      ## Your restart mechanism here, for example:
-      #execute "echo secret0ne | sudo -S restart ghstage"
-    #end
-  #end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence do
+      # Your restart mechanism here, for example:
+      execute "puma:restart"
+    end
+  end
 
   #after :restart, :clear_cache do
     #on roles(:web), in: :groups, limit: 3, wait: 10 do
