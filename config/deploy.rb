@@ -53,7 +53,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence do
       # Your restart mechanism here, for example:
-      execute "puma:restart"
+      invoke 'puma:restart'
     end
   end
 
@@ -67,6 +67,6 @@ namespace :deploy do
   #end
 
   after :finishing, 'deploy:cleanup'
-  after :published, 'puma:restart'
+  #after :published, 'puma:restart'
 
 end
