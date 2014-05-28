@@ -51,6 +51,7 @@ group :development do
   gem 'capistrano-bundler', '1.1.1'
   gem 'capistrano-rvm', '~> 0.1.1'
   gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano3-puma'
 end
 group :staging, :production do
   gem 'puma'

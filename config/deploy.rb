@@ -18,6 +18,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
+set :puma_conf, "#{release_path}/config/puma.rb"
+
 namespace :misc do
   desc 'Run seed'
   task :seed do
@@ -31,40 +33,40 @@ end
 
 namespace :deploy do
   
-  desc 'Start application'
-  task :start do
-    on roles(:app), in: :sequence do
-      # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S start ghstage"
-    end
-  end
+  #desc 'Start application'
+  #task :start do
+    #on roles(:app), in: :sequence do
+      ## Your restart mechanism here, for example:
+      #execute "echo secret0ne | sudo -S start ghstage"
+    #end
+  #end
   
-  desc 'Stop application'
-  task :stop do
-    on roles(:app), in: :sequence do
-      # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S stop ghstage"
-    end
-  end
+  #desc 'Stop application'
+  #task :stop do
+    #on roles(:app), in: :sequence do
+      ## Your restart mechanism here, for example:
+      #execute "echo secret0ne | sudo -S stop ghstage"
+    #end
+  #end
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence do
-      # Your restart mechanism here, for example:
-      execute "echo secret0ne | sudo -S restart ghstage"
-    end
-  end
+  #desc 'Restart application'
+  #task :restart do
+    #on roles(:app), in: :sequence do
+      ## Your restart mechanism here, for example:
+      #execute "echo secret0ne | sudo -S restart ghstage"
+    #end
+  #end
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  #after :restart, :clear_cache do
+    #on roles(:web), in: :groups, limit: 3, wait: 10 do
+      ## Here we can do anything such as:
+      ## within release_path do
+      ##   execute :rake, 'cache:clear'
+      ## end
+    #end
+  #end
 
   after :finishing, 'deploy:cleanup'
-  after :published, 'deploy:restart'
+  after :published, 'puma:restart'
 
 end
