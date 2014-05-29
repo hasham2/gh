@@ -1,0 +1,31 @@
+<div class="col-lg-4 additional_box_out">
+  <h2>Photo A</h2>
+  <div class="additionalimg_bgbox">
+    <%= image_tag(photo.image.url(:medium)) %>
+  </div>
+  <div class="form-group additionalimg_bgboxform">
+    <input class="form-control" placeholder="Photo Coption Text" type="text">/</input>
+  </div>
+  <div class="col-lg-12">
+    <button class="btn btn-success pull-left btnn-delete" type="button">Delete</button>
+    <button class="btn btn-success pull-left btnn-delete pull-right" type="button">Delete</button>
+    <button class="make_primary btn btn-success pull-left btnn123" id="<%= photo.id %>" type="button">Make Primary</button>
+  </div>
+</div>
+
+<script >
+
+
+$(document).ready(function(){
+      $('.make_primary').click(function(){
+    var photo_id = $(this).attr('id');
+
+    $.ajax({
+      method:'post',
+      url:'./make_primary_photo',
+      data:{value:photo_id}
+    });
+
+  });
+});
+</script>

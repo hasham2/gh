@@ -31,5 +31,8 @@
       %ul.nav.navbar-nav.navbar-right.navbar-navcustright
         %li
           %a{:href => "#"}
-            %img{:src => "/assets/user-img.png"} Hi,Nickname
+            -if user_signed_in?
+              = image_tag current_user.avatar.url(:thumb), :class=>"circular", :rescue=>""
+              %span Hi,
+              = current_user.first_name+" "+current_user.last_name
     / /.nav-collapse

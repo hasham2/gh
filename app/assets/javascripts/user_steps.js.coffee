@@ -9,7 +9,3 @@ jQuery ->
    regexp = new RegExp($(this).data('id'), 'g')
    $(this).before($(this).data('fields').replace(regexp, time))
    event.preventDefault()
-
-
-jQuery ->
-  $('#job_photos_attributes_0_image').fileupload()

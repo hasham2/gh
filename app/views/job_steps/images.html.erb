@@ -1,118 +1,79 @@
 
 <div class="container">
+<div class="col-lg-12"><h2>Create Job Listing</h2></div></div>
+<div class="container">
 
   <div class="row  job-listingout">
-    <%= render 'progress_indicator'%>  
+  <%= render 'progress_indicator'%>
+    
+    
+<div class="col-lg-12">
   <%= form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f| %>
     <%= f.fields_for :photos do |photo| %>
-      <%= photo.file_field :image,:multiple=>true,name:"job[photos_attributes][0][image]" ,:class=>"form-control",:style=>"display:none" %>   
-<div class="col-lg-12">
+      <%= photo.file_field :image,:id=>"primary_image_field",:style=>"display:none" %>
+      <%= photo.check_box :is_primary,  {checked: true , :style=>"display:none" }%> 
+    <% end %>
+<% end %>
    <div class="img_box1">
    <h2>Employer's Primary Image</h2>
-    <div class="img_bgbox">
-    <%= image_tag @user.avatar.url(:thumb)  %>
+    <div id="primary_image" class="img_bgbox">
+    <% if  @primary_photo.first.present?  %>
+    <%= image_tag @primary_photo.first.image.url(:medium) %>
+    <% end %>
     </div>
-    <button class="btn btn-success pull-left btnuser" type="button">Select Primary Image</button>
+    <button class="btn btn-success pull-left btnuser" type="button" id="select_primary_image">Select Primary Image</button>
    </div>
 
-</div>    
+</div>  
 
 
 <div class="col-lg-12 additional_Photos">
-
    <h2>Additional Photos</h2>
    
-<div class="col-lg-4 additional_box_out">
-<h2>Photo A</h2>
-
-<div class="additionalimg_bgbox">
-    <img src="/assets/img.png">
-    </div>
-<div class="form-group additionalimg_bgboxform">
-    <input type="text" class="form-control" placeholder="Photo Coption Text">
-</div>
-<div class="col-lg-12">
-  <button class="btn btn-success pull-left btnn-delete" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn-delete pull-right" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn123" type="button">Make Primary</button>
-  
-</div>
 
 
-
-
-</div>
-
-<div class="col-lg-4 additional_box_out additional123">
-<h2>Photo A</h2>
-
-<div class="additionalimg_bgbox">
-    <img src="/assets/img.png">
-    </div>
-<div class="form-group additionalimg_bgboxform">
-    <input type="text" class="form-control" placeholder="Photo Coption Text">
-</div>
-<div class="col-lg-12">
-  <button class="btn btn-success pull-left btnn-delete" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn-delete pull-right" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn123" type="button">Make Primary</button>
-  
-</div>
-
-
-
-
-</div>
-
-<div class="col-lg-4 additional_box_out additional123">
-<h2>Photo A</h2>
-
-<div class="additionalimg_bgbox">
-    <img src="/assets/img.png">
-    </div>
-<div class="form-group additionalimg_bgboxform">
-    <input type="text" class="form-control" placeholder="Photo Coption Text">
-</div>
-<div class="col-lg-12">
-  <button class="btn btn-success pull-left btnn-delete" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn-delete pull-right" type="button">Delete</button>
-  <button class="btn btn-success pull-left btnn123" type="button">Make Primary</button>
-  
-</div>
-
-
-
-
-</div>
-
+   <% if @photos %>
+   <%= render @photos %>
+   <% end %>
 
 
 </div>
     
-   
+ 
+
+ <div id="paintings"></div>
+
+   <%= form_for(Photo.new, url: "/job_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f| %>
+       <%= f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;" %>       
+    
+  <% end %>   
 
 
   
 <div class="col-lg-12 btnnextstep">
-  <%= button_tag(type: 'button',id: 'test', class: 'btn btn-success pull-left btn-nextstep') do %>
+  <%= button_tag(type: 'button',id: 'add_photo_button', class: 'btn btn-success pull-left btn-nextstep') do %>
     <%= content_tag(:div,'Add photo') %>
   <% end %>
 
-  <%=f.submit "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" %>
+  <%=submit_tag "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" %>
 
-</div>  
-<% end %>
-<% end %>    
+</div> 
+  
+</div>
+
+  <!--/row-->   
 </div>
 
 
 <script>
   
-  $('#test').on('click',function(){
-    jQuery('#job_photos_attributes_0_image').trigger('click');
+  $('#add_photo_button').on('click',function(){
+    jQuery('#multiple_files').trigger('click');
   })
-  
-  
 
 
+  $('#select_primary_image').on('click',function(){
+    jQuery('#primary_image_field').trigger('click');
+  })  
 </script>
+

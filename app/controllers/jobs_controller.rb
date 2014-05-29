@@ -14,12 +14,7 @@ class JobsController < ApplicationController
 
 	def create
 		 @user = current_user
-		 @job = @user.jobs.build()
-		 @job.build_location
-		 @job.metrics.build
-		 @job.photos.build
-		 @job.requirements.build
-		 @job.certifications.build
+		 @job = @user.jobs.build
 	    if @job.save
 	    	session[:job_id] = @job.id
 	    	redirect_to job_steps_path
