@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140521124201) do
-=======
-ActiveRecord::Schema.define(version: 20140518190927) do
->>>>>>> be6361a2480f9c64ff3af2ad5d45ad3d68028168
+ActiveRecord::Schema.define(version: 20140527053154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +94,7 @@ ActiveRecord::Schema.define(version: 20140518190927) do
     t.string   "time_zone"
     t.integer  "locateable_id"
     t.string   "locateable_type"
+    t.string   "second_address"
   end
 
   create_table "metric_types", force: true do |t|
@@ -124,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140518190927) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "session_id"
   end
 
   create_table "requirements", force: true do |t|
@@ -187,6 +185,7 @@ ActiveRecord::Schema.define(version: 20140518190927) do
     t.boolean  "drivers_licence_class"
     t.boolean  "has_vehicle"
     t.boolean  "car_pool"
+    t.integer  "credit_score"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

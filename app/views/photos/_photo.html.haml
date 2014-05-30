@@ -1,0 +1,77 @@
+.col-lg-4.additional_box_out
+  %h2= photo.image_file_name.split('.')[0]
+  .additionalimg_bgbox
+    = image_tag(photo.image.url(:medium))
+  .form-group.additionalimg_bgboxform
+    %input.photo_caption.form-control{disabled: "true", id: photo.id, placeholder: "Photo Coption Text", type: "text", value: photo.caption}/
+  .col-lg-12
+    %button.modify_photo_caption.btn.btn-success.pull-left.btnn-delete{id: photo.id, type: "button"} Modify
+    %button.save_photo_caption.btn.btn-success.pull-left.btnn-delete{id: photo.id, style: "display:none", type: "button"} save
+    %button.delete_photo.btn.btn-success.pull-left.btnn-delete.pull-right{id: photo.id, type: "button"} Delete
+    %button.make_primary.btn.btn-success.pull-left.btnn123{id: photo.id, type: "button"} Make Primary
+
+:javascript
+  $('.delete_photo').click(function(){
+    var photo_id = $(this).attr('id');
+          // alert(photo_id); 
+    $.ajax({
+      method: 'post',
+      url: './delete_photo',
+      data:{value:photo_id}
+    });
+    /*to stop executing multiple times at once*/
+    event.stopPropagation();
+  });
+
+  $('.make_primary').click(function(){
+      var photo_id = $(this).attr('id');
+      // alert(photo_id);     
+    $.ajax({
+      method:'post',
+      url:'./make_primary_photo',
+      data:{value:photo_id}
+    });
+    /*to stop executing multiple times at once*/
+    event.stopPropagation();
+
+  });
+
+  $('.modify_photo_caption').click(function(){
+    var current_id = $(this).attr('id');
+          // alert(current_id);
+      /*Making Text field Enabled*/
+      var text_field = $(".photo_caption").filter("#"+current_id);
+      $(text_field).attr('disabled',false);
+      /*Showing save button*/
+      $(".save_photo_caption").filter("#"+current_id).attr('style','display:inline-block');
+      /*Hiding modify butto*/
+      $(this).hide();
+
+    /*to stop executing multiple times at once*/
+    event.stopPropagation();
+
+  });
+
+  $('.save_photo_caption').click(function(){
+      var current_id = $(this).attr('id');
+          // alert(current_id);
+      /*Making Text field Disabled*/
+      var text_field = $(".photo_caption").filter("#"+current_id);
+      $(text_field).attr('disabled',true);
+      /*Showing modify button*/
+      $(".modify_photo_caption").filter("#"+current_id).show();
+      /*Hiding save button*/
+      $(".save_photo_caption").filter("#"+current_id).attr('style','display:none');
+
+        var caption = text_field.val();
+
+        $.ajax({
+          method:'post',
+          url:'./save_photo_caption',
+          data:{photo_id:current_id,photo_caption:caption}
+        });
+
+    /*to stop executing multiple times at once*/
+    event.stopPropagation();
+
+  });

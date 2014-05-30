@@ -174,7 +174,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	right: 92px;
 	top: 208px;
 	width: 80%;
-	background-image: url(../images/search-bg.png);
+	background-image: url(/assets/search-bg.png);
 	background-repeat: no-repeat;
 }
 .seainput {
@@ -235,7 +235,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	font-size: 17px;
 }
 .about-us-icon {
-	background-image: url(../images/about-us-icon.png);
+	background-image: url(/assets/about-us-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 26px;
@@ -245,7 +245,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	padding: 0 0 0 33px;
 }
 .new-icon {
-	background-image: url(../images/new-icon.png);
+	background-image: url(/assets/new-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 24px;
@@ -255,7 +255,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	padding: 0 0 0 33px;
 }
 .contact-icon {
-	background-image: url(../images/contact-us-icon.png);
+	background-image: url(/assets/contact-us-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 23px;
@@ -265,7 +265,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	padding: 0 0 0 33px;
 }
 .advertise-icon {
-	background-image: url(../images/advertise-navi-icon.png);
+	background-image: url(/assets/advertise-navi-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 26px;
@@ -275,7 +275,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	padding: 0 0 0 33px;
 }
 .terms-icon {
-	background-image: url(../images/Terms-icon.png);
+	background-image: url(/assets/Terms-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 26px;
@@ -285,7 +285,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	padding: 0 0 0 33px;
 }
 .help-icon {
-	background-image: url(../images/help-icon.png);
+	background-image: url(/assets/help-icon.png);
 	background-repeat: no-repeat;
 	background-position: center left;
 	width: 26px;
@@ -501,14 +501,14 @@ footer {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 25px;
-	background: url(../images/job-icon1.png) left no-repeat;
+	background: url(/assets/job-icon1.png) left no-repeat;
 }
 .job-listf h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 25px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/job-icon1-hover.png) left no-repeat;
+	background: url(/assets/job-icon1-hover.png) left no-repeat;
 }
 .Candidate-icon {
 	margin: 40px 0 0 0px;
@@ -524,14 +524,14 @@ footer {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 30px;
-	background: url(../images/Candidate-icon.png) left no-repeat;
+	background: url(/assets/Candidate-icon.png) left no-repeat;
 }
 .Candidate-icon h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 30px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/Candidate-icon-hover.png) left no-repeat;
+	background: url(/assets/Candidate-icon-hover.png) left no-repeat;
 }
 .image-icon {
 	margin: 40px 0 0 0px;
@@ -547,14 +547,14 @@ footer {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 30px;
-	background: url(../images/image.png) left no-repeat;
+	background: url(/assets/image.png) left no-repeat;
 }
 .image-icon h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 30px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/image-hover.png) left no-repeat;
+	background: url(/assets/image-hover.png) left no-repeat;
 }
 
 
@@ -574,14 +574,14 @@ footer {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 35px;
-	background: url(../images/Education_icon.png) left no-repeat;
+	background: url(/assets/Education_icon.png) left no-repeat;
 }
 .education-icon h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 35px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/Education_icon_hover.png) left no-repeat;
+	background: url(/assets/Education_icon_hover.png) left no-repeat;
 }
 
 
@@ -600,14 +600,14 @@ footer {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 30px;
-	background: url(../images/payment.png) left no-repeat;
+	background: url(/assets/payment.png) left no-repeat;
 }
 .payments-icon h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 30px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/payment-hover.png) left no-repeat;
+	background: url(/assets/payment-hover.png) left no-repeat;
 }
 .topfilde{
     margin-top:50px;	
@@ -922,14 +922,14 @@ h3 {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 31px;
-	background: url(../images/enrollment-contact.png) left no-repeat;
+	background: url(/assets//enrollment-contact.png) left no-repeat;
 }
 .enrollment-contact h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 31px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/enrollment-contact-hover.png) left no-repeat;
+	background: url(/assets/enrollment-contact-hover.png) left no-repeat;
 }
 
 .enrollment-detail {
@@ -946,14 +946,14 @@ h3 {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 31px;
-	background: url(../images/enrollment-detail.png) left no-repeat;
+	background: url(/assets/enrollment-detail.png) left no-repeat;
 }
 .enrollment-detail h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 31px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/enrollment-detail_hover.png) left no-repeat;
+	background: url(/assets/enrollment-detail_hover.png) left no-repeat;
 }
 
 
@@ -972,14 +972,14 @@ h3 {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 35px;
-	background: url(../images/enrollment-time.png) left no-repeat;
+	background: url(/assets/enrollment-time.png) left no-repeat;
 }
 .enrollment-time h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 35px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/enrollment-time_hover.png) left no-repeat;
+	background: url(/assets/enrollment-time_hover.png) left no-repeat;
 }
 
 
@@ -998,14 +998,14 @@ h3 {
 	font-size: 15px;
 	height: 29px;
 	padding: 4px 0 0 35px;
-	background: url(../images/enrollment-image.png) left no-repeat;
+	background: url(/assets/enrollment-image.png) left no-repeat;
 }
 .enrollment-imga h2 a:hover {
 	color: #23a327;
 	padding: 4px 0 0 35px;
 	font-size: 15px;
 	height: 29px;
-	background: url(../images/enrollment-image-hover.png) left no-repeat;
+	background: url(/assets/enrollment-image-hover.png) left no-repeat;
 }
 .enrollment_top{
     margin:0 0 40px 0;	
