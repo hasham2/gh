@@ -7,5 +7,5 @@ $("<%= escape_javascript(image_tag @primary_photo.first.image.url(:medium)) %>")
 
 
 /*Reloading additional photos*/
-$(".additional_Photos").children().remove();
-$(".additional_Photos").append("<%= j render(@photos) %>");
+$(".additional-photos").children().remove();
+$(".additional-photos").append("<%= j render(@photos) %>");

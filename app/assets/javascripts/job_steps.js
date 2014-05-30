@@ -1,5 +1,5 @@
 
-
+/*---------Showing address on job_details page------------Start--*/
 $(document).ready(function(){
 	var address=""
 	var city=""

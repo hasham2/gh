@@ -60,15 +60,19 @@ class JobStepsController < ApplicationController
 	   @job.assign_attributes(candidate_prioritization_params)
 	   render_wizard @job
 	   when :images
-		@primary_photo = @job.photos.where(:is_primary => true)		
-		@primary_photo.each do |p|
-			p.update_attributes(:is_primary=>nil)	
-		end	
-		  	
-	   @job.update_attributes(images_params)
+		@old_primary_photo = @job.photos.where(:is_primary => true)		
+	   	@old_primary_photo.each do |p|
+	   		p.update_attributes(:is_primary=>nil)	
+	   	end	   
+	   	@new_image = params[:job][:photos_attributes]["0"][:image]
+	   	@is_primary = params[:job][:photos_attributes]["0"][:is_primary]
+
+	   @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
 	   	unless request.xhr?	  	
 	   	render_wizard @job
 	   	end
+
+
      	@primary_photo = @job.photos.where(:is_primary => true)
        	respond_to do |format|
         	format.js
@@ -115,6 +119,21 @@ class JobStepsController < ApplicationController
 
 	end
 
+	def delete_photo
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+     	@photo = @job.photos.find(params[:value])
+     	# binding.pry
+     	@photo.destroy
+     	@photos = @job.photos.where(:is_primary => nil)
+     	respond_to do |format|
+     		format.js
+     	end
+
+		
+		
+	end
+
 	def make_primary_photo
 		@job_id = session[:job_id]
      	@job = Job.find(@job_id)
@@ -134,6 +153,14 @@ class JobStepsController < ApplicationController
      	respond_to do |format|
      		format.js
      	end	
+	end
+
+	def save_photo_caption
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+     	@photo = @job.photos.find(params[:photo_id])
+     	@photo.update_attributes(:caption=>params[:photo_caption])
+
 	end
 
 	def job_details_params	

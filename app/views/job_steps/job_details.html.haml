@@ -33,7 +33,7 @@
           .form-group
             %label.col-sm-4.labl{:for => "inputPassword"} Posting Date
             .col-sm-6
-              %input#inputPassword.form-control{:placeholder => "April 22,2014", :type => "text"}
+              = j.date_field :updated_at, :class=>"form-control",:value=>j.object.start_date.try(:strftime, '%d-%m-%Y'), :disabled=>"true"
         .col-lg-4
           .form-group
             = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"

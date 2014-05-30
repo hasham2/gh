@@ -15,6 +15,8 @@ Gh::Application.routes.draw do
   post "job_steps/add_certification"
   post "job_steps/add_photo"
   post "job_steps/make_primary_photo"
+  post "job_steps/delete_photo"
+  post "job_steps/save_photo_caption"
 
   resources :certifications
   resources :jobs

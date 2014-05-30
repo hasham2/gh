@@ -30,22 +30,19 @@
 <div class="col-lg-12 additional_Photos">
    <h2>Additional Photos</h2>
    
-
+<div class="additional-photos">
 
    <% if @photos %>
    <%= render @photos %>
    <% end %>
-
+</div>
 
 </div>
     
  
 
- <div id="paintings"></div>
-
    <%= form_for(Photo.new, url: "/job_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f| %>
-       <%= f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;" %>       
-    
+       <%= f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;" %>          
   <% end %>   
 
 
