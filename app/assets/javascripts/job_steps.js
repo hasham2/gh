@@ -1,20 +1,20 @@
 
-
+/*---------Showing address on job_details page------------Start--*/
 $(document).ready(function(){
 	var address=""
 	var city=""
 	var country=""
 	var state=""
 
-	$('#job_location_attributes_address').change(function(){
-		 address = $('#job_location_attributes_address').val();
+	$('.address_field').change(function(){
+		  address = $('.address_field').val();
 		 address = address+","
 		$('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_city').change(function(){
-		 city = $('#job_location_attributes_city').val();
+	$('.city_field').change(function(){
+		 city = $('.city_field').val();
 		 city = city+","
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
@@ -36,28 +36,54 @@ $(document).ready(function(){
 
 	$('#add_certification').click(function(){
 		var new_certification =	$('#add_certification_value').val();
-		// alert(new_certification);
-		$.ajax({
-		   method:'post',
-		   url:'./add_certification',
-		   data: {value:new_certification}
-		 });
+		if (new_certification == ""){
 
-		$('#add_certification_value').val("");
+			alert('Please Enter some Value')
+		}else{
+		// alert(new_certification);
+			$.ajax({
+			   method:'post',
+			   url:'./add_certification',
+			   data: {value:new_certification}
+			 });
+
+			$('#add_certification_value').val("");
+		}	
 
 	});
 
+
+
+
+
+
+
+
+	// $('#simple_slider').slider({
+	// 	formater: function(value) {
+	// 		return 'Current value: ' + value;
+	// 	}
+	// });
+
+	// $('#simple_slider').change(function(){
+	// 	var v = $(this).val();
+	// 	alert(v)
+	// });
+
+
+
 });
 
-
-
-// jQuery(function() {
-//   return $('.upload_image').fileupload();
-// });
+/*-------------Image Uploading---------------------*/
 
 jQuery(function() {
-	$('#job_photos_attributes_0_image').fileupload();
+	$('#multiple_files').fileupload();
 });
+
+jQuery(function() {
+	$('#primary_image_field').fileupload();
+});
+
 
 
 

@@ -1,1 +1,6 @@
 <h1>Create New Job</h1>
+<br><br>
+
+<%= form_for @job, method: :post do |f| %>
+  <%= f.submit "create Job" ,:class=>"btn btn-primary" %>
+<% end %>

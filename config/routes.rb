@@ -13,6 +13,10 @@ Gh::Application.routes.draw do
   get "job_steps/state_response"
 
   post "job_steps/add_certification"
+  post "job_steps/add_photo"
+  post "job_steps/make_primary_photo"
+  post "job_steps/delete_photo"
+  post "job_steps/save_photo_caption"
 
   post "enrollment_steps/add_photo"
   post "enrollment_steps/make_primary_photo"

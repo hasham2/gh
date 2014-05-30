@@ -3,40 +3,41 @@
     %h2 Create Job Listing
 .container
   .row.job-listingout
-    = render 'progress_indicator'
-    = form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+    .container
+      = render 'progress_indicator'
+    = form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
       .col-lg-12.education_outtop
-        = f.fields_for :jobs do |job|
-          .col-lg-3.education_box1
-            %h2 Job Category
-            .col-lg-12.pull-left.checkjob
-              .checkbox.education_checkbox
-                %label
-                  %input{type: "checkbox"}>/
-                  Supervisor
-            .col-lg-12.pull-left.checkjob
-              .checkbox.education_checkbox2
-                %label
-                  %input{type: "checkbox"}>/
-                  Individual
-          .col-lg-3.education_box1.education_box2
-            %h2 Job Requirements
-            .col-lg-12.pull-left.checkjob{style: "width:115px;"}
-              #align_check_boxes.education_checkbox
-                = job.collection_check_boxes(:requirement_ids, Requirement.all, :id, :name )
-          .col-lg-3.education_box1.education_box2
-            %h2
-              Education and
-              %br/
-              Certifications
-            .col-lg-12.pull-left.checkjob
-              #align_check_boxes.all_certifications.education_checkbox
-                = job.collection_check_boxes(:certification_ids, Certification.all, :id, :title )
-            .col-lg-12
-              %div{style: "width:246px; margin:40px 0 0 0"}
-                %button#add_certification.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Add
-                .col-sm-9.pull-right{style: "margin:-27px 0 0 0;"}
-                  %input#add_certification_value.form-control{placeholder: "", type: "text"}/
+        .col-lg-3.education_box1
+          %h2 Job Category
+          .col-lg-12.pull-left.checkjob
+            .checkbox.education_checkbox
+              %label
+                %input{type: "checkbox"}>/
+                Supervisor
+          .col-lg-12.pull-left.checkjob
+            .checkbox.education_checkbox2
+              %label
+                %input{type: "checkbox"}>/
+                Individual
+        .col-lg-3.education_box1.education_box2
+          %h2 Job Requirements
+          .col-lg-12.pull-left.checkjob{style: "width:115px;"}
+            #align_check_boxes.education_checkbox
+              = f.collection_check_boxes(:requirement_ids, Requirement.all, :id, :name )
+        .col-lg-3.education_box1.education_box2
+          %h2
+            Education and
+            %br/
+            Certifications
+          .col-lg-12.pull-left.checkjob
+            #align_check_boxes.all_certifications.education_checkbox
+              = f.collection_check_boxes(:certification_ids, Certification.all, :id, :title )
+          .col-lg-12
+            %div{style: "width:246px; margin:40px 0 0 0"}
+              %button#add_certification.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Add
+              .col-sm-9.pull-right{style: "margin:-27px 0 0 0;"}
+                %input#add_certification_value.form-control{placeholder: "", type: "text"}/
       .col-lg-12.btnnextstep
+        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Return to Previous Step
         = f.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
   / /row

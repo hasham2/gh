@@ -1,39 +1,87 @@
 class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
-	steps :job_details, :candidate_prioritization, :images, :education_and_certifications, :payments
+	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
 
 	def show
 		@user = current_user
-		@met = @user.jobs.last
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+
+     	@current_user_jobs = @user.jobs.count
      case step      
-     when :job_details	 
-    
-     	@job = @user.jobs.build
-     	@job.build_location
+     when :job_details
+     	@stp = 1 
+		if @job.location == nil
+			@job.build_location
+		else
+		@job.location
+		end
      when :candidate_prioritization
-     	5.times{@met.metrics.build}	
-     when :images 
-      @met.photos.build
-      end
+     	@stp = 2
+     	if @job.metrics.empty? 
+     	5.times{@job.metrics.build}
+     	else
+     		if @job.metrics.count < 5
+     		@m = 5 - @job.metrics.count
+     		@m.times{@job.metrics.build}
+     		end
+     	 
+     	end	
+     when :images
+     	@stp = 3
+
+     	@primary_photo = @job.photos.where(:is_primary => true)
+     	if  @job.photos.empty?
+      		 @job.photos.build
+      	 else
+     	   @photos = @job.photos.where(:is_primary => nil)
+      	 end
+
+     when :education_and_certifications
+     	@stp = 4
+     	@job.requirements.build
+     	@job.certifications.build
+     end
 	   render_wizard
 	end
 
 	def update
 
-	  @user = current_user
-	  @met = @user.jobs.last
+		@user = current_user
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
-	   @user.update_attributes(job_details_params)
+	   @job.update_attributes(job_details_params)
 	   session[:job_id]=@user.jobs.last.id
-	   render_wizard @user
+	   render_wizard @job
 	   when :candidate_prioritization
-	   @met.assign_attributes(candidate_prioritization_params)
-	   render_wizard @met
+	   @job.assign_attributes(candidate_prioritization_params)
+	   render_wizard @job
 	   when :images
-	   @met.update_attributes(images_params)	  	
-	   render_wizard @met
+		@old_primary_photo = @job.photos.where(:is_primary => true)		
+	   	@old_primary_photo.each do |p|
+	   		p.update_attributes(:is_primary=>nil)	
+	   	end	   
+	   	@new_image = params[:job][:photos_attributes]["0"][:image]
+	   	@is_primary = params[:job][:photos_attributes]["0"][:is_primary]
+
+	   @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+	   	unless request.xhr?	  	
+	   	render_wizard @job
+	   	end
+
+
+     	@primary_photo = @job.photos.where(:is_primary => true)
+       	respond_to do |format|
+        	format.js
+         end
+
+	   when :education_and_certifications
+	   @job.update_attributes(education_and_certifications_params)
+	   render_wizard @job
+	   	# session[:job_id] = nil
 	   end
 	end
 
@@ -45,11 +93,78 @@ class JobStepsController < ApplicationController
 		end
 	end
 
+	def add_certification
+	  @certification = Certification.new(:title => params[:value])
+	  respond_to do |format|
+	    if @certification.save
+	    	format.js 
+	    	# format.json   {render json: @certification }
+	    end
+	  end
+	end
 
+	def add_photo
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
 
+     	@multiple_images = params[:photo][:image] 		
+     	   @multiple_images.each { |i|
+     	    @job.photos.create(image: i)
+     	  }
+
+     	@photo = @job.photos.last
+       	respond_to do |format|
+        	format.js
+         end
+
+	end
+
+	def delete_photo
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+     	@photo = @job.photos.find(params[:value])
+     	# binding.pry
+     	@photo.destroy
+     	@photos = @job.photos.where(:is_primary => nil)
+     	respond_to do |format|
+     		format.js
+     	end
+
+		
+		
+	end
+
+	def make_primary_photo
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+
+     	@all_photos = @job.photos.all
+		# make all photos unprimary
+		@all_photos.each do |p|
+			p.update_attributes(:is_primary=>nil)	
+		end	
+		# make unique primary photo
+		@make_primary_photo = @job.photos.find(params[:value])
+		@make_primary_photo.update_attributes(:is_primary=>true)
+		# primary photo
+		@primary_photo = @job.photos.where(:is_primary => true)
+		#additional photos
+		@photos = @job.photos.where(:is_primary => nil)
+     	respond_to do |format|
+     		format.js
+     	end	
+	end
+
+	def save_photo_caption
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+     	@photo = @job.photos.find(params[:photo_id])
+     	@photo.update_attributes(:caption=>params[:photo_caption])
+
+	end
 
 	def job_details_params	
-		params.require(:user).permit!#(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
+		params.require(:job).permit!#(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
 	end
 
 	def candidate_prioritization_params
@@ -57,6 +172,10 @@ class JobStepsController < ApplicationController
 	end
 
 	def images_params
+		params.require(:job).permit!
+	end
+
+	def education_and_certifications_params
 		params.require(:job).permit!
 	end
 
