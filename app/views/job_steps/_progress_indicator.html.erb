@@ -5,25 +5,37 @@
 
           <div class="job-listf">
             <% if @stp == 1%>
-              <h2><a href="job_details">Job Details</a><img src="/assets/arrow-icon.png"></h2>
+              <h2><a href="job_details">Job Details</a>
+                <%=image_tag 'arrow-icon.png' %>
+              </h2>
             <% else %>
-              <h2><a href="job_details" style="opacity:0.5">Job Details</a><img src="/assets/arrow-icon.png"></h2>
+              <h2><a href="job_details" style="opacity:0.5">Job Details</a>
+                <%=image_tag 'arrow-icon.png'%>
+              </h2>
             <% end %>
           </div>
            
           <div class="Candidate-icon">
             <% if @stp == 2 %>
-              <h2><a href="candidate_prioritization">Candidate Prioritization</a><img src="/assets/arrow-icon.png"></h2>
+              <h2><a href="candidate_prioritization">Candidate Prioritization</a>
+                <%=image_tag 'arrow-icon.png'%>
+              </h2>
               <% else %>
-              <h2><a href="candidate_prioritization" style="opacity:0.5">Candidate Prioritization</a><img src="/assets/arrow-icon.png"></h2>              
+              <h2><a href="candidate_prioritization" style="opacity:0.5">Candidate Prioritization</a>
+                <%=image_tag 'arrow-icon.png'%>
+              </h2>              
             <% end %>
           </div>
 
          <div class="image-icon">
           <% if @stp == 3 %>
-          <h2><a href="images">Images</a><img src="/assets/arrow-icon.png"></h2>
+          <h2><a href="images">Images</a>
+            <%=image_tag 'arrow-icon.png'%>
+          </h2>
           <% else %>
-          <h2><a href="images" style="opacity:0.5">Images</a><img src="/assets/arrow-icon.png"></h2>
+          <h2><a href="images" style="opacity:0.5">Images</a>
+            <%=image_tag 'arrow-icon.png'%>
+          </h2>
           <% end %>
         </div>
         
