@@ -13,15 +13,13 @@ class BusinessActivitiesController < ApplicationController
 				format.js   {}
 			end
 		end
+	end
 
 
 		def destroy
 			@bus_activity_keyword = BusinessActivity.find(params[:id])
 			@bus_activity_keyword.destroy
-			respond_to do |format|
-				format.html { redirect_to(business_activity_url) }
-				format.js   { render :nothing => true }
-			end
+			redirect_to action: "index"
 		end
 		def business_activity_params
 			params.require(:business_activity).permit(:keyword)

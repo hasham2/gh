@@ -60,7 +60,7 @@
                   .form-group
                     = builder.label :website, 'Business URL ' ,:class=>"col-sm-3 control-label text-right"
                     .col-sm-8
-                      = builder.text_field :business_name, :class=>"form-control",placeholder: "www.joesdistribution.com"
+                      = builder.text_field :website, :class=>"form-control",placeholder: "www.joesdistribution.com"
                   .form-group
                     = builder.label :business_activity_list, 'Business Activity' ,:class=>"col-sm-3 control-label text-right"
                     .col-sm-8
@@ -86,7 +86,7 @@
                         = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
                         .btn-group.menunlefttt
                           .col-sm-8
-                            = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+                            = builder.date_select :industry,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
                     .col-lg-8.top_mrginput
                 
         .col-lg-12.btnnextstep
