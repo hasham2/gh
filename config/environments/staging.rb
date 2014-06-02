@@ -71,6 +71,10 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify  
+  config.middleware.use ExceptionNotifier, 
+    email_prefix: "[Gh - MAYDAY MAYDAY]",
+    sender_address: %{"exceptions" <exceptions@greatesthire.com>},
+    exception_recipients: %w{hasham@zenofruby.com}
 
     config.action_mailer.smtp_settings = {
       :address   => "smtp.mandrillapp.com",

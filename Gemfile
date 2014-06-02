@@ -30,7 +30,7 @@ gem 'rack-timeout'
 gem 'wicked'
 gem 'acts-as-taggable-on'
 gem 'tagmanager-rails'
-
+gem 'exception_notification'
 
 # Geolocations
 gem 'geocoder'
