@@ -29,10 +29,3 @@
             %img{:src => "/assets/logo.png", :alt => "LOGO"}
 
       %ul.nav.navbar-nav.navbar-right.navbar-navcustright
-        %li
-          %a{:href => "#"}
-            -if user_signed_in?
-              = image_tag current_user.photos.where(:is_primary=>true).first.image.url(:thumb), :class=>"circular", :rescue=>""
-              %span Hi,
-              = current_user.first_name+" "+current_user.last_name
-    / /.nav-collapse
