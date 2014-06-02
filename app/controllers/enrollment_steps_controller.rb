@@ -51,15 +51,20 @@ class EnrollmentStepsController < ApplicationController
   		@user.update_attributes(user_params)
   		render_wizard @user
     else
-    @user.update_attributes(user_params)
-    unless request.xhr?     
-      render_wizard @user
-    end
-    @primary_photo = @user.photos.where(:is_primary => true)
-    respond_to do |format|
-      format.js
-     end   
-  end
+
+        @old_primary_photo = @job.photos.where(:is_primary => true)   
+         @old_primary_photo.each do |p|
+         p.update_attributes(:is_primary=>nil) 
+        end  
+        @user.update_attributes(user_params)
+        unless request.xhr?     
+          render_wizard @user
+        end
+        @primary_photo = @user.photos.where(:is_primary => true)
+        respond_to do |format|
+          format.js
+         end   
+      end
 end
 
   def add_photo
