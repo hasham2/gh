@@ -36,7 +36,7 @@
                 .form-group
                   = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
                   .btn-group.menunlefttt
-                    = builder.select :state,{:prompt => true}
+                    = builder.select :state,{:prompt => "Select State",:include_blank=>true}
                 .form-group
                   %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
                   .col-sm-8
@@ -47,7 +47,7 @@
               .form-group
                 = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8
-                  = f.text_field :last_name, :class=>"form-control",placeholder: "555.555.5555" 
+                  = f.text_field :phone_primary, :class=>"form-control",placeholder: "555.555.5555" 
               .form-group
                 = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8

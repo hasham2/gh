@@ -27,6 +27,7 @@ class EnrollmentStepsController < ApplicationController
     end
     when :enrollment_images_attachments
        @s = 4 
+
           @primary_photo = @user.photos.where(:is_primary => true)
           if  @user.photos.empty?
              @user.photos.build
@@ -51,20 +52,25 @@ class EnrollmentStepsController < ApplicationController
   		@user.update_attributes(user_params)
   		render_wizard @user
     else
-
-        @old_primary_photo = @job.photos.where(:is_primary => true)   
+      # binding.pry 
+    @old_primary_photo = @user.photos.where(:is_primary => true)    
          @old_primary_photo.each do |p|
-         p.update_attributes(:is_primary=>nil) 
-        end  
-        @user.update_attributes(user_params)
-        unless request.xhr?     
-          render_wizard @user
-        end
-        @primary_photo = @user.photos.where(:is_primary => true)
+           p.update_attributes(:is_primary=>nil) 
+         end    
+         @new_image = params[:user][:photos_attributes]["0"][:image]
+         @is_primary = params[:user][:photos_attributes]["0"][:is_primary]
+
+       @user.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+         unless request.xhr?     
+         render_wizard @user
+          end
+       @primary_photo = @user.photos.where(:is_primary => true)
+       # binding.pry 
         respond_to do |format|
-          format.js
-         end   
-      end
+        format.js
+    end
+  end
+
 end
 
   def add_photo

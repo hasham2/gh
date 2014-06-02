@@ -13,6 +13,9 @@
             = link_to 'Edit account', edit_user_registration_path
           - else
             = link_to 'Sign up', new_user_registration_path     
+        %li
+          - if user_signed_in?
+            = link_to 'Edit enrollment',enrollment_steps_path 
         %li.active
           - if user_signed_in?
             = link_to 'Logout', destroy_user_session_path, :method=>'delete' 
@@ -32,9 +35,10 @@
         %li
           %a{:href => "#"}
             -if user_signed_in?
-              = image_tag current_user.photos.where(:is_primary=>true).first.image.url(:thumb), :class=>"circular", :rescue=>""
-              %span Hi,
-              - if current_user.first_name.present? and current_user.last_name.present?
+              - if current_user.photos.where(:is_primary=>true).first.present?
+                = image_tag current_user.photos.where(:is_primary=>true).first.image.url(:thumb), :class=>"circular", :rescue=>""
+                / - if current_user.first_name.present? and current_user.last_name.present?
+                %span Hi,
                 = current_user.first_name+" "+current_user.last_name
-                
+              
     / /.nav-collapse
