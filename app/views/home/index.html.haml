@@ -5,7 +5,7 @@
       .row
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-            %img{:src => "/assets/jobs-icon.png"}/
+          = image_tag 'jobs-icon.png'
           %h2 Look for Jobs
           %h3
             Find local jobs
@@ -14,7 +14,7 @@
         / /span
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-            %img{:src => "/assets/find-local-icon.png"}/
+          = image_tag 'find-local-icon.png'
           %h2 Look for Employees
           %h3
             Find local employees
@@ -23,7 +23,7 @@
         / /span
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-            %img{:src => "/assets/advertise-icon.png"}/
+          = image_tag('advertise-icon.png')
           %h2 Advertise
           %h3
             Advertise for jobs,services,
@@ -63,11 +63,11 @@
           %h2 Our Partners
           %hr
             .partnerslogos
-              %img{:src => "/assets/Partners-logo1.png"}
-                %img{:src => "/assets/Partners-logo2.png"}
-                  %img{:src => "/assets/Partners-logo3.png"}
-                    %img{:src => "/assets/Partners-logo4.png"}
-                      %img{:src => "/assets/Partners-logo5.png"}
+              = image_tag('Partners-logo1.png')
+              = image_tag('Partners-logo2.png')
+              = image_tag('Partners-logo3.png')
+              = image_tag('Partners-logo4.png')
+              = image_tag('Partners-logo5.png')
     .col-sm-3.col-sm-3cu.right-barbg.pull-right
       .recent-jobs
         %h2 Recent jobs
@@ -77,51 +77,39 @@
             Quaternion: design you
             %br
               like
-          %img.img-responsive.mg-res{:src => "/assets/new-image.png"}
+          .img-responsive.mg-res
+            = image_tag('new-image.png')
             %p
               Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
               %a{:href => ""}
-                %img{:src => "/assets/arrow.png"}/
+                = image_tag('arrow.png')
       .recent-jobs
         %h5 April 17, 2014
         %h3
           Quaternion: design you
           %br
             like
-        %img.img-responsive.mg-res{:src => "/assets/twitter-img.png"}
+        .img-responsive.mg-res
+          = image_tag('twitter-img.png')
           %p
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
             %a{:href => ""}
-              %img{:src => "/assets/arrow.png"}/
+              = image_tag('arrow.png')
     .col-sm-3.col-sm-3cu.right-barbg.featured-Jobs
       .recent-jobs
         %h2 Featured Jobs
         %hr
-          %img.img-responsive.featured-res{:src => "/assets/featured-img.png"}
+          .img-responsive.featured-res
+            = image_tag('featured-img.png')
             %h3 Wordpress Themes
             %p
               Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to...
               %a{:href => "#"}
-                %img{:src => "/assets/arrow.png"}/
+                = image_tag('arrow.png')
     .col-sm-3.pull-right
       .advertise-here
         %h2 Advertise Here
 
   / /row
 / /.container
-%footer
-  .container
-    .col-lg-3.col-xs-offset-5
-      .Soical-icon
-        %a{:href => "#"}
-          %img{:src => "/assets/facebook.png"}/
-        %a{:href => "#"}
-          %img{:src => "/assets/twitter-icon.png"}/
-        %a{:href => "#"}
-          %img{:src => "/assets/gmail-icon.png"}/
-        %a{:href => "#"}
-          %img{:src => "/assets/youtube-icon.png"}/
-      %p.copyright
-        \&copy; 2014
-        = succeed ".com" do
-          %b Greatest Hire
+= render 'footer'
