@@ -75,7 +75,7 @@ Rails.application.configure do
     email: {
       email_prefix: "[Gh - MAYDAY MAYDAY]",
       sender_address: %{"exceptions" <exceptions@greatesthire.com>},
-      exception_recipients: %w{hasham@zenofruby.com}
+      exception_recipients: %w{hasham@zenofruby.com waleedarshad72@gmail.com}
     }
 
     config.action_mailer.smtp_settings = {
