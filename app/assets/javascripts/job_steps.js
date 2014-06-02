@@ -53,24 +53,14 @@ $(document).ready(function(){
 	});
 
 
+	$('#next_step_from_images').click(function(){
+		// alert('Atif')
+		$.ajax({
+			method:'post',
+			url:'./make_by_default_primary_image'
 
-
-
-
-
-
-	// $('#simple_slider').slider({
-	// 	formater: function(value) {
-	// 		return 'Current value: ' + value;
-	// 	}
-	// });
-
-	// $('#simple_slider').change(function(){
-	// 	var v = $(this).val();
-	// 	alert(v)
-	// });
-
-
+		});
+	});
 
 });
 
