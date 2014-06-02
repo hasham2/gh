@@ -66,7 +66,7 @@
           .form-group
             %label.col-sm-5.labl{:for => "inputPassword"} Business Name
             .col-sm-7
-              %input.form-control{:type => "text"}
+              %input.form-control{:type => "text",:disabled=>true, :value=>@business_name}
       .col-lg-12.topfildetext
         = j.text_area :description, :class=>"form-control", :placeholder=>"Joe's Distribution"
         .col-lg-12.location-box
@@ -92,10 +92,10 @@
                   .col-sm-6
                     = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country', :class=>"form-control" }, {:onChange => "populate_second_select(this.id)"}
               .col-lg-4
-                .form-group
+                .form-group.state_group{:style=>"display:none"}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
                   .col-sm-6
-                    = builder.select :state,{:prompt => true}, :class=>"form-control"
+                    = builder.select :state, :class=>"form-control"
             .col-lg-12.topfilde1.three
               .col-lg-4
                 .form-group
