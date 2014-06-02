@@ -12,6 +12,7 @@ class JobStepsController < ApplicationController
      case step      
      when :job_details
      	@stp = 1 
+     	@business_name = current_user.employer.business_name
 		if @job.location == nil
 			@job.build_location
 		else
