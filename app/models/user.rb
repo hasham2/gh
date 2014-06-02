@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
   has_one :employer # if role == "employer"
   accepts_nested_attributes_for :employer
 
+  has_many :photos, as: :photoable
+  accepts_nested_attributes_for :photos
+
+
   has_many :work_hours
   accepts_nested_attributes_for :work_hours
   

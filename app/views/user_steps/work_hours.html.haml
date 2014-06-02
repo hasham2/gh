@@ -15,7 +15,8 @@
               %li= msg
       .form-group
         = f.fields_for :work_hours do |builder|
-          =render 'work_hours_fields', f: builder
+          / =render 'work_hours_fields', f: builder
+          =render 'workhours2', f: builder
         =link_to_add_fields " Add More", f, :work_hours 
         %br
         %br

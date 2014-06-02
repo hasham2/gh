@@ -1,96 +1,72 @@
+= render 'navigate_wizard'
 .container
-  .col-lg-12
-    %h2 Create Job Listing
-.container
-  .row.job-listingout
-    .container.enrollment_top
-      .col-lg-12
-        %h2 Progress Indictor : Step 1 of 5
-        .col-lg-12
-          .enrollment-contact
-            %h2
-              %a{href: "#"} Contact Information
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-detail
-            %h2
-              %a{href: "#"} Details
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-time
-            %h2
-              %a{href: "#"} Availability
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-imga
-            %h2
-              %a{href: "#"} Images and Attachments
-    .container
-      .row
-        .col-lg-8
-          = form_for @user,url: wizard_path,:role=>"form" do |f|
-            .form-group
-              = f.label :first_name, 'Frist Name' ,:class=>"col-sm-2 control-label text-right"
-              .col-sm-8
-                = f.text_field :first_name, :class=>"form-control"
-            .form-group
-              = f.label :last_name, 'Last Name' ,:class=>"col-sm-2 control-label text-right"
-              .col-sm-8
-                = f.text_field :last_name, :class=>"form-control" 
+  .row
+    .col-lg-8
+      = form_for @user,url: wizard_path,:role=>"form" do |f|
+        .form-group
+          = f.label :first_name, 'Frist Name' ,:class=>"col-sm-2 control-label text-right"
+          .col-sm-8
+            = f.text_field :first_name, :class=>"form-control"
+        .form-group
+          = f.label :last_name, 'Last Name' ,:class=>"col-sm-2 control-label text-right"
+          .col-sm-8
+            = f.text_field :last_name, :class=>"form-control" 
 
-            .container
-              .col-lg-11.location-box
-                %h2 Address
-                .col-lg-8
-                  = f.fields_for :location, role: "form" do |builder|
-                    .form-group
-                      = builder.label :address, 'Street Address' ,:class=>"col-sm-3 control-label text-right"
-                      .col-sm-8
-                        = builder.text_field :address, :class=>"form-control"
-                    .form-group
-                      = builder.label :address, 'Street Address Line2' ,:class=>"col-sm-3 control-label text-right"              
-                      .col-sm-8
-                        = builder.text_field :address, :class=>"form-control", placeholder: "Suite 100"              
-                    .form-group
-                      = builder.label :city, 'City' ,:class=>"col-sm-3 control-label text-right"
-                      .col-sm-8
-                        = builder.text_field :city, :class=>"form-control",placeholder: "Toronto"
-                    .form-group
-                      = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
-                      .btn-group.menunlefttt
-                        = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
-                    .form-group
-                      = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
-                      .btn-group.menunlefttt
-                        = builder.select :state,{:prompt => true}
-                    .form-group
-                      %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
-                      .col-sm-8
-                        %input#inputEmail3.form-control{placeholder: "Toronto", type: "email"}/
-            .container
-              .row
-                .col-lg-8.topmrg
-                  %form.form-horizontal{role: "form"}
-                    .form-group
-                      = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
-                      .col-sm-8
-                        = f.text_field :last_name, :class=>"form-control",placeholder: "555.555.5555" 
-                    .form-group
-                      = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
-                      .col-sm-8
-                        %input#inputPassword3.form-control{placeholder: "555.555.5555", type: "password"}/
-    .col-lg-12.btnnextstep
-      %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Next Step
+        .container
+          .col-lg-11.location-box
+            %h2 Address
+            .col-lg-8
+              = f.fields_for :location, role: "form" do |builder|
+                .form-group
+                  = builder.label :address, "Street Address \n Line1" ,:class=>"col-sm-3 control-label text-right"
+                  .col-sm-8
+                    = builder.text_field :address, :class=>"form-control"
+                .form-group
+                  = builder.label :second_address, "Street Address \n Line2" ,:class=>"col-sm-3 control-label text-right"
+                  .col-sm-8
+                    = builder.text_field :second_address, :class=>"form-control"
+                .form-group
+                  = builder.label :city, 'City' ,:class=>"col-sm-3 control-label text-right"
+                  .col-sm-8
+                    = builder.text_field :city, :class=>"form-control",placeholder: "Toronto"
+                .form-group
+                  = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
+                  .btn-group.menunlefttt
+                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
+                .form-group
+                  = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
+                  .btn-group.menunlefttt
+                    = builder.select :state,{:prompt => true}
+                .form-group
+                  %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
+                  .col-sm-8
+                    = builder.text_field :zip, :class=>"form-control"
+        .container
+          .row
+            .col-lg-8.topmrg
+              .form-group
+                = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
+                .col-sm-8
+                  = f.text_field :last_name, :class=>"form-control",placeholder: "555.555.5555" 
+              .form-group
+                = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
+                .col-sm-8
+                  = f.text_field :phone_secondary, :class=>"form-control"
+        .col-lg-12.btnnextstep
+          = f.submit "continue",:class=>"btn btn-primary col-sm-offset-2"
   / /row
 %footer
   .container
     .col-lg-3.col-xs-offset-5
       .Soical-icon
         %a{href: "#"}
-          %img{src: "images/facebook.png"}/
+          %img{src: "/assets/facebook.png"}/
         %a{href: "#"}
-          %img{src: "images/twitter-icon.png"}/
+          %img{src: "/assets/twitter-icon.png"}/
         %a{href: "#"}
-          %img{src: "images/gmail-icon.png"}/
+          %img{src: "/assets/gmail-icon.png"}/
         %a{href: "#"}
-          %img{src: "images/youtube-icon.png"}/
+          %img{src: "/assets/youtube-icon.png"}/
       %p.copyright
         \© 2014
         = succeed ".com" do
@@ -99,5 +75,9 @@
 :javascript
   window.onload = function()
     {
-      $("#edit_user_6").addClass("form-horizontal");
+      $(".edit_user").addClass("form-horizontal");
+    }
+  $(document).ready()
+    {
+      $(".edit_user").addClass("form-horizontal"); 
     }

@@ -4,116 +4,85 @@
 .container
   .row.job-listingout
     .container.enrollment_top
+      = render 'navigate_wizard'
       .col-lg-12
-        %h2 Progress Indictor : Step 1 of 5
-        .col-lg-12
-          .enrollment-contact
-            %h2
-              %a{href: "#"} Contact Information
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-detail
-            %h2
-              %a{href: "#"} Details
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-time
-            %h2
-              %a{href: "#"} Availability
-              %img{src: "images/arrow-icon.png"}/
-          .enrollment-imga
-            %h2
-              %a{href: "#"} Images and Attachments
-    .col-lg-12
-      .img_box1
-        %h2 Employer's Primary Image
-        .img_bgbox
-          %img{src: "images/img.png"}/
-        %button.btn.btn-success.pull-left.btnuser{type: "button"} Select Primary Image
-    .col-lg-12.additional_Photos
-      %h2 Additional Photos
-      .col-lg-4.additional_box_out
-        %h2 Photo A
-        .additionalimg_bgbox
-          %img{src: "images/img.png"}/
-        .form-group.additionalimg_bgboxform
-          %input.form-control{placeholder: "Photo Coption Text", type: "text"}/
-        .col-lg-12
-          %button.btn.btn-success.pull-left.btnn-delete{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn-delete.pull-right{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn123{type: "button"} Make Primary
-      .col-lg-4.additional_box_out.additional123
-        %h2 Photo A
-        .additionalimg_bgbox
-          %img{src: "images/img.png"}/
-        .form-group.additionalimg_bgboxform
-          %input.form-control{placeholder: "Photo Coption Text", type: "text"}/
-        .col-lg-12
-          %button.btn.btn-success.pull-left.btnn-delete{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn-delete.pull-right{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn123{type: "button"} Make Primary
-      .col-lg-4.additional_box_out.additional123
-        %h2 Photo A
-        .additionalimg_bgbox
-          %img{src: "images/img.png"}/
-        .form-group.additionalimg_bgboxform
-          %input.form-control{placeholder: "Photo Coption Text", type: "text"}/
-        .col-lg-12
-          %button.btn.btn-success.pull-left.btnn-delete{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn-delete.pull-right{type: "button"} Delete
-          %button.btn.btn-success.pull-left.btnn123{type: "button"} Make Primary
-    .col-lg-12.btnnextstep
-      %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Add photo
-    .container
-      .col-lg-11.location-box
-        %h2 Attachments
-        .col-lg-12
-          .col-lg-8
-            %form.form-horizontal{role: "form"}
-              .form-group
-                %label.col-sm-3.control-label{for: "inputEmail3"} Attachment 1
-                .col-sm-8
-                  %input#inputEmail3.form-control{placeholder: "resume.pdf", type: "email"}/
-          .container
-            .col-lg-4.attachments_time
-              %h2 8/14/2014
-              %button.btn.btn-success.attachments_timebtn{type: "button"} Modify
-              %button.btn.btn-success.attachments_timebtn{type: "button"} Delete
-        .col-lg-12
-          .col-lg-8
-            %form.form-horizontal{role: "form"}
-              .form-group
-                %label.col-sm-3.control-label{for: "inputEmail3"} Attachment 2
-                .col-sm-8
-                  %input#inputEmail3.form-control{placeholder: "resume.pdf", type: "email"}/
-          .container
-            .col-lg-4.attachments_time
-              %h2 8/14/2014
-              %button.btn.btn-success.attachments_timebtn{type: "button"} Modify
-              %button.btn.btn-success.attachments_timebtn{type: "button"} Delete
-        .col-lg-12
-          .col-lg-8
-            %form.form-horizontal{role: "form"}
-              .form-group
-                %label.col-sm-3.control-label{for: "inputEmail3"} Attachment 3
-                .col-sm-8
-                  %input#inputEmail3.form-control{placeholder: "resume.pdf", type: "email"}/
-        .col-lg-12.btnnextstep
-          %button.btn.btn-success.pull-left.attachments_timebtn2{type: "button"} Remove all attachments
-    .col-lg-12.btnnextstep
-      %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Return To Previous Step
-      %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Complete Enrollment
-%footer
-  .container
-    .col-lg-3.col-xs-offset-5
-      .Soical-icon
-        %a{href: "#"}
-          %img{src: "images/facebook.png"}/
-        %a{href: "#"}
-          %img{src: "images/twitter-icon.png"}/
-        %a{href: "#"}
-          %img{src: "images/gmail-icon.png"}/
-        %a{href: "#"}
-          %img{src: "images/youtube-icon.png"}/
-      %p.copyright
-        \© 2014
-        = succeed ".com" do
-          %b Greatest Hire
+        .img_box1
+          %h2 Employer's Primary Image
+          .img_bgbox#primary_image
+            - if @primary_photo.first.present?
+              = image_tag @primary_photo.first.image.url(:medium)
+        = button_tag(type: 'button',id: 'select_primary_image' ,:class=>"btn btn-success pull-left btnuser") do
+          = content_tag(:strong, 'Add photo')
+          
+      .col-lg-12.additional_Photos
+        %h2 Additional Photos
+        - if @photos
+          = render @photos
+      .col-lg-12.btnnextstep
+        = button_tag(type: 'button',id: 'add_photo_button' ,:class=>" btn btn-success pull-left btn-nextstep") do
+          = content_tag(:strong, 'Add photo')
+      .col-lg-12.btnnextstep
+        %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Return To Previous Step
+        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Complete Enrollment
+        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#myModal", "data-toggle" => "modal"} Choose existing
+
+.col-sm-12
+= form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+  = f.fields_for :photos do |photo|
+    .form-group.col-sm-12
+      .col-sm-4
+        = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
+        = photo.check_box :is_primary ,{checked: true , :style=>"display:none"}
+
+
+= form_for(Photo.new, url: "/enrollment_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f|
+  = f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;"       
+
+
+
+
+
+/ Modal
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4#myModalLabel.modal-title Modal title
+      .modal-body
+        %select.image-picker.show-html.post_image
+          - Photo.all.each do |p|
+            %option{"data-img-src" => p.image.url(:thumb), value: p.id }
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
+      
+
+:javascript
+  $('#select_primary_image').on('click',function(){
+    
+    jQuery('#primary_image_field').trigger('click');
+
+  })
+
+  $('#add_photo_button').on('click',function(){
+
+    jQuery('#multiple_files').trigger('click');
+
+  })
+  
+  jQuery(function() {
+    $('#primary_image_field').fileupload();
+  });
+
+  jQuery(function() {
+    $('#multiple_files').fileupload();
+  });
+
+  $("select").imagepicker();
+
+  $(".thumbnail").click(function () {
+         
+         alert($(this));
+     }); 
+

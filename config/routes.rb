@@ -7,9 +7,9 @@ Gh::Application.routes.draw do
   #  get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   #end
   resources :users 
-  get "user_steps/tags" => "user_steps#tags", :as => :tags
+  get "enrollment_steps/tags" => "enrollment_steps#tags", :as => :tags
   
-  get "user_steps/state_response"
+  get "enrollment_steps/state_response"
   get "job_steps/state_response"
 
   post "job_steps/add_certification"
@@ -18,6 +18,11 @@ Gh::Application.routes.draw do
   post "job_steps/delete_photo"
   post "job_steps/save_photo_caption"
 
+  post "enrollment_steps/add_photo"
+  post "enrollment_steps/make_primary_photo"
+  post "enrollment_steps/delete_photo"
+  post "enrollment_steps/save_photo_caption"
+
   resources :certifications
   resources :jobs
   resources :requirements
@@ -25,5 +30,7 @@ Gh::Application.routes.draw do
   resources :user_steps
   resources :business_activities
   resources :job_steps
-  resources :enrollment_steps
+  resources :enrollment_steps do
+   put 'set_primary_image', :on => :member
+  end
 end

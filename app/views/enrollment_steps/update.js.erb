@@ -1,0 +1,3 @@
+
+$("#primary_image").children().remove();
+$("<%= escape_javascript(image_tag @primary_photo.first.image.url(:medium)) %>").appendTo("#primary_image");
