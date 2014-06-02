@@ -79,10 +79,11 @@
     $('#multiple_files').fileupload();
   });
 
+
   $("select").imagepicker();
 
-  $(".thumbnail").click(function () {
+  $("img.image_picker_image").click(function () {
          
-         alert($(this));
-     }); 
+         alert($(this).attr("src"));
+     });
 

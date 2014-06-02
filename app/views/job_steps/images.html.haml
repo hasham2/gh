@@ -1,17 +1,73 @@
-.col-sm-12
-  = image_tag @met.photos.last.image.url(:thumb) 
-= form_for(@met, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
-  = f.fields_for :photos do |photo|
-    .form-group.col-sm-12
-      .col-sm-4
-        = photo.file_field :image,:multiple=>true,name:"job[photos_attributes][0][image]" ,:class=>"form-control",:style=>"display:none"
-    .form-group.col-sm-12
-      .col-sm-offset-2.col-sm-10
-        = button_tag(type: 'button',id: 'test') do
-          = content_tag(:strong, 'ADD pic')
+.container
+  .col-lg-12
+    %h2 Create Job Listing
+.container
+  .row.job-listingout
+    = render 'progress_indicator'
+    .col-lg-12
+      = form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+        = f.fields_for :photos do |photo|
+          = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
+          = photo.check_box :is_primary,  {checked: true , :style=>"display:none" }
+      .img_box1
+        %h2 Employer's Primary Image
+        #primary_image.img_bgbox
+          - if  @primary_photo.present?
+            = image_tag @primary_photo.first.image.url(:medium)
+          - else
+            = image_tag @user_primary_photo.first.image.url(:medium)
+        %button#select_primary_image.btn.btn-success.pull-left.btnuser{type: "button"} Select Primary Image
+    .col-lg-12.additional_Photos
+      %h2 Additional Photos
+      .additional-photos
+        - if @photos
+          = render @photos
+    = form_for(Photo.new, url: "/job_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f|
+      = f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;"
+    .col-lg-12.btnnextstep
+      = button_tag(type: 'button',id: 'add_photo_button', class: 'btn btn-success pull-left btn-nextstep') do
+        = content_tag(:div,'Add photo')
+      %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#existing_photos", "data-toggle" => "modal"} Choose existing
+      = link_to "Proceed to Next Step", next_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
+  / /row
+#existing_photos.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4#myModalLabel.modal-title Modal title
+      .modal-body
+        %select#image-picker.image-picker.show-html.post_image
+          - @existing_photos.each do |p|
+            %option{"data-img-src" => p.image.url(:thumb), id: p.id, value: p.id}
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+        %button#save_changes.btn.btn-primary{type: "button"} Save changes
 :javascript
-  $('#test').on('click',function(){
-    jQuery('#job_photos_attributes_0_image').trigger('click');
-  })
+  /*Multiple Image Upload*/  
+    $('#add_photo_button').on('click',function(){
+      jQuery('#multiple_files').trigger('click');
+    });
+  
+  /*Single Image Upload*/
+    $('#select_primary_image').on('click',function(){
+      jQuery('#primary_image_field').trigger('click');
+    });
   
   
+  /*Choose existing work*/
+    $("select").imagepicker();
+  
+    $('#save_changes').click(function(){
+          $('#existing_photos').modal('toggle');
+      var x = document.getElementById("image-picker").selectedIndex;
+      var selected = document.getElementsByTagName("option")[x].value;
+       // alert(selected)
+       if (selected){
+          $.ajax({
+            method:'post',
+            url:'./choose_existing_photo',
+            data: {value:selected}
+          });
+       }
+    });
