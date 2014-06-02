@@ -21,11 +21,14 @@
         =link_to_add_fields " Add More", f, :work_hours
         %br
         %br
-        =f.submit "Submit", :class =>"btn btn-default"
-.col-lg-12.btnnextstep
-  %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Previous Step
-  %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Clear
-  %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Next Step
+        .col-lg-12.btnnextstep
+          = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+          %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Clear
+          =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+  / = link_to "Next Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
+
+  
+   
 / /row
 %footer
   .container

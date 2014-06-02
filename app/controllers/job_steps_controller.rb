@@ -2,7 +2,7 @@ class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
-
+    
 	def show
 		@user = current_user
 		@job_id = session[:job_id]
