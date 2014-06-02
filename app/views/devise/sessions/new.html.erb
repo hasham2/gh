@@ -9,7 +9,7 @@
           <% if devise_mapping.omniauthable? %>
             <% resource_class.omniauth_providers.each do |provider| %>
               <%= link_to omniauth_authorize_path(resource_name, provider) do %>
-                <%= image_tag('/assets/sigin-facebook-button.png' , :class=>"center-block")   %>
+                <%= image_tag('sigin-facebook-button.png' , :class=>"center-block")   %>
               <% end -%>
             <% end -%>
           <% end -%> 

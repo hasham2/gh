@@ -86,12 +86,12 @@
                         = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
                         .btn-group.menunlefttt
                           .col-sm-8
-                            = builder.date_select :industry,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+                            = builder.text_field :industry,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
                     .col-lg-8.top_mrginput
                 
         .col-lg-12.btnnextstep
           = f.submit " Next Step",:class=>"btn btn-success pull-left btn-nextstep"
-= render 'navigate_footer'
+= render 'home/footer'
 :javascript
   window.onload = function()
     {

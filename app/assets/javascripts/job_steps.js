@@ -20,15 +20,15 @@ $(document).ready(function(){
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_state').change(function(){
-		 state = $('#job_location_attributes_state').val();
-		 state = state+","
+	$('#job_location_attributes_country').change(function(){
+		 country = $('#job_location_attributes_country').val();
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
 
-	$('#job_location_attributes_country').change(function(){
-		 country = $('#job_location_attributes_country').val();
+	$('#job_location_attributes_state').change(function(){
+		 state = $('#job_location_attributes_state').val();
+		 state = state+","
 		 $('#address_city').text(address+" "+city);
 		 $('#state_country').text(state+" "+country);
 	});
@@ -63,6 +63,28 @@ $(document).ready(function(){
 	});
 
 });
+
+/*-----------Show states if Country is selected--------------*/
+$(document).ready(function(){
+
+ 	//  state = $('#job_location_attributes_state').val();
+ 	// if(state){
+ 	// 	$('.state_group').attr('style','display:inline-block');	
+ 	// }
+
+	$('#job_location_attributes_country').change(function(){
+	 country = $('#job_location_attributes_country').val();
+
+
+	 if (country){
+	 	$('.state_group').attr('style','display:inline-block');		 	
+	}else{
+		$('.state_group').attr('style','display:none');
+	}
+
+	});
+});
+
 
 /*-------------Image Uploading---------------------*/
 

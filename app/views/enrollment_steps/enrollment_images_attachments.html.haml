@@ -26,7 +26,7 @@
         = link_to "Complete Enrollment",next_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
 
 
-= render 'navigate_footer'        
+= render 'home/footer'       
 = form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
   = f.fields_for :photos do |photo|
     = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
