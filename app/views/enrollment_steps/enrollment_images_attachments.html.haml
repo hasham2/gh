@@ -24,40 +24,17 @@
       .col-lg-12.btnnextstep
         = link_to "Return To Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
         = link_to "Complete Enrollment",next_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
-        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#myModal", "data-toggle" => "modal"} Choose existing
 
-.col-sm-12
+
+= render 'navigate_footer'        
 = form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
   = f.fields_for :photos do |photo|
-    .form-group.col-sm-12
-      .col-sm-4
-        = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
-        = photo.check_box :is_primary ,{checked: true , :style=>"display:none"}
+    = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
+    = photo.check_box :is_primary ,{checked: true , :style=>"display:none"}
 
 
 = form_for(Photo.new, url: "/enrollment_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f|
   = f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;"       
-
-
-
-
-
-/ Modal
-#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-        %h4#myModalLabel.modal-title Modal title
-      .modal-body
-        %select.image-picker.show-html.post_image
-          - Photo.all.each do |p|
-            %option{"data-img-src" => p.image.url(:thumb), value: p.id }
-      .modal-footer
-        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
-        %button.btn.btn-primary{type: "button"} Save changes
-      
-
 :javascript
   $('#select_primary_image').on('click',function(){
     
@@ -79,15 +56,10 @@
     $('#multiple_files').fileupload();
   });
 
-  $("select").imagepicker();
 
+  $("select").imagepicker();
 
   $("img.image_picker_image").click(function () {
          
          alert($(this).attr("src"));
      }); 
-
-:css
-  .thumbnails li img{
-      width: 100px;
-  }

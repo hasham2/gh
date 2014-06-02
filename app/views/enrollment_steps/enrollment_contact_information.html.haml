@@ -36,7 +36,7 @@
                 .form-group
                   = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
                   .btn-group.menunlefttt
-                    = builder.select :state,{:prompt => true}
+                    = builder.select :state,{:prompt => "Select State",:include_blank=>true}
                 .form-group
                   %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
                   .col-sm-8
@@ -47,30 +47,14 @@
               .form-group
                 = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8
-                  = f.text_field :last_name, :class=>"form-control",placeholder: "555.555.5555" 
+                  = f.text_field :phone_primary, :class=>"form-control",placeholder: "555.555.5555" 
               .form-group
                 = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8
                   = f.text_field :phone_secondary, :class=>"form-control"
         .col-lg-12.btnnextstep
-          = f.submit "continue",:class=>"btn btn-primary col-sm-offset-2"
-  / /row
-%footer
-  .container
-    .col-lg-3.col-xs-offset-5
-      .Soical-icon
-        %a{href: "#"}
-          %img{src: "/assets/facebook.png"}/
-        %a{href: "#"}
-          %img{src: "/assets/twitter-icon.png"}/
-        %a{href: "#"}
-          %img{src: "/assets/gmail-icon.png"}/
-        %a{href: "#"}
-          %img{src: "/assets/youtube-icon.png"}/
-      %p.copyright
-        \© 2014
-        = succeed ".com" do
-          %b Greatest Hire
+          = f.submit "continue",:class=>"btn btn-success pull-left btn-nextstep"
+= render 'navigate_footer'
 
 :javascript
   window.onload = function()

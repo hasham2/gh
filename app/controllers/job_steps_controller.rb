@@ -2,7 +2,7 @@ class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
-    
+   
 	def show
 		@user = current_user
 		@job_id = session[:job_id]
@@ -30,9 +30,11 @@ class JobStepsController < ApplicationController
      	end	
      when :images
      	@stp = 3
-
+     	@user_primary_photo = current_user.photos.where(:is_primary=>true)
      	@primary_photo = @job.photos.where(:is_primary => true)
-     	if  @job.photos.empty?
+     	@existing_photos = Photo.where(:photoable_id != @job_id && :photoable_type=>'Job'  )
+
+     		 if  @job.photos.empty?
       		 @job.photos.build
       	 else
      	   @photos = @job.photos.where(:is_primary => nil)
@@ -163,8 +165,31 @@ class JobStepsController < ApplicationController
 
 	end
 
+	def make_by_default_primary_image
+		@job_id = session[:job_id]
+     	@job = Job.find(@job_id)
+		@primary_photo = @job.photos.where(:is_primary => true)
+
+		unless @primary_photo.present?	
+			@user_primary_photo = current_user.photos.where(:is_primary=>true).first
+			@job.photos.create(:photoable_type=>"Job", :is_primary=>true,:image=>@user_primary_photo.image)
+		end
+		
+	end
+
+	def choose_existing_photo
+		@job_id = session[:job_id]
+    @job = Job.find(@job_id)
+    @selected_photo = Photo.where(:id =>params[:value]).first
+    @job.photos.create(:photoable_type=>"Job", :is_primary=>nil, :image=>@selected_photo.image)
+		@photo = @job.photos.last
+     	respond_to do |format|
+     		format.js
+     	end				
+	end
+
 	def job_details_params	
-		params.require(:job).permit!#(jobs_attributes:[:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
+		params.require(:job).permit!#(:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
 	end
 
 	def candidate_prioritization_params
