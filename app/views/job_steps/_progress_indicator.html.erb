@@ -1,0 +1,40 @@
+    <div class="col-lg-12">
+      <h2><%= "Progress Indictor : Step #{@stp} of 4"%></h2>
+        
+        <div class="col-lg-12">
+
+          <div class="job-listf">
+            <% if @stp == 1%>
+              <h2><a href="job_details">Job Details</a><img src="/assets/arrow-icon.png"></h2>
+            <% else %>
+              <h2><a href="job_details" style="opacity:0.5">Job Details</a><img src="/assets/arrow-icon.png"></h2>
+            <% end %>
+          </div>
+           
+          <div class="Candidate-icon">
+            <% if @stp == 2 %>
+              <h2><a href="candidate_prioritization">Candidate Prioritization</a><img src="/assets/arrow-icon.png"></h2>
+              <% else %>
+              <h2><a href="candidate_prioritization" style="opacity:0.5">Candidate Prioritization</a><img src="/assets/arrow-icon.png"></h2>              
+            <% end %>
+          </div>
+
+         <div class="image-icon">
+          <% if @stp == 3 %>
+          <h2><a href="images">Images</a><img src="/assets/arrow-icon.png"></h2>
+          <% else %>
+          <h2><a href="images" style="opacity:0.5">Images</a><img src="/assets/arrow-icon.png"></h2>
+          <% end %>
+        </div>
+        
+              
+        <div class="education-icon">
+          <% if @stp == 4 %>
+        <h2><a href="education_and_certifications">Education and Certifications</a>
+          <% else %>
+          <h2><a href="education_and_certifications" style="opacity:0.5">Education and Certifications</a>
+          <% end %>
+      </div>
+        </div>  
+
+    </div> 

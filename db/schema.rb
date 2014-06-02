@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509124432) do
+ActiveRecord::Schema.define(version: 20140527053154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_activities", force: true do |t|
+    t.string   "keyword"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "certifications", force: true do |t|
     t.string   "title"
@@ -27,15 +33,10 @@ ActiveRecord::Schema.define(version: 20140509124432) do
     t.integer "job_id"
   end
 
-  add_index "certifications_jobs", ["certification_id", "job_id"], name: "index_certifications_jobs_on_certification_id_and_job_id", using: :btree
-
   create_table "certifications_users", id: false, force: true do |t|
-    t.integer "certification_id", null: false
-    t.integer "user_id",          null: false
+    t.integer "certification_id"
+    t.integer "user_id"
   end
-
-  add_index "certifications_users", ["certification_id", "user_id"], name: "index_certifications_users_on_certification_id_and_user_id", using: :btree
-  add_index "certifications_users", ["user_id", "certification_id"], name: "index_certifications_users_on_user_id_and_certification_id", using: :btree
 
   create_table "employers", force: true do |t|
     t.integer  "user_id"
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20140509124432) do
     t.string   "time_zone"
     t.integer  "locateable_id"
     t.string   "locateable_type"
+    t.string   "second_address"
   end
 
   create_table "metric_types", force: true do |t|
@@ -182,9 +184,19 @@ ActiveRecord::Schema.define(version: 20140509124432) do
     t.boolean  "drivers_licence_class"
     t.boolean  "has_vehicle"
     t.boolean  "car_pool"
+    t.integer  "credit_score"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "work_hours", force: true do |t|
+    t.string   "day_of_week"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -10,10 +10,17 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+
+
+
  *= require_tree .
  *= require_self
  *= require jquery.ui.all
+
+*= require job_steps
+ 
  *= require tagmanager
+ *= require token-input
 
  *= require leaflet
 
@@ -24,7 +31,3 @@
 
 
 
-.cheklist{
-	margin-top: -11px !important;
-	
-}

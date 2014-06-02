@@ -17,40 +17,74 @@
     .col-sm-4
       = f.text_field :phone_secondary, :class=>"form-control"
   .form-group.col-sm-12
-    = f.label :birth_year, 'Birth_year' ,:class=>"col-sm-2 control-label text-right"
+    = f.label :avatar, 'Profile Picture' ,:class=>"col-sm-2 control-label text-right"
     .col-sm-4
-      = f.date_select :birth_year,start_year: 1960,:class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :gender, 'Gender' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-4
-      = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
-    .col-sm-4
-      = f.text_field :tag_list, :class=>"form-control tm-input tm-input-info" 
-  .form-group.col-sm-12
-    = f.label :criminal_convictions, 'CriminalConvictions' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-1.cheklist
-      = f.check_box :criminal_convictions, :class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :drivers_licence, 'DriversLicence' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-1.cheklist
-      = f.check_box :drivers_licence, :class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :drivers_licence_class, 'LicenceClass' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-1.cheklist
-      = f.check_box :drivers_licence_class, :class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :has_vehicle, 'HasVehicle' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-1.cheklist
-      = f.check_box :has_vehicle, :class=>"form-control"
-  .form-group.col-sm-12
-    = f.label :car_pool, 'CarPool' ,:class=>"col-sm-2 control-label text-right"
-    .col-sm-1.cheklist
-      = f.check_box :car_pool, :class=>"form-control"
+      = f.file_field :avatar, :class=>'form-control'
+  - if current_user.user?
+    .form-group.col-sm-12
+      = f.label :birth_year, 'Birth_year' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = f.date_select :birth_year,start_year: 1960,discard_day:true,discard_month:true, :class=>"form-control"
+    .form-group.col-sm-12
+      = f.label :gender, 'Gender' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
+    .form-group.col-sm-12
+      = f.label :criminal_convictions, 'CriminalConvictions' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-1.cheklist
+        = f.check_box :criminal_convictions, :class=>"control"
+    .form-group.col-sm-12
+      = f.label :drivers_licence, 'DriversLicence' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-1.cheklist
+        = f.check_box :drivers_licence, :class=>"control"
+    .form-group.col-sm-12
+      = f.label :drivers_licence_class, 'LicenceClass' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-1.cheklist
+        = f.check_box :drivers_licence_class, :class=>"control"
+    .form-group.col-sm-12
+      = f.label :has_vehicle, 'HasVehicle' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-1.cheklist
+        = f.check_box :has_vehicle, :class=>"control"
+    .form-group.col-sm-12
+      = f.label :car_pool, 'CarPool' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-1.cheklist
+        = f.check_box :car_pool, :class=>"control"
+  - else
+    = f.fields_for :employer do |builder|
+      .form-group.col-sm-12
+        = builder.label :business_name, 'Business Name' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :business_name, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :industry, 'Industry' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :industry, :class=>"form-control" 
+      .form-group.col-sm-12
+        = builder.label :phone, 'Phone' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :phone, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :website, 'Website' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_field :website, :class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :description, 'Description' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_area :description, :class=>"form-control"
+      .form-group.col-sm-12
+        = f.label :business_activity_list, 'BusinessActivityKeyword' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = f.text_field :business_activity_list, :class=>"tm-input"  
+      .form-group.col-sm-12
+        = builder.label :formation_year, 'FormationYear' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+      .form-group.col-sm-12
+        = builder.label :additional_information, 'AdditionalInformation' ,:class=>"col-sm-2 control-label text-right"
+        .col-sm-4
+          = builder.text_area :additional_information,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
   = f.submit "continue",id:"set",:class=>"btn btn-primary reset col-sm-offset-2"
 :javascript
-  
 
   jQuery(".tm-input").tagsManager({
    delimiters: [9, 13, 44],
@@ -58,12 +92,8 @@
    blinkBGColor_2: '#CDE69C',
   }  
   )
-  $('form').submit(function() {
-  var a= document.getElementsByName("hidden-user[tag_list]")[0].value;
-    $('#user_tag_list').val(a);
-        document.getElementsById("user_tag_list").val(a);
-  });
-
-
-
-  
+  jQuery(function() {
+     $('#user_business_activity_list').tokenInput('./tags.json', {
+      propertyToSearch: 'title'
+    });
+  });s

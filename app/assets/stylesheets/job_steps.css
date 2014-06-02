@@ -1,0 +1,11 @@
+#align_check_boxes label{
+
+    float: left;
+    width: 195px;
+
+}
+#align_check_boxes input {
+  display: inline-block;
+  float: left;
+      margin-right: 10px;
+}

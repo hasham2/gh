@@ -8,20 +8,41 @@ class User < ActiveRecord::Base
   enum role: [:user, :employer, :admin]
   
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
+
   after_initialize :set_default_role, :if => :new_record?
   attr_accessor :login
   
   validates :name, uniqueness: {case_sensitive: false}
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+
   has_many :jobs
+  accepts_nested_attributes_for :jobs
+
   has_one :location, as: :locateable
-  has_one :employer # if role == "employer"
-  has_and_belongs_to_many :certifications
   accepts_nested_attributes_for :location
-  acts_as_taggable
+
+  has_and_belongs_to_many :certifications
+  has_one :employer # if role == "employer"
+  accepts_nested_attributes_for :employer
+
+  has_many :photos, as: :photoable
+  accepts_nested_attributes_for :photos
 
 
+  has_many :work_hours
+  accepts_nested_attributes_for :work_hours, allow_destroy: true
+  
+  acts_as_taggable 
+  acts_as_taggable_on :certificates,:business_activity
 
+
+  # before_save      :set_apply_id_for_nested_objects, on: :create
+  # def set_apply_id_for_nested_objects
+  #   jobs.each { |user| user.job = self }
+    
+  # end
+  
 
   def set_default_role
     self.role ||= :user

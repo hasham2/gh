@@ -1,0 +1,3 @@
+ $("<%= escape_javascript(check_box_tag'job_certification_ids_'+@certification.id.to_s, @certification.id, true, :name=>"job[certification_ids][]") %>").appendTo(".all_certifications");
+
+$("<%= escape_javascript(label_tag(@certification.title)) %>").appendTo(".all_certifications");

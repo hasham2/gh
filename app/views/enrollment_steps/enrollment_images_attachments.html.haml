@@ -1,0 +1,65 @@
+.container
+  .col-lg-12
+    %h2 Create Job Listing
+.container
+  .row.job-listingout
+    .container.enrollment_top
+      = render 'navigate_wizard'
+      .col-lg-12
+        .img_box1
+          %h2 Employer's Primary Image
+          .img_bgbox#primary_image
+            - if @primary_photo.first.present?
+              = image_tag @primary_photo.first.image.url(:medium)
+        = button_tag(type: 'button',id: 'select_primary_image' ,:class=>"btn btn-success pull-left btnuser") do
+          = content_tag(:strong, 'Add photo')
+          
+      .col-lg-12.additional_Photos
+        %h2 Additional Photos
+        - if @photos
+          = render @photos
+      .col-lg-12.btnnextstep
+        = button_tag(type: 'button',id: 'add_photo_button' ,:class=>" btn btn-success pull-left btn-nextstep") do
+          = content_tag(:strong, 'Add photo')
+      .col-lg-12.btnnextstep
+        = link_to "Return To Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
+        = link_to "Complete Enrollment",next_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
+
+
+= render 'navigate_footer'        
+= form_for(@user, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
+  = f.fields_for :photos do |photo|
+    = photo.file_field :image,:id=>"primary_image_field",:style=>"display:none"
+    = photo.check_box :is_primary ,{checked: true , :style=>"display:none"}
+
+
+= form_for(Photo.new, url: "/enrollment_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f|
+  = f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;"       
+:javascript
+  $('#select_primary_image').on('click',function(){
+    
+    jQuery('#primary_image_field').trigger('click');
+
+  })
+
+  $('#add_photo_button').on('click',function(){
+
+    jQuery('#multiple_files').trigger('click');
+
+  })
+  
+  jQuery(function() {
+    $('#primary_image_field').fileupload();
+  });
+
+  jQuery(function() {
+    $('#multiple_files').fileupload();
+  });
+
+
+  $("select").imagepicker();
+
+  $("img.image_picker_image").click(function () {
+         
+         alert($(this).attr("src"));
+     }); 

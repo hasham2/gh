@@ -1,7 +1,11 @@
-<div class="authform">
+<div class="container">
+  <div class="row">
+<div class="lgin_top">
+    <div class="main login-box">
   <h3>Edit <%= resource_name.to_s.humanize %></h3>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true,:role => 'form'}) do |f| %>
-    <%= devise_error_messages! %>
+    <%= devise_error_messages! %>         
+
     <div class="form-group">
       <%= f.label :name, 'Username' %>
       <%= f.text_field :name, :autofocus => true, class: 'form-control' %>
@@ -13,19 +17,7 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
     </div>
-    
-    <fieldset>
-      <div class="form-group">
-        <%= f.label :avatar, 'Profile Picture' %>
-        <%= f.file_field :avatar, class: 'form-control' %>
-      </div>
-      <div>
-        <%= image_tag current_user.avatar.url %>
-      </div>
-        
 
-    </fieldset>
-    
     <fieldset>
       <p>Leave these fields blank if you don't want to change your password.</p>
       <div class="form-group">
@@ -44,11 +36,18 @@
         <%= f.password_field :current_password, class: 'form-control' %>
       </div>
     </fieldset>
-    <%= f.submit 'Update', :class => 'button right' %>
-  <% end %>
-</div>
-<div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+
+     <%= f.submit 'Update', :class => 'btn btn btn-primary btn-success' %>
+   <% end %>
+
+    <div>
+      <br />
+      <h3>Cancel Account</h3>
+      <p>Unhappy? We'll be sad to see you go.</p>
+    <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn btn-primary btn-danger' %>
+    </div>
+    </div>  
+    </div>
+  </div>
+  </div>
 </div>

@@ -1,0 +1,14 @@
+.circular {
+	width: 45px;
+	height: 45px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	}
+
+.logo_adjustment{
+margin-left: 310px !important;
+}
+/**{
+	border: 1px solid red;
+}*/

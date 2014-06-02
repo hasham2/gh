@@ -1,0 +1,116 @@
+.container
+  .col-lg-12
+    %h2 Create Job Listing
+.container
+  .row.job-listingout
+    .container
+      = render 'progress_indicator'
+    = form_for @job, url:wizard_path, method: :put, :class=>"form-horizontal center" do |j|
+      .col-lg-12.topfilde
+        .col-lg-2.col-lg-6
+          .form-group
+            %label.col-sm-5.labl{:for => "inputPassword"} Job ID
+            .col-sm-7
+              %input#inputPassword.form-control.form-controlid{:placeholder =>@current_user_jobs, :style => "background-color:#23a327; text-align:center;", :type => "text", :disabled=>true}
+        .col-lg-4
+          .form-group
+            = j.label :work_duration, 'Work Duration (days)' ,:class=>"col-sm-6 labl"
+            .col-sm-4
+              = j.text_field :work_duration, :class=>"form-control", :placeholder=>"5"
+      .col-lg-12.topfilde1
+        .col-lg-4
+          .form-group
+            = j.label :title, 'Job Title' ,:class=>"col-sm-3 labl"
+            .col-sm-9
+              = j.text_field :title, :class=>"form-control",:placeholder=>"Fork Lift Operator"
+        .col-lg-4
+          .form-group
+            = j.label :hours_per_day, 'Hours per day' ,:class=>"col-sm-4 labl"
+            .col-sm-4
+              = j.text_field :hours_per_day, :class=>"form-control",:placeholder=>"8"
+      .col-lg-12.topfilde1
+        .col-lg-4
+          .form-group
+            %label.col-sm-4.labl{:for => "inputPassword"} Posting Date
+            .col-sm-6
+              = j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d-%m-%Y'), :disabled=>"true"
+        .col-lg-4
+          .form-group
+            = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"
+            .col-sm-6
+              = j.date_field :start_date, :class=>"form-control", :placeholder=>"March 1,2014",:value=>j.object.start_date.try(:strftime, '%d-%m-%Y')
+      .col-lg-12.topfilde1
+        .col-lg-4
+          .form-group
+            = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-4 labl"
+            .col-sm-7
+              = j.text_field :listing_expires_on, :class=>"form-control", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d-%m-%Y, %H:%M %p')
+      .col-lg-12.topfilde1
+        .col-lg-5
+          .form-group
+            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-5 labl"
+            .col-sm-2
+              = j.text_field :desired_wage, :class=>"form-control", :placeholder=>"14"
+            .checkbox.checkbox2
+              = j.check_box:desired_wage_is_firm
+              = j.label :desired_wage_is_firm, 'Desired Wage is Firm'
+        .col-lg-4
+          .form-group
+            = j.label :max_wage, 'Max Wage ($/hr)' ,:class=>"col-sm-5 labl"
+            .col-sm-4
+              = j.text_field :max_wage, :class=>"form-control", :placeholder=>"17"
+      .col-lg-12.topfilde1
+        .col-lg-5
+          %h2 Job Description
+        .col-lg-4.pull-right
+          .form-group
+            %label.col-sm-5.labl{:for => "inputPassword"} Business Name
+            .col-sm-7
+              %input.form-control{:type => "text"}
+      .col-lg-12.topfildetext
+        = j.text_area :description, :class=>"form-control", :placeholder=>"Joe's Distribution"
+        .col-lg-12.location-box
+          = j.fields_for :location do |builder|
+            %h2 Job Location Address
+            %h3#address_city
+            %h3#state_country
+            .col-lg-12.topfilde1.one
+              .col-lg-4
+                .form-group
+                  = builder.label :address, 'Address' ,:class=>"col-sm-4 labl"
+                  .col-sm-6
+                    = builder.text_field :address, :class=>"form-control address_field"
+              .col-lg-4
+                .form-group
+                  = builder.label :city, 'City' ,:class=>"col-sm-3 labl"
+                  .col-sm-6
+                    = builder.text_field :city, :class=>"form-control city_field"
+            .col-lg-12.topfilde1.two
+              .col-lg-4
+                .form-group
+                  = builder.label :country, 'Country' ,:class=>"col-sm-4 labl"
+                  .col-sm-6
+                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country', :class=>"form-control" }, {:onChange => "populate_second_select(this.id)"}
+              .col-lg-4
+                .form-group
+                  = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
+                  .col-sm-6
+                    = builder.select :state,{:prompt => true}, :class=>"form-control"
+            .col-lg-12.topfilde1.three
+              .col-lg-4
+                .form-group
+                  = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-3 labl"
+                  .col-sm-6
+                    = builder.time_zone_select :time_zone
+            .col-lg-6.j-jobz
+              .form-group
+                = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
+                .col-sm-3
+                  = builder.text_field :zip, :class=>"form-control", :placeholder=>"M6j 3M7"
+            .col-lg-12.pull-left.checkjob
+              .checkbox.checkbox2
+                %label
+                  %input{:type => "checkbox"}
+                    Display approximate address only
+          .col-lg-12.btnnextstep 
+      = j.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep"

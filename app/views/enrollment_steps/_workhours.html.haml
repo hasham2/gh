@@ -1,0 +1,27 @@
+%fieldset
+  .container
+    .row
+      .col-lg-11.time_bgcolor
+        .col-lg-3.timeinputtop
+          .form-group
+            .col-sm-8
+              = f.select :day_of_week, options_for_select([["Monday", "Monday"], ["Tuesday", "tuesday"], ["Wednesday", "wednesday"], ["Thursday", "thursday"],["Friday", "friday"],["Saturday", "saturday"],["Sunday", "sunday"]]) , {:prompt => 'Select Day'}, :class=>"day_of_week form-control"
+        .col-lg-4.timeinputtop
+          .form-group
+            %label.col-sm-4.control-label{for: "inputPassword3"} Start Time
+            .col-sm-6.date.time_picker
+              =f.time_field :start_time , :class=>"form-control time", :placeholder => "From", :type => "text", :value => f.object.start_time.try(:strftime, '%H:%M %p')
+        .col-lg-4.timeinputtop
+          .form-group.date.time_picker
+            %label.col-sm-4.control-label{for: "inputPassword3"} End Time
+            .col-sm-6
+              =f.time_field :end_time , :class=>"form-control time", :placeholder => "To", :type => "text", :value => f.object.end_time.try(:strftime, '%H:%M %p')
+        .col-lg-1.timeinputtop.pull-right
+          =  f.hidden_field :_destroy
+          =  link_to " Delete","#", class: "remove_fields btn btn-success btn-nextstep pull-right"
+:javascript
+  $(function () {
+      $('.time_picker').datetimepicker({
+          pickDate: false
+      });
+  });

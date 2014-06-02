@@ -30,22 +30,6 @@ class CertificationsController < ApplicationController
   end
 end
 
-  def edit
-    @certification = Certification.find(params[:id])
-    authorize @certification
-  end
-  
-  def update
-    @certification = Certification.find(params[:id])
-    authorize @certification
-    if @certification.update_attributes(certification_params)
-      redirect_to certifications_path
-    else
-      render "new"
-    end
-  end
-  
-
   def certification_params
   	params.require(:certification).permit(:title)
   end

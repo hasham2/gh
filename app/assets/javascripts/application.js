@@ -11,14 +11,52 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require gmaps-auto-complete
-//= require turbolinks
 //= require bootstrap
+
 //= require leaflet
 //= require leaflet-google
 //= require certifications
 //= require requirements
 //= require user_steps
+//= require job_steps
+//= require jobs
 //= require tagmanager
+//= require jquery.tokeninput
+//= require moment
+//= require bootstrap-datetimepicker
+//= require carousel
+//= require simple-slider
+
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
+
+//= require_tree .
+//= require leaflet-google
+//= require leaflet
+//= require turbolinks
+
+
+jQuery(function() {
+   $('#user_certificate_list').tokenInput('./tags.json', {
+    propertyToSearch: 'title'
+  });
+});
+
+function populate_second_select(currentId){
+  var e = document.getElementById(currentId);
+  var selectedText = e.options[e.selectedIndex].text;
+  $.ajax({
+     method:'GET',
+     url:'./state_response',
+     data: {value:selectedText}
+   });
+}
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".controls").hide();
+}

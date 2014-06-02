@@ -1,0 +1,33 @@
+.col-lg-12
+  = "Progress Indictor : Step #{@s} of 5"
+  .col-lg-12
+    .enrollment-contact
+      %h2
+        - if @s == 1
+          %a{href: "enrollment_contact_information"} Contact Information
+          %img{src: "/assets/arrow-icon.png"}/
+        - else
+          %a{href: "enrollment_contact_information",:style=>"opacity:0.5"} Contact Information
+          %img{src: "/assets/arrow-icon.png"}/
+    .enrollment-detail
+      %h2
+        - if @s==2
+          %a{href: "enrollment_detail"} Details
+          %img{src: "/assets/arrow-icon.png"}/
+        - else
+          %a{href: "enrollment_detail",:style=>"opacity:0.5"} Details
+          %img{src: "/assets/arrow-icon.png"}/
+    .enrollment-time
+      %h2
+        - if @s==3
+          %a{href: "enrollment_availabilty"} Availability
+          %img{src: "/assets/arrow-icon.png"}/
+        - else
+          %a{href: "enrollment_availabilty",:style=>"opacity:0.5"} Availability
+          %img{src: "/assets/arrow-icon.png"}/
+    .enrollment-imga
+      %h2
+        - if @s==4
+          %a{href: "enrollment_images_attachments"} Images and Attachments
+        -else 
+          %a{href: "enrollment_images_attachments",:style=>"opacity:0.5"} Images and Attachments

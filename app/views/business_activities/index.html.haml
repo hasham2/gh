@@ -1,0 +1,16 @@
+.col-sm-12
+  = form_for @bus_activity_keyword,id:"myForm",:class=>"form-horizontal",remote: true do |f|
+    .form-group
+      = f.label :keyword, 'Key word' ,:class=>"col-sm-2 control-label text-right"
+      .col-sm-4
+        = f.text_field :keyword, id:"test", :class=>"form-control"
+        %br
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit "create keyword",id:"set",:class=>"btn btn-primary reset"
+        %br
+        %br
+.col-sm-offset-2.col-sm-4
+  %b All Business Activity keywords
+  %table#keyword.table.table-hover= render @keywords
+
