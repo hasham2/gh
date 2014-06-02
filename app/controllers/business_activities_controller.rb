@@ -1,5 +1,8 @@
 class BusinessActivitiesController < ApplicationController
-	def index
+	
+  before_filter :authenticate_user!
+  
+  def index
 		@bus_activity_keyword = BusinessActivity.new
 		@keywords = BusinessActivity.all
 	end
@@ -13,17 +16,20 @@ class BusinessActivitiesController < ApplicationController
 				format.js   {}
 			end
 		end
+  end
 
+	def destroy
+    @bus_activity_keyword = BusinessActivity.find(params[:id])
+    @bus_activity_keyword.destroy
+    respond_to do |format|
+      format.html { redirect_to(business_activity_url) }
+      format.js   { render :nothing => true }
+    end
+	end
+		
+    private
 
-		def destroy
-			@bus_activity_keyword = BusinessActivity.find(params[:id])
-			@bus_activity_keyword.destroy
-			respond_to do |format|
-				format.html { redirect_to(business_activity_url) }
-				format.js   { render :nothing => true }
-			end
-		end
-		def business_activity_params
+    def business_activity_params
 			params.require(:business_activity).permit(:keyword)
 		end
 
