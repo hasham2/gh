@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
 
   has_many :work_hours
-  accepts_nested_attributes_for :work_hours
+  accepts_nested_attributes_for :work_hours, allow_destroy: true
   
   acts_as_taggable 
   acts_as_taggable_on :certificates,:business_activity

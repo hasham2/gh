@@ -22,8 +22,8 @@
         = button_tag(type: 'button',id: 'add_photo_button' ,:class=>" btn btn-success pull-left btn-nextstep") do
           = content_tag(:strong, 'Add photo')
       .col-lg-12.btnnextstep
-        %button.btn.btn-success.pull-left.btn-nextstep{type: "button"} Return To Previous Step
-        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Complete Enrollment
+        = link_to "Return To Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
+        = link_to "Complete Enrollment",next_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
         %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#myModal", "data-toggle" => "modal"} Choose existing
 
 .col-sm-12
@@ -81,8 +81,13 @@
 
   $("select").imagepicker();
 
-  $(".thumbnail").click(function () {
+
+  $("img.image_picker_image").click(function () {
          
-         alert($(this));
+         alert($(this).attr("src"));
      }); 
 
+:css
+  .thumbnails li img{
+      width: 100px;
+  }

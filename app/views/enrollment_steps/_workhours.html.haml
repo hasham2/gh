@@ -18,8 +18,7 @@
               =f.time_field :end_time , :class=>"form-control time", :placeholder => "To", :type => "text", :value => f.object.end_time.try(:strftime, '%H:%M %p')
         .col-lg-1.timeinputtop.pull-right
           =  f.hidden_field :_destroy
-          =  link_to "remove","#", class: "remove_fields"
-          %button.btn.btn-success.btn-nextstep.pull-right{type: "button"} Delete
+          =  link_to " Delete","#", class: "remove_fields btn btn-success btn-nextstep pull-right"
 :javascript
   $(function () {
       $('.time_picker').datetimepicker({

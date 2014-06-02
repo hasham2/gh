@@ -2,7 +2,7 @@ class EnrollmentStepsController < ApplicationController
   
   include Wicked::Wizard
   steps :enrollment_contact_information, :enrollment_detail, :enrollment_availabilty, :enrollment_images_attachments
-
+  before_action :authenticate_user!
   def show
   	@user = current_user
   	case step
@@ -22,7 +22,9 @@ class EnrollmentStepsController < ApplicationController
     end
     when :enrollment_availabilty
        @s=3
-    
+    if @user.work_hours.empty?
+      @user.work_hours.build
+    end
     when :enrollment_images_attachments
        @s = 4 
           @primary_photo = @user.photos.where(:is_primary => true)
@@ -40,18 +42,18 @@ class EnrollmentStepsController < ApplicationController
   	@user = current_user
   	case step
   	when :enrollment_contact_information
-  		@user.update_attributes(work_hours_params)
+  		@user.update_attributes(user_params)
   		render_wizard @user
   	when :enrollment_detail
-  		@user.update_attributes(work_hours_params)
+  		@user.update_attributes(user_params)
   		render_wizard @user
   	when :enrollment_availabilty
-  		@user.update_attributes(work_hours_params)
+  		@user.update_attributes(user_params)
   		render_wizard @user
     else
-    @user.update_attributes(work_hours_params)
+    @user.update_attributes(user_params)
     unless request.xhr?     
-      render_wizard @job
+      render_wizard @user
     end
     @primary_photo = @user.photos.where(:is_primary => true)
     respond_to do |format|
@@ -124,6 +126,9 @@ end
 
   private
   
+  def user_params
+    params.require(:user).permit!
+  end
   # def user_params
   #   params.require(:user).permit(:company_name,
   #                                 :first_name,
@@ -158,10 +163,5 @@ end
   #                                 :day_of_week,
   #                                 :start_time,
   #                                 :end_time])
-  # end
-
-  def work_hours_params
-    params.require(:user).permit!
-  end
-
+  #end
 end
