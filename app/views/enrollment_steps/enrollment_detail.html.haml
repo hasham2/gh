@@ -11,7 +11,7 @@
             = form_for(@user, url: wizard_path, method: :put) do |f|
               - if current_user.user?
                 .form-group
-                  = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
+                  = f.label :tag_list, 'Skill Sets' ,:class=>"col-sm-2 control-label text-right "
                   .col-sm-8
                     = f.text_field :tag_list, :class=>"tm-input tm-input-info" 
                 .form-group
@@ -47,7 +47,7 @@
                           = f.date_select :birth_year,start_year: 1960,discard_day:true,discard_month:true, :class=>"form-control"
                     .col-lg-8.topmrggg
                       .form-group
-                        = f.label :credit_score,"Credit Score",class: "col-sm-2 control-label"
+                        = f.label :credit_score,"Credit Score",class: "col-sm-2 control-label", placeholder: "690/850"
                         .col-sm-8
                           = f.text_field :credit_score, :class=>"form-control"
                     .col-lg-12
@@ -92,12 +92,12 @@
                               = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
                               .btn-group.menunlefttt
                                 .col-sm-8
-                                  = builder.select :industry,["Industry1","industry2","industry3","industry4","others"],:class=>"form-control"
+                                  = builder.select :industry,["Industry1","industry2","industry3","industry4","other"],:class=>"form-control"
                           .col-lg-7.top_mrginput
                             .form-group
-                              = builder.label :other_industry,"Industry (Others)",:class=>"col-sm-3 control-label text-right"
+                              = builder.label :other_industry,"Industry (Other)",:class=>"col-sm-3 control-label text-right"
                               .col-sm-9
-                                = builder.text_field :other_industry,:disabled=>true, :class=>"form-control"
+                                = builder.text_field :other_industry,:disabled=>true, :class=>"form-control", placeholder: "Tour Guide"
               .col-lg-12.btnnextstep
                 = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
                 =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
