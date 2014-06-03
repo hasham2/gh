@@ -15,7 +15,10 @@
           - if  @primary_photo.present?
             = image_tag @primary_photo.first.image.url(:medium)
           - else
-            = image_tag @user_primary_photo.first.image.url(:medium)
+            -if @user_primary_photo.present?
+              = image_tag @user_primary_photo.first.image.url(:medium)
+            -else 
+              = image_tag('icon-user-default.png', :width=>"217px", :height=>"176px")
         %button#select_primary_image.btn.btn-success.pull-left.btnuser{type: "button"} Select Primary Image
     .col-lg-12.additional_Photos
       %h2 Additional Photos
@@ -28,6 +31,7 @@
       = button_tag(type: 'button',id: 'add_photo_button', class: 'btn btn-success pull-left btn-nextstep') do
         = content_tag(:div,'Add photo')
       %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#existing_photos", "data-toggle" => "modal"} Choose existing
+      = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
       = link_to "Proceed to Next Step", next_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
   / /row
 #existing_photos.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
