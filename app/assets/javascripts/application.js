@@ -17,8 +17,6 @@
 //= require gmaps-auto-complete
 //= require bootstrap
 
-//= require leaflet
-//= require leaflet-google
 //= require certifications
 //= require requirements
 //= require user_steps
