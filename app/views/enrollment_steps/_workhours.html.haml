@@ -16,7 +16,7 @@
             %label.col-sm-4.control-label{for: "inputPassword3"} End Time
             .col-sm-6
               =f.time_field :end_time , :class=>"form-control time", :placeholder => "To", :type => "text", :value => f.object.end_time.try(:strftime, '%H:%M %p')
-        .col-lg-1.timeinputtop.pull-right
+        .col-lg-1.timeinputtop.pull-right.remove
           =  f.hidden_field :_destroy
           =  link_to " Delete","#", class: "remove_fields btn btn-success btn-nextstep pull-right"
 :javascript

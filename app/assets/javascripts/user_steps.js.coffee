@@ -1,6 +1,5 @@
 jQuery ->
 
-
   $('form').on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()
@@ -30,3 +29,15 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.bar').css('width', progress + '%')
+
+
+$(document).ready ->
+  $("#user_location_attributes_country").change ->
+    country = $("#user_location_attributes_country").val()
+    if country
+      $(".state_group").attr "style", "display:block"
+    else
+      $(".state_group").attr "style", "display:none"
+    return
+
+  return

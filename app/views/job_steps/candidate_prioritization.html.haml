@@ -25,4 +25,5 @@
               .col-lg-4{style: "margin:0 0 0 0px;"}
                 %h2 Most Important
       .col-lg-12.btnnextstep
+        = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
         = f.submit "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
