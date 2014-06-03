@@ -92,11 +92,15 @@
                               = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
                               .btn-group.menunlefttt
                                 .col-sm-8
-                                  = builder.text_field :industry,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
-                          .col-lg-8.top_mrginput
-                      
+                                  = builder.select :industry,["Industry1","industry2","industry3","industry4","others"],:class=>"form-control"
+                          .col-lg-7.top_mrginput
+                            .form-group
+                              = builder.label :other_industry,"Industry (Others)",:class=>"col-sm-3 control-label text-right"
+                              .col-sm-9
+                                = builder.text_field :other_industry,:disabled=>true, :class=>"form-control"
               .col-lg-12.btnnextstep
-                = f.submit " Next Step",:class=>"btn btn-success pull-left btn-nextstep"
+                = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+                =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
 = render 'home/footer'
 :javascript
   window.onload = function()

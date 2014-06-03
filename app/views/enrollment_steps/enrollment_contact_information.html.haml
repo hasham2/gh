@@ -38,7 +38,7 @@
                         = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
                         .btn-group.menunlefttt
                           = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
-                      .form-group
+                      .form-group.state_group{:style=>"display:none"}
                         = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
                         .btn-group.menunlefttt
                           = builder.select :state,{:prompt => "Select State",:include_blank=>true}
