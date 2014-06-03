@@ -34,6 +34,8 @@
             -if user_signed_in?
               - if current_user.photos.where(:is_primary=>true).first.present?
                 = image_tag current_user.photos.where(:is_primary=>true).first.image.url(:thumb), :class=>"circular"
+              -else
+                = image_tag('icon-user-default.png', :class=>"circular")
               - if current_user.first_name.present? and current_user.last_name.present?
                 %span Hi,
                 = current_user.first_name+" "+current_user.last_name

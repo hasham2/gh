@@ -38,6 +38,6 @@
               .col-sm-9.pull-right{style: "margin:-27px 0 0 0;"}
                 %input#add_certification_value.form-control{placeholder: "", type: "text"}/
       .col-lg-12.btnnextstep
-        %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Return to Previous Step
+        = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
         = f.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
   / /row
