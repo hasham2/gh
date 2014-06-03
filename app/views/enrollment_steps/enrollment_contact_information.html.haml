@@ -1,59 +1,64 @@
-= render 'navigate_wizard'
 .container
-  .row
-    .col-lg-8
-      = form_for @user,url: wizard_path,:role=>"form" do |f|
-        .form-group
-          = f.label :first_name, 'Frist Name' ,:class=>"col-sm-2 control-label text-right"
-          .col-sm-8
-            = f.text_field :first_name, :class=>"form-control"
-        .form-group
-          = f.label :last_name, 'Last Name' ,:class=>"col-sm-2 control-label text-right"
-          .col-sm-8
-            = f.text_field :last_name, :class=>"form-control" 
-
-        .container
-          .col-lg-11.location-box
-            %h2 Address
-            .col-lg-8
-              = f.fields_for :location, role: "form" do |builder|
-                .form-group
-                  = builder.label :address, "Street Address \n Line1" ,:class=>"col-sm-3 control-label text-right"
-                  .col-sm-8
-                    = builder.text_field :address, :class=>"form-control"
-                .form-group
-                  = builder.label :second_address, "Street Address \n Line2" ,:class=>"col-sm-3 control-label text-right"
-                  .col-sm-8
-                    = builder.text_field :second_address, :class=>"form-control"
-                .form-group
-                  = builder.label :city, 'City' ,:class=>"col-sm-3 control-label text-right"
-                  .col-sm-8
-                    = builder.text_field :city, :class=>"form-control",placeholder: "Toronto"
-                .form-group
-                  = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
-                  .btn-group.menunlefttt
-                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
-                .form-group
-                  = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
-                  .btn-group.menunlefttt
-                    = builder.select :state,{:prompt => "Select State",:include_blank=>true}
-                .form-group
-                  %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
-                  .col-sm-8
-                    = builder.text_field :zip, :class=>"form-control"
-        .container
-          .row
-            .col-lg-8.topmrg
+  .col-lg-12
+    %h2 Add Enrollment
+.container
+  .row.job-listingout
+    .container.enrollment_top
+      = render 'navigate_wizard'
+      .container
+        .row
+          .col-lg-8
+            = form_for @user,url: wizard_path,:role=>"form" do |f|
               .form-group
-                = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
+                = f.label :first_name, 'Frist Name' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8
-                  = f.text_field :phone_primary, :class=>"form-control",placeholder: "555.555.5555" 
+                  = f.text_field :first_name, :class=>"form-control"
               .form-group
-                = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
+                = f.label :last_name, 'Last Name' ,:class=>"col-sm-2 control-label text-right"
                 .col-sm-8
-                  = f.text_field :phone_secondary, :class=>"form-control"
-        .col-lg-12.btnnextstep
-          = f.submit "continue",:class=>"btn btn-success pull-left btn-nextstep"
+                  = f.text_field :last_name, :class=>"form-control" 
+              .container
+                .col-lg-11.location-box
+                  %h2 Address
+                  .col-lg-8
+                    = f.fields_for :location, role: "form" do |builder|
+                      .form-group
+                        = builder.label :address, "Street Address \n Line1" ,:class=>"col-sm-3 control-label text-right"
+                        .col-sm-8
+                          = builder.text_field :address, :class=>"form-control"
+                      .form-group
+                        = builder.label :second_address, "Street Address \n Line2" ,:class=>"col-sm-3 control-label text-right"
+                        .col-sm-8
+                          = builder.text_field :second_address, :class=>"form-control"
+                      .form-group
+                        = builder.label :city, 'City' ,:class=>"col-sm-3 control-label text-right"
+                        .col-sm-8
+                          = builder.text_field :city, :class=>"form-control",placeholder: "Toronto"
+                      .form-group
+                        = builder.label :country, 'Country' ,:class=>"col-sm-3 control-label text-right"
+                        .btn-group.menunlefttt
+                          = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country'}, {:onChange => "populate_second_select(this.id)"}
+                      .form-group
+                        = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
+                        .btn-group.menunlefttt
+                          = builder.select :state,{:prompt => "Select State",:include_blank=>true}
+                      .form-group
+                        %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
+                        .col-sm-8
+                          = builder.text_field :zip, :class=>"form-control"
+              .container
+                .row
+                  .col-lg-8.topmrg
+                    .form-group
+                      = f.label :phone_primary, ' Primary Phone Number' ,:class=>"col-sm-2 control-label text-right"
+                      .col-sm-8
+                        = f.text_field :phone_primary, :class=>"form-control",placeholder: "555.555.5555" 
+                    .form-group
+                      = f.label :phone_secondary, ' Phone Number Secondary' ,:class=>"col-sm-2 control-label text-right"
+                      .col-sm-8
+                        = f.text_field :phone_secondary, :class=>"form-control"
+              .col-lg-12.btnnextstep
+                = f.submit "continue",:class=>"btn btn-success pull-left btn-nextstep"
 = render 'home/footer'
 
 :javascript
