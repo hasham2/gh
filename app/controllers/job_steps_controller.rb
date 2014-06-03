@@ -11,8 +11,11 @@ class JobStepsController < ApplicationController
      	@current_user_jobs = @user.jobs.count
      case step      
      when :job_details
-     	@stp = 1 
-     	@business_name = current_user.employer.business_name
+     	@stp = 1
+     	if current_user.employer?
+			@business_name = current_user.employer.business_name
+     	end 
+     	
 		if @job.location == nil
 			@job.build_location
 		else
