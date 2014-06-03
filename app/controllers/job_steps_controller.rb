@@ -12,7 +12,9 @@ class JobStepsController < ApplicationController
      case step      
      when :job_details
      	@stp = 1
-     	if current_user.employer?
+     	if current_user.employer? && current_user.employer == nil 
+			@business_name = ''
+		else
 			@business_name = current_user.employer.business_name
      	end 
      	

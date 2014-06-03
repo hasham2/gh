@@ -1,96 +1,106 @@
-= render 'navigate_wizard'
 .container
-  .row
-    .col-lg-8
-      = form_for(@user, url: wizard_path, method: :put) do |f|
-        - if current_user.user?
-          .form-group
-            = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
-            .col-sm-8
-              = f.text_field :tag_list, :class=>"tm-input tm-input-info" 
-          .form-group
-            = f.label :certificate_list, 'Education and Certifications' ,:class=>"col-sm-2 control-label text-right"
-            .col-sm-8
-              = f.text_field :certificate_list, :class=>"tm-input" 
-
-          .container
-            .col-lg-11.location-box
-              %h2 Transportation Details
-              .col-lg-8
-                .checkbox.checkbox2.transportation
-                  = f.check_box :drivers_licence, :class=>"control"
-                  = f.label :drivers_licence, 'Drivers License'
-                .checkbox.checkbox2.transportation  
-                  = f.check_box :has_vehicle, :class=>"control "
-                  = f.label :has_vehicle, 'Has Vehicle' 
-                .checkbox.checkbox2.transportation
-                  = f.check_box :car_pool, :class=>"control"
-                  = f.label :car_pool, ' Willing to Carpool' 
-           
-          .container
-            .row
-              .col-lg-11
-                .form-group.col-lg-5.topmrg
-                  .btn-group.menunlefttt
-                    = f.label :gender, 'Gender'
-                    = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
-              .col-lg-12
-                .form-group.col-lg-4.topmrggg2
-                  .btn-group.menunlefttt
-                    = f.label :birth_year
-                    = f.date_select :birth_year,start_year: 1960,discard_day:true,discard_month:true, :class=>"form-control"
-              .col-lg-8.topmrggg
+  .col-lg-12
+    %h2 Add Enrollment
+.container
+  .row.job-listingout
+    .container.enrollment_top
+      = render 'navigate_wizard'
+      .container
+        .row
+          .col-lg-8
+            = form_for(@user, url: wizard_path, method: :put) do |f|
+              - if current_user.user?
                 .form-group
-                  = f.label :credit_score,"Credit Score",class: "col-sm-2 control-label"
+                  = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
                   .col-sm-8
-                    = f.text_field :credit_score, :class=>"form-control"
-              .col-lg-12
-                .checkbox.checkbox2.transportation
-                  = f.check_box :criminal_convictions
-                  = f.label :criminal_convictions, '  Criminal Convictions'
-        - else 
-          .container
-            .row
-              .col-lg-8
-                = f.fields_for :employer do |builder|
-                  .form-group
-                    = builder.label :business_name, 'BusinessName' ,:class=>"col-sm-3 control-label text-right"
-                    .col-sm-8
-                      = builder.text_field :business_name, :class=>"form-control"
-                  .form-group
-                    = builder.label :website, 'Business URL ' ,:class=>"col-sm-3 control-label text-right"
-                    .col-sm-8
-                      = builder.text_field :website, :class=>"form-control",placeholder: "www.joesdistribution.com"
-                  .form-group
-                    = builder.label :business_activity_list, 'Business Activity' ,:class=>"col-sm-3 control-label text-right"
-                    .col-sm-8
-                      = builder.text_field :business_activity_list, :class=>"tm-input"
-                  .form-group
-                    = builder.label :description, 'Business Description' ,:class=>"col-sm-3 control-label text-right"
-                    .col-sm-8
-                      = builder.text_area :description , :class=>"form-control",placeholder: "www.joesdistribution.com"
-                  .container
-                    .row
-                      .col-lg-12
-                        .form-group.col-lg-4.topmrggg2
-                          = builder.label :formation_year, 'Formation Year' ,:class=>"col-sm-4 control-label text-right"
-                          .col-sm-offset-6
-                            = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
-                    .col-lg-7.top_mrginput
+                    = f.text_field :tag_list, :class=>"tm-input tm-input-info" 
+                .form-group
+                  = f.label :certificate_list, 'Education and Certifications' ,:class=>"col-sm-2 control-label text-right"
+                  .col-sm-8
+                    = f.text_field :certificate_list, :class=>"tm-input" 
+
+                .container
+                  .col-lg-11.location-box
+                    %h2 Transportation Details
+                    .col-lg-8
+                      .checkbox.checkbox2.transportation
+                        = f.check_box :drivers_licence, :class=>"control"
+                        = f.label :drivers_licence, 'Drivers License'
+                      .checkbox.checkbox2.transportation  
+                        = f.check_box :has_vehicle, :class=>"control "
+                        = f.label :has_vehicle, 'Has Vehicle' 
+                      .checkbox.checkbox2.transportation
+                        = f.check_box :car_pool, :class=>"control"
+                        = f.label :car_pool, ' Willing to Carpool' 
+                 
+                .container
+                  .row
+                    .col-lg-11
+                      .form-group.col-lg-5.topmrg
+                        .btn-group.menunlefttt
+                          = f.label :gender, 'Gender'
+                          = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
+                    .col-lg-12
+                      .form-group.col-lg-4.topmrggg2
+                        .btn-group.menunlefttt
+                          = f.label :birth_year
+                          = f.date_select :birth_year,start_year: 1960,discard_day:true,discard_month:true, :class=>"form-control"
+                    .col-lg-8.topmrggg
                       .form-group
-                        = f.label :credit_score,"Credit Score",:class=>"col-sm-3 control-label text-right"
-                        .col-sm-9
+                        = f.label :credit_score,"Credit Score",class: "col-sm-2 control-label"
+                        .col-sm-8
                           = f.text_field :credit_score, :class=>"form-control"
                     .col-lg-12
-                      .form-group.col-lg-6.topmrggg2
-                        = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
-                        .btn-group.menunlefttt
+                      .checkbox.checkbox2.transportation
+                        = f.check_box :criminal_convictions
+                        = f.label :criminal_convictions, '  Criminal Convictions'
+              - else 
+                .container
+                  .row
+                    .col-lg-8
+                      = f.fields_for :employer do |builder|
+                        .form-group
+                          = builder.label :business_name, 'BusinessName' ,:class=>"col-sm-3 control-label text-right"
                           .col-sm-8
-                            = builder.text_field :industry,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
-                    .col-lg-8.top_mrginput
-                
-        .col-lg-12.btnnextstep
-          = f.submit " Next Step",:class=>"btn btn-success pull-left btn-nextstep"
+                            = builder.text_field :business_name, :class=>"form-control"
+                        .form-group
+                          = builder.label :website, 'Business URL ' ,:class=>"col-sm-3 control-label text-right"
+                          .col-sm-8
+                            = builder.text_field :website, :class=>"form-control",placeholder: "www.joesdistribution.com"
+                        .form-group
+                          = builder.label :business_activity_list, 'Business Activity' ,:class=>"col-sm-3 control-label text-right"
+                          .col-sm-8
+                            = builder.text_field :business_activity_list, :class=>"tm-input"
+                        .form-group
+                          = builder.label :description, 'Business Description' ,:class=>"col-sm-3 control-label text-right"
+                          .col-sm-8
+                            = builder.text_area :description , :class=>"form-control",placeholder: "www.joesdistribution.com"
+                        .container
+                          .row
+                            .col-lg-12
+                              .form-group.col-lg-4.topmrggg2
+                                = builder.label :formation_year, 'Formation Year' ,:class=>"col-sm-4 control-label text-right"
+                                .col-sm-offset-6
+                                  = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+                          .col-lg-7.top_mrginput
+                            .form-group
+                              = f.label :credit_score,"Credit Score",:class=>"col-sm-3 control-label text-right"
+                              .col-sm-9
+                                = f.text_field :credit_score, :class=>"form-control"
+                          .col-lg-12
+                            .form-group.col-lg-6.topmrggg2
+                              = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
+                              .btn-group.menunlefttt
+                                .col-sm-8
+                                  = builder.select :industry,["Industry1","industry2","industry3","industry4","others"],:class=>"form-control"
+                          .col-lg-7.top_mrginput
+                            .form-group
+                              = builder.label :other_industry,"Industry (Others)",:class=>"col-sm-3 control-label text-right"
+                              .col-sm-9
+                                = builder.text_field :other_industry,:disabled=>true, :class=>"form-control"
+              .col-lg-12.btnnextstep
+                = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+                =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
 = render 'home/footer'
 :javascript
   window.onload = function()

@@ -1,6 +1,6 @@
 .container
   .col-lg-12
-    %h2 Create Job Listing
+    %h2 Add Enrollment
 .container
   .row.job-listingout
     .container.enrollment_top
@@ -11,6 +11,8 @@
           .img_bgbox#primary_image
             - if @primary_photo.first.present?
               = image_tag @primary_photo.first.image.url(:medium)
+            -else
+              = image_tag('icon-user-default.png', :width=>"217px", :height=>"176px")
         = button_tag(type: 'button',id: 'select_primary_image' ,:class=>"btn btn-success pull-left btnuser") do
           = content_tag(:strong, 'Add photo')
           

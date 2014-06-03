@@ -1,29 +1,46 @@
-= render 'navigate_wizard'
 .container
-  - if current_user.employer?
-    %h1 Business Hours
-  - else
-    %h1 Working Hours
-  .row
-    = form_for(@user, url: wizard_path, method: :put) do |f|
-      - if @user.errors.any?
-        .error_messages
-          %h3
-            = pluralize(@user.errors.count, "error")
-            prohibited Work Hour(s) from being saved:
-          %ul
-            - @user.errors.full_messages.each do |msg|
-              %li= msg
-      .form-group
-        = f.fields_for :work_hours do |builder|
-          / =render 'work_hours_fields', f: builder
-          =render 'workhours', f: builder
-        =link_to_add_fields " Add More", f, :work_hours
-        %br
-        %br
-        .col-lg-12.btnnextstep
-          = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
-          %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Clear
-          =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
-  / = link_to "Next Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
+  .col-lg-12
+    %h2 Add Enrollment
+.container
+  .row.job-listingout
+    .container.enrollment_top
+      = render 'navigate_wizard'
+      .container
+        - if current_user.employer?
+          %h1 Business Hours
+        - else
+          %h1 Working Hours
+        .row
+          = form_for(@user, url: wizard_path, method: :put) do |f|
+            - if @user.errors.any?
+              .error_messages
+                %h3
+                  = pluralize(@user.errors.count, "error")
+                  prohibited Work Hour(s) from being saved:
+                %ul
+                  - @user.errors.full_messages.each do |msg|
+                    %li= msg
+            .form-group
+              = f.fields_for :work_hours do |builder|
+                =render 'workhours', f: builder
+              =link_to_add_fields " Add More", f, :work_hours
+              %br
+              %br
+              .col-lg-12.btnnextstep
+                = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+                %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"clear"} Clear
+                =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+        / = link_to "Next Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
 = render 'navigate_footer'
+:javascript
+
+  $('#clear').click(function(){
+  
+    $('.remove input[type=hidden]').val('1');
+    $('fieldset').hide();
+  
+  });
+
+
+
+/*-----------Show states if Country is selected--------------*/
