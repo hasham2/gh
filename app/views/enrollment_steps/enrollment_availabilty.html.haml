@@ -22,14 +22,25 @@
                     %li= msg
             .form-group
               = f.fields_for :work_hours do |builder|
-                / =render 'work_hours_fields', f: builder
                 =render 'workhours', f: builder
               =link_to_add_fields " Add More", f, :work_hours
               %br
               %br
               .col-lg-12.btnnextstep
                 = link_to "Previous Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
-                %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button"} Clear
+                %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"clear"} Clear
                 =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
         / = link_to "Next Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
 = render 'navigate_footer'
+:javascript
+
+  $('#clear').click(function(){
+  
+    $('.remove input[type=hidden]').val('1');
+    $('fieldset').hide();
+  
+  });
+
+
+
+/*-----------Show states if Country is selected--------------*/
