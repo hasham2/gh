@@ -24,11 +24,9 @@
             = link_to 'Users', users_path
 
       %div.nav.navbar-nav
-        .navbar-collapse.collapse
-          %ul.nav.nav-justified
-            %li
-              = link_to  root_path, :class=>"navbar-brand" do
-                = image_tag('logo.png')
+        %li.logo
+          = link_to root_path do
+            = image_tag('logo.png')
 
       %ul.nav.navbar-nav.navbar-right.navbar-navcustright
         %li
