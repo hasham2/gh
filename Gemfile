@@ -20,20 +20,21 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'devise-async', github: 'kmayer/devise-async', branch: 'sucker-punch' # Needed to add suckerpunch support
 gem 'haml-rails'
+gem 'figaro'
 gem 'pundit'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'sucker_punch', '~> 1.0'
 gem 'paperclip', '~> 4.1'
-
+gem 'foreman'
+gem 'rack-timeout'
 gem 'wicked'
 gem 'acts-as-taggable-on'
 gem 'tagmanager-rails'
+gem 'exception_notification'
 gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 gem 'jquery-turbolinks'
 gem 'jquery-fileupload-rails'
-
-
 
 # Geolocations
 gem 'geocoder'
@@ -54,7 +55,8 @@ group :development do
   gem 'capistrano-bundler', '1.1.1'
   gem 'capistrano-rvm', '~> 0.1.1'
   gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano3-puma'
 end
-group :production do
+group :staging, :production do
   gem 'puma'
 end

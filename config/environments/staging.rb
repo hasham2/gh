@@ -71,12 +71,18 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify  
+  config.middleware.use ExceptionNotification::Rack, 
+    email: {
+      email_prefix: "[Gh - MAYDAY MAYDAY]",
+      sender_address: %{"exceptions" <exceptions@greatesthire.com>},
+      exception_recipients: %w{hasham@zenofruby.com waleedarshad72@gmail.com}
+    }
 
     config.action_mailer.smtp_settings = {
       :address   => "smtp.mandrillapp.com",
       :port      => 587,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_APIKEY"]
+      :user_name => 'hasham@ballistalabs.com',
+      :password  => "qFf1vObIpBcpS3NxSVzvLg"
     }
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'gh.greatesthire.com' }

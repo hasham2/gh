@@ -2,6 +2,7 @@ class RequirementsController < ApplicationController
   
   before_filter :authenticate_user!
   after_action :verify_authorized
+  
   def index
    @requirement = Requirement.new
    @requirements = Requirement.all
