@@ -10,6 +10,13 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	color: #222121;
 	font-size: 20px;
 }
+.navbar-branddd{
+   text-align:center; float:none; float: right;
+    margin: 12px 0 0 512px;
+    position: absolute;
+    text-align: center;
+    width: 150px;	
+}
 .navbar {
 	border-radius: 0;
 }
@@ -60,24 +67,40 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	margin-right: -15px;
 }
  @media screen and (max-width: 768px) {
+.navbar-branddd {
+	margin: 0 0 0 150px;
+	margin-top: 5px;
+}
+
 .logo {
 	margin: 0 0 0 150px;
 	margin-top: 5px;
 }
 }
 @media screen and (max-width: 360px) {
+.navbar-branddd{
+	margin: 0 0 0 0px;
+	margin-top: 5px;
+}
 .logo {
 	margin: 0 0 0 0px;
 	margin-top: 5px;
 }
 }
 @media screen and (max-width: 800px) {
+.navbar-branddd {
+	margin: 0 0 0 200px;
+	margin-top: 5px;
+}
 .logo {
 	margin: 0 0 0 200px;
 	margin-top: 5px;
 }
 }
 @media screen and (max-width: 980px) {
+.navbar-branddd {
+	margin: 0 0 0 180px;
+}
 .logo {
 	margin: 0 0 0 180px;
 }

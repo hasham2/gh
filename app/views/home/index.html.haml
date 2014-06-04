@@ -5,7 +5,7 @@
       .row
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-          = image_tag 'jobs-icon.png'
+            = image_tag 'jobs-icon.png'
           %h2 Look for Jobs
           %h3
             Find local jobs
@@ -14,7 +14,7 @@
         / /span
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-          = image_tag 'find-local-icon.png'
+            = image_tag 'find-local-icon.png'
           %h2 Look for Employees
           %h3
             Find local employees
@@ -23,7 +23,7 @@
         / /span
         .col-6.col-sm-6.col-lg-4.col-lg-4su.cat-bg-color.lookforjobs
           %h2
-          = image_tag('advertise-icon.png')
+            = image_tag('advertise-icon.png')
           %h2 Advertise
           %h3
             Advertise for jobs,services,
@@ -77,12 +77,12 @@
             Quaternion: design you
             %br
               like
-          .img-responsive.mg-res
-            = image_tag('new-image.png')
-            %p
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
-              %a{:href => ""}
-                = image_tag('arrow.png')
+          
+        = image_tag('new-image.png',:class=>'img-responsive mg-res')
+        %p
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries...
+          %a{:href => ""}
+            = image_tag('arrow.png')
       .recent-jobs
         %h5 April 17, 2014
         %h3
@@ -99,13 +99,12 @@
       .recent-jobs
         %h2 Featured Jobs
         %hr
-          .img-responsive.featured-res
-            = image_tag('featured-img.png')
-            %h3 Wordpress Themes
-            %p
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to...
-              %a{:href => "#"}
-                = image_tag('arrow.png')
+        = image_tag('featured-img.png', :class=>'img-responsive featured-res')
+        %h3 Wordpress Themes
+        %p
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to...
+          %a{:href => "#"}
+            = image_tag('arrow.png')
     .col-sm-3.pull-right
       .advertise-here
         %h2 Advertise Here
