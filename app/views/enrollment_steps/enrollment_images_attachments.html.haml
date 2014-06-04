@@ -8,8 +8,9 @@
       .col-lg-12
         .img_box1
           %h2 Employer's Primary Image
+          - binding.pry 
           .img_bgbox#primary_image
-            - if @primary_photo.first.present?
+            - if @primary_photo.present?
               = image_tag @primary_photo.first.image.url(:medium)
             -else
               = image_tag('icon-user-default.png', :width=>"217px", :height=>"176px")
