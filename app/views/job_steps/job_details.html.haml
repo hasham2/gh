@@ -90,18 +90,18 @@
                 .form-group
                   = builder.label :country, 'Country' ,:class=>"col-sm-4 labl"
                   .col-sm-6
-                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control"}
+                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control",:style=>'width:132px'}
               .col-lg-4
                 .form-group.state_group{:style=>"display:none"}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
                   .col-sm-6
-                    = builder.select :state, {},{},{ :class => 'form-control' }
+                    = builder.select :state, {},{},{ :class => 'form-control',:style=>"width:150px" }
             .col-lg-12.topfilde1.three
               .col-lg-4
                 .form-group
                   = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-3 labl"
                   .col-sm-6
-                    = builder.time_zone_select :time_zone
+                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control',:style=>"width:325px" }
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
