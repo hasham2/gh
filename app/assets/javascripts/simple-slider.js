@@ -39,7 +39,7 @@ var __slice = [].slice,
         this.slider.attr("id", this.input.attr("id") + "-slider");
       }
       this.track = this.createDivElement("track").css({
-        width: "53%"
+        width: "100%"
       });
       if (this.settings.highlight) {
         this.highlightTrack = this.createDivElement("highlight-track").css({
