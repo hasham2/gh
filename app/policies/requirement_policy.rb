@@ -14,5 +14,7 @@ class RequirementPolicy
   def create?
     @user.admin? || @user.employer?
   end
-
+  def destroy?
+    @user.admin? || @user.employer?
+  end
 end

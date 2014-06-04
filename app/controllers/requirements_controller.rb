@@ -14,21 +14,18 @@ class RequirementsController < ApplicationController
     authorize @requirement
     respond_to do |format|
       if @requirement.save
-        format.html { redirect_to Requirements_path, notice: 'Requirement was successfully created.' }
-        format.js   {}
+        format.html { redirect_to requirements_path, notice: 'Requirement was successfully created.' }
+        format.js   {flash[:notice]= 'Requirement was successfully created.'}
       end
     end
   end
 
   def destroy
       @requirement = Requirement.find(params[:id])
-        @requirement.destroy
-      flash[:notice] = "requirements deleted." 
-        respond_to do |format|
-          format.html { redirect_to(certifications_url) }
-          format.js   { render :nothing => true }
-    end
-    
+        authorize @requirement
+        if @requirement.destroy
+        redirect_to requirements_path, :notice=> "Certification deleted."    
+        end
   end
 
   def certification_params

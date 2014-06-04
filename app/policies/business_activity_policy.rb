@@ -1,6 +1,7 @@
-class CertificationPolicy
-  attr_reader :user, :record
+class BusinessActivityPolicy
   
+  attr_reader :user, :record
+
   def initialize(user, record)
     @user = user
     @record = record
@@ -13,16 +14,7 @@ class CertificationPolicy
   def create?
     @user.admin? || @user.employer?
   end
-
-  def edit?
-    @user.admin? || @user.employer?
-  end
-
-  def update?
-    @user.admin? || @user.employer?
-  end
   def destroy?
     @user.admin? || @user.employer?
   end
-
 end

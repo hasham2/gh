@@ -1,0 +1,9 @@
+.col-sm-12
+  = render "form"
+.col-sm-offset-2.col-sm-4
+  %table.table.table-hover
+    - @metric.each do |m|
+      %tr
+        %td= m.name
+        %td= link_to "delete", m,method: :delete, data:{confirm: "are you sure?",:class=>'delete_post'}
+

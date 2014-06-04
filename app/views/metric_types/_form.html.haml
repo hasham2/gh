@@ -1,0 +1,11 @@
+= form_for @metric_type,id:"myForm",:class=>"form-horizontal" do |f|
+  .form-group
+    = f.label :name, 'Metric Type' ,:class=>"col-sm-2 control-label text-right"
+    .col-sm-4
+      = f.text_field :name, id:"test", :class=>"form-control"
+      %br
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit "create Metric type",id:"set",:class=>"btn btn-primary reset"
+      %br
+      %br

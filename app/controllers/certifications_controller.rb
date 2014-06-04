@@ -13,7 +13,7 @@ class CertificationsController < ApplicationController
    authorize @certification
     respond_to do |format|
       if @certification.save
-        format.html { redirect_to certification_path, notice: 'User was successfully created.' }
+        format.html { redirect_to certification_path, notice: 'Certification was successfully created.' }
         format.js   {}
       end
     end
@@ -21,13 +21,12 @@ class CertificationsController < ApplicationController
   
 
   def destroy
-    @certification = Certification.find(params[:id])
-      @certification.destroy
-    flash[:success] = "certification deleted." 
-      respond_to do |format|
-        format.html { redirect_to(certifications_url) }
-        format.js   { render :nothing => true }
+   @certification = Certification.find(params[:id])
+    authorize @certification
+   if @certification.destroy
+   redirect_to certifications_url, :notice=> "Certification deleted."
   end
+
 end
 
   def certification_params

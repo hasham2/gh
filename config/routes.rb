@@ -1,6 +1,5 @@
 Gh::Application.routes.draw do
 
-  
   root :to => "home#index"
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks", :confirmations => "users/confirmations"}
   #devise_scope :user do
@@ -34,6 +33,7 @@ Gh::Application.routes.draw do
   resources :user_steps
   resources :business_activities
   resources :job_steps
+  resources :metric_types
   resources :enrollment_steps do
    put 'set_primary_image', :on => :member
   end
