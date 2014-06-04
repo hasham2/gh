@@ -62,7 +62,6 @@ class JobStepsController < ApplicationController
 	   case step
 	   when :job_details
 	   @job.update_attributes(job_details_params)
-	   session[:job_id]=@user.jobs.last.id
 	   render_wizard @job
 	   when :candidate_prioritization
 	   @job.assign_attributes(candidate_prioritization_params)

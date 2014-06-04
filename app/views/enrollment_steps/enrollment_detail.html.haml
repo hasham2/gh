@@ -35,20 +35,20 @@
                  
                 .container
                   .row
-                    .col-lg-11
+                    .col-lg-11.topmrggg
                       .form-group.col-lg-5.topmrg
-                        .btn-group.menunlefttt
-                          = f.label :gender, 'Gender'
-                          = f.select :gender,[:male,:female,:unspecified], :class=>"form-control"
-                    .col-lg-12
+                        .menunlefttt
+                          = f.label :gender, 'Gender' ,:class=>"col-sm-3 labl"
+                          = f.select :gender,[:male,:female,:unspecified],{},{:class=>"form-control",:style=>"width:95px"} 
+                    .col-lg-12.topmrggg
                       .form-group.col-lg-4.topmrggg2
-                        .btn-group.menunlefttt
-                          = f.label :birth_year
-                          = f.date_select :birth_year,start_year: 1960,discard_day:true,discard_month:true, :class=>"form-control"
-                    .col-lg-8.topmrggg
-                      .form-group
-                        = f.label :credit_score,"Credit Score",class: "col-sm-2 control-label"
-                        .col-sm-8
+                        .menunlefttt
+                          = f.label :birth_year, 'Year of Birth',:class=>"col-sm-4 labl"
+                          = f.date_select :birth_year,{start_year: 1960,discard_day:true,discard_month:true},{:class=>"form-control",:style=>"width:80px"}  
+                    .col-lg-12.topmrggg
+                      .form-group.col-lg-5.topmrggg2
+                        .menunlefttt
+                          = f.label :credit_score,"Credit Score",class: "col-sm-4 labl"
                           = f.text_field :credit_score, :class=>"form-control"
                     .col-lg-12
                       .checkbox.checkbox2.transportation
@@ -79,20 +79,19 @@
                           .row
                             .col-lg-12
                               .form-group.col-lg-4.topmrggg2
-                                = builder.label :formation_year, 'Formation Year' ,:class=>"col-sm-4 control-label text-right"
-                                .col-sm-offset-6
-                                  = builder.date_select :formation_year,start_year: 1960,discard_day:true,discard_month:true,:class=>"form-control"
+                                = builder.label :formation_year, 'Formation Year' ,:class=>"col-sm-5 control-label text-right"
+                                .col-sm-4
+                                  = builder.date_select :formation_year,{start_year: 1960,discard_day:true,discard_month:true},{:class=>"form-control",:style=>"margin-left:20px"}
                           .col-lg-7.top_mrginput
                             .form-group
                               = f.label :credit_score,"Credit Score",:class=>"col-sm-3 control-label text-right"
                               .col-sm-9
                                 = f.text_field :credit_score, :class=>"form-control"
                           .col-lg-12
-                            .form-group.col-lg-6.topmrggg2
+                            .form-group.col-lg-7.topmrggg2
                               = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
-                              .btn-group.menunlefttt
-                                .col-sm-8
-                                  = builder.select :industry,["Industry1","industry2","industry3","industry4","others"],:class=>"form-control"
+                              .col-sm-4
+                                = builder.select :industry,["Industry1","industry2","industry3","industry4","others"],{},{:class=>"form-control"}
                           .col-lg-7.top_mrginput
                             .form-group
                               = builder.label :other_industry,"Industry (Others)",:class=>"col-sm-3 control-label text-right"
