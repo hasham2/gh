@@ -99,6 +99,7 @@ $(document).ready(function(){
 	 if (other=="others"){
 	 	$('#user_employer_attributes_other_industry').removeAttr("disabled");
 	}else{
+		$('#user_employer_attributes_other_industry').val("");	
 		 $('#user_employer_attributes_other_industry').attr('disabled',true);
 	}
 
