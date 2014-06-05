@@ -67,10 +67,10 @@ $(document).ready(function(){
 /*-----------Show states if Country is selected--------------*/
 $(document).ready(function(){
 
- 	//  state = $('#job_location_attributes_state').val();
- 	// if(state){
- 	// 	$('.state_group').attr('style','display:inline-block');	
- 	// }
+ 	 state = $('#job_location_attributes_state').val();
+ 	if(state){
+ 		$('.state_group').attr('style','display:inline-block');	
+ 	}
 
 	$('#job_location_attributes_country').change(function(){
 	 country = $('#job_location_attributes_country').val();

@@ -92,10 +92,10 @@
                   .col-sm-6
                     = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control",:style=>'width:132px'}
               .col-lg-4
-                .form-group.state_group{:style=>"display:none"}
+                .form-group.state_group{:style=>""}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
                   .col-sm-6
-                    = builder.select :state, {},{},{ :class => 'form-control',:style=>"width:150px" }
+                    = builder.select :state, {},{},{ :class => 'form-control',:style=>"width:150px"}
             .col-lg-12.topfilde1.three
               .col-lg-4
                 .form-group

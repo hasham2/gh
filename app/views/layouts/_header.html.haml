@@ -19,8 +19,8 @@
           - else
             = link_to 'Login', new_user_session_path
         %li
-          - if user_signed_in?
-            = link_to 'Users', users_path
+          - if user_signed_in? && current_user.role == 'employer'
+            = link_to "Create Job", jobs_path, method: "post"
       .navbar-branddd
         = link_to root_path do
           = image_tag('logo.png')
