@@ -3,6 +3,7 @@ class EnrollmentStepsController < ApplicationController
   include Wicked::Wizard
   steps :enrollment_contact_information, :enrollment_detail, :enrollment_availabilty, :enrollment_images_attachments
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
   def show
   	@user = current_user
   	case step

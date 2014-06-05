@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603081715) do
+ActiveRecord::Schema.define(version: 20140605105029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140603081715) do
     t.date     "formation_year"
     t.text     "additional_information"
     t.string   "other_industry"
+    t.string   "business_phone"
   end
 
   create_table "jobs", force: true do |t|
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140603081715) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "session_id"
   end
 
   create_table "requirements", force: true do |t|
@@ -185,7 +187,7 @@ ActiveRecord::Schema.define(version: 20140603081715) do
     t.boolean  "drivers_licence_class"
     t.boolean  "has_vehicle"
     t.boolean  "car_pool"
-    t.integer  "credit_score"
+    t.string   "credit_score"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

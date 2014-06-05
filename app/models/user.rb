@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   
 
-  enum role: [:user, :employer, :admin]
+  enum role: [:employee, :employer, :admin]
   
   has_attached_file :avatar, styles: {medium: "300x300>", thumb: "100x100>" }
 
@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
   has_one :location, as: :locateable
   accepts_nested_attributes_for :location
 
-  has_and_belongs_to_many :certifications
   has_one :employer # if role == "employer"
   accepts_nested_attributes_for :employer
 
@@ -36,6 +35,8 @@ class User < ActiveRecord::Base
   acts_as_taggable 
   acts_as_taggable_on :certificates,:business_activity
 
+  has_and_belongs_to_many :certifications
+
 
   # before_save      :set_apply_id_for_nested_objects, on: :create
   # def set_apply_id_for_nested_objects
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
   
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :employee
   end
   
   # FROM https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
-      user.role = :user #this should not work for Employers
+      user.role = :employee #this should not work for Employers
     end
   end
   

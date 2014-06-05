@@ -1,6 +1,6 @@
 .container
   .col-lg-12
-    %h2 Add Enrollment
+    = render 'enrollment_title'
 .container
   .row.job-listingout
     .container.enrollment_top
@@ -9,7 +9,7 @@
         .row
           .col-lg-8
             = form_for(@user, url: wizard_path, method: :put) do |f|
-              - if current_user.user?
+              - if current_user.employee?
                 .form-group
                   = f.label :tag_list, 'SkillSet' ,:class=>"col-sm-2 control-label text-right "
                   .col-sm-8
@@ -82,11 +82,12 @@
                                 = builder.label :formation_year, 'Formation Year' ,:class=>"col-sm-5 control-label text-right"
                                 .col-sm-4
                                   = builder.date_select :formation_year,{start_year: 1960,discard_day:true,discard_month:true},{:class=>"form-control",:style=>"margin-left:20px"}
-                          .col-lg-7.top_mrginput
-                            .form-group
-                              = f.label :credit_score,"Credit Score",:class=>"col-sm-3 control-label text-right"
-                              .col-sm-9
-                                = f.text_field :credit_score, :class=>"form-control"
+                            .col-lg-12.enroll_col_set
+                              .col-lg-7.top_mrginput
+                                .form-group
+                                  = builder.label :business_phone,"Business Phone",:class=>"col-sm-3 control-label text-right"
+                                  .col-sm-9
+                                    = builder.text_field :business_phone, :class=>"form-control"
                           .col-lg-12
                             .form-group.col-lg-7.topmrggg2
                               = builder.label :industry,"Industry",:class=>"col-sm-3 control-label text-right"
