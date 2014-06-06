@@ -24,7 +24,7 @@
             //map.panTo([latLng.k,latLng.A]);
           }
         });
-        completer.autoCompleteInit({region: 'US', country: 'US'});
+        completer.autoCompleteInit({region: "#{escape_javascript sniffed_region_code}", country: "#{escape_javascript sniffed_country_code}"});
       });
       // default map locale
       //var map = L.map('map').setView([49.248497,-122.942115],13);

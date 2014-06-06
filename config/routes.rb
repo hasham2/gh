@@ -25,6 +25,8 @@ Gh::Application.routes.draw do
   post "enrollment_steps/make_primary_photo"
   post "enrollment_steps/delete_photo"
   post "enrollment_steps/save_photo_caption"
+  
+  get "jobs/search"
 
   resources :certifications
   resources :jobs

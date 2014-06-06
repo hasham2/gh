@@ -21,6 +21,22 @@ module ApplicationHelper
   end
 
   def link_to_remove_fields(name, f)
-         f.hidden_field(:_destroy) + link_to(name,'#', onclick:'remove_fields(this)')
-   end
+    f.hidden_field(:_destroy) + link_to(name,'#', onclick:'remove_fields(this)')
+  end
+
+  def sniffed_region_code
+    if defined? @georesp
+      @georesp.first.region_code rescue nil
+    else
+      "NY"
+    end
+  end
+
+  def sniffed_country_code
+    if defined? @georesp
+      @georesp.first.country_code rescue nil
+    else
+      "US"
+    end
+  end
 end
