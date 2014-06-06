@@ -96,8 +96,15 @@ class JobStepsController < ApplicationController
 	end
 
 	def state_response
-		state = params[:value]
-		@states = COUNTRIES_STATES[state]
+		country = params[:value]
+		@states = COUNTRIES_STATES[country]
+		# To find the selected state
+		@job_id = session[:job_id]
+		@job = Job.find(@job_id)
+		if @job.location.present?
+			@selected_state = @job.location.state
+		end
+		# binding.pry
 		respond_to do |format|
 			format.js
 		end

@@ -64,29 +64,28 @@ $(document).ready(function(){
 
 });
 
-/*-----------Show states if Country is selected--------------*/
+/*================Show states if Country is selected(In job_steps)=====================*/
 $(document).ready(function(){
-
- 	 state = $('#job_location_attributes_state').val();
- 	if(state){
- 		$('.state_group').attr('style','display:inline-block');	
- 	}
-
+	/*--------For Edit Mode-------------------------------*/
+	var selected_country = $('#job_location_attributes_country').val();
+		if(selected_country){
+			var id = 'job_location_attributes_country'
+			populate_second_select(id)	
+			$('.state_group').attr('style','display:block');
+		}
+ 
+	/*--------For Create Mode-------------------------------*/
 	$('#job_location_attributes_country').change(function(){
 	 country = $('#job_location_attributes_country').val();
-
-
 	 if (country){
-	 	$('.state_group').attr('style','display:inline-block');		 	
-	}else{
-		$('.state_group').attr('style','display:none');
-	}
-
+	 	$('.state_group').attr('style','display:block');		 	
+		}else{
+		$('.state_group').attr('style','display:none');	
+		}
 	});
 });
 
-/*============================================================*/
-/*-------------Image Uploading---------------------*/
+/*==================Image Uploading=====================*/
 
 jQuery(function() {
 	$('#multiple_files').fileupload();

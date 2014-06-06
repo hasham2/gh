@@ -130,8 +130,11 @@ end
     end
   end
   def state_response
-    state = params[:value]
-    @states = COUNTRIES_STATES[state]
+    country = params[:value]
+    @states = COUNTRIES_STATES[country]
+    if current_user.location.present?
+      @selected_state = current_user.location.state
+    end
     respond_to do |format|
       format.js
     end

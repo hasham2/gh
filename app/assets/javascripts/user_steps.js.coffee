@@ -31,16 +31,6 @@ jQuery ->
         data.context.find('.bar').css('width', progress + '%')
 
 
-$(document).ready ->
-  $("#user_location_attributes_country").change ->
-    country = $("#user_location_attributes_country").val()
-    if country
-      $(".state_group").attr "style", "display:block"
-    else
-      $(".state_group").attr "style", "display:none"
-    return
-
-  return
 
 
 #=======Start=================Enrollment step industry manipulation===================================
@@ -55,6 +45,7 @@ $(document).ready ->
     return
 
   return
+
 #========Start================Workhour_with_standard_hours_and day ====================================
 jQuery ->
   $("form").on "click", ".add_standard_fields", (event) ->
@@ -91,5 +82,27 @@ jQuery ->
     # country = $('.day_of_week').val('m');
     # alert(country);
     event.preventDefault()
+
+  return
+
+
+#===============Show states if Country is selected(In Enrollments)=============
+$(document).ready ->
+  
+  #--------For Edit Mode-------------------------------
+  selected_country = $("#user_location_attributes_country").val()
+  if selected_country
+    id = "user_location_attributes_country"
+    populate_second_select id
+    $(".state_group").attr "style", "display:block"
+  
+  #--------For Create Mode-------------------------------
+  $("#user_location_attributes_country").change ->
+    country = $("#user_location_attributes_country").val()
+    if country
+      $(".state_group").attr "style", "display:block"
+    else
+      $(".state_group").attr "style", "display:none"
+    return
 
   return
