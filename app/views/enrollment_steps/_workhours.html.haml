@@ -5,7 +5,7 @@
         .col-lg-3.timeinputtop
           .form-group
             .col-sm-8
-              = f.select :day_of_week, options_for_select([["Monday", "m"], ["Tuesday", "t"], ["Wednesday", "w"], ["Thursday", "t"],["Friday", "f"],["Saturday", "s"],["Sunday", "s"]],:selected=>f.object.day_of_week? ? f.object.day_of_week : '') , {:prompt => 'Select Day'}, :class=>"day_of_week form-control"
+              = f.select :day_of_week, options_for_select([["Monday", "m"], ["Tuesday", "t"], ["Wednesday", "w"], ["Thursday", "th"],["Friday", "f"],["Saturday", "s"],["Sunday", "su"]],:selected=>f.object.day_of_week? ? f.object.day_of_week : '') , {:prompt => 'Select Day'}, :class=>"day_of_week form-control"
         .col-lg-4.timeinputtop
           .form-group
             %label.col-sm-4.control-label{for: "inputPassword3"} Start Time
