@@ -52,9 +52,9 @@ $(document).ready(function(){
 
 	});
 
-
-	$('#next_step_from_images').click(function(){
-		// alert('Atif')
+	/*===Make by default primary image============*/
+	$('a#next_step_from_images').click(function(){
+		 // alert('AAA');
 		$.ajax({
 			method:'post',
 			url:'./make_by_default_primary_image'
