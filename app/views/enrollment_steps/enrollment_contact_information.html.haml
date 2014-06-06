@@ -41,7 +41,7 @@
                       .form-group.state_group{:style=>"display:none"}
                         = builder.label :state, 'Provice or State' ,:class=>"col-sm-3 control-label text-right"
                         .btn-group.menunlefttt
-                          = builder.select :state,{:prompt => "Select State",:include_blank=>true},{},{ :class => 'form-control',:style=>"width:190px" }
+                          = builder.select :state,{},{},{ :class => 'form-control',:style=>"width:190px" }
                       .form-group
                         %label.col-sm-3.control-label{for: "inputEmail3"} Postal or Zip Code
                         .col-sm-8

@@ -10,12 +10,12 @@
           .form-group
             %label.col-sm-4.control-label{for: "inputPassword3"} Start Time
             .col-sm-6.date.time_picker
-              =f.time_field :start_time , :class=>"form-control time", :placeholder => "From", :type => "text", :value => f.object.start_time.try(:strftime, '%I:%M %p')
+              =f.time_field :start_time , :class=>"form-control time", :placeholder => "From", :type => "text", :value => f.object.start_time? ? f.object.start_time.try(:strftime, '%I:%M %p') : ' 9:00 AM' 
         .col-lg-4.timeinputtop
           .form-group
             %label.col-sm-4.control-label{for: "inputPassword3"} End Time
             .col-sm-6.date.time_picker
-              =f.time_field :end_time , :class=>"form-control time", :placeholder => "To", :type => "text", :value => f.object.end_time.try(:strftime, '%I:%M %p')
+              =f.time_field :end_time , :class=>"form-control time", :placeholder => "To", :type => "text", :value => f.object.end_time? ? f.object.end_time.try(:strftime, '%I:%M %p') : ' 5:00 PM' 
         .col-lg-1.timeinputtop.pull-right.remove
           =  f.hidden_field :_destroy
           =  link_to " Delete","#", class: "remove_fields btn btn-success btn-nextstep pull-right"

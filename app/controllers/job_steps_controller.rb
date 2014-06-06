@@ -1,8 +1,11 @@
 class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
+    before_filter :authenticate_user!
+    before_action :check_enrollment
+
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
-   
+
 	def show
 		@user = current_user
 		@job_id = session[:job_id]
@@ -93,8 +96,15 @@ class JobStepsController < ApplicationController
 	end
 
 	def state_response
-		state = params[:value]
-		@states = COUNTRIES_STATES[state]
+		country = params[:value]
+		@states = COUNTRIES_STATES[country]
+		# To find the selected state
+		@job_id = session[:job_id]
+		@job = Job.find(@job_id)
+		if @job.location.present?
+			@selected_state = @job.location.state
+		end
+		# binding.pry
 		respond_to do |format|
 			format.js
 		end
@@ -192,7 +202,7 @@ class JobStepsController < ApplicationController
      		format.js
      	end				
 	end
-
+private
 	def job_details_params	
 		params.require(:job).permit!#(:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
 	end
