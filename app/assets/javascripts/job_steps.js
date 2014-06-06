@@ -85,31 +85,6 @@ $(document).ready(function(){
 	});
 });
 
-/*========================Enrollment step industry manipulation===================================*/
-
-$(document).ready(function(){
-
- 	//  state = $('#job_location_attributes_state').val();
- 	// if(state){
- 	// 	$('.state_group').attr('style','display:inline-block');	
- 	// }
-
-	$('#user_employer_attributes_industry').change(function(){
-	 var other = $('#user_employer_attributes_industry').val();
-	 if (other=="others"){
-	 	$('#user_employer_attributes_other_industry').removeAttr("disabled");
-	}else{
-		$('#user_employer_attributes_other_industry').val("");	
-		 $('#user_employer_attributes_other_industry').attr('disabled',true);
-	}
-
-	});
-});
-
-
-
-
-
 /*============================================================*/
 /*-------------Image Uploading---------------------*/
 

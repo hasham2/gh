@@ -41,3 +41,17 @@ $(document).ready ->
     return
 
   return
+
+
+#========================Enrollment step industry manipulation===================================
+$(document).ready ->
+  $("#user_employer_attributes_industry").change ->
+    other = $("#user_employer_attributes_industry").val()
+    if other is "others"
+      $("#user_employer_attributes_other_industry").removeAttr "disabled"
+    else
+      $("#user_employer_attributes_other_industry").val ""
+      $("#user_employer_attributes_other_industry").attr "disabled", true
+    return
+
+  return

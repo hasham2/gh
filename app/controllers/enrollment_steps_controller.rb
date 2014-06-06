@@ -70,6 +70,7 @@ class EnrollmentStepsController < ApplicationController
         respond_to do |format|
         format.js
     end
+
   end
 
 end
@@ -137,7 +138,14 @@ end
   end
 
   private
-  
+
+  def finish_wizard_path
+    current_user.update_attributes(:enrollment_complete=>true)
+    flash[:notice]= 'Enrollment completed successfully'
+    root_path
+    # redirect_to root_path,notice:'enrollment completed successfully'
+  end
+
   def user_params
     params.require(:user).permit!
   end

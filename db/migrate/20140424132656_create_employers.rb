@@ -7,6 +7,7 @@ class CreateEmployers < ActiveRecord::Migration
       t.string :phone
       t.string :website
       t.string :other_industry
+      t.string :business_phone
       t.timestamps
     end
   end
