@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if current_user.enrollment_complete?
      #do nothing
     else
-      redirect_to  enrollment_steps_path ,notice: 'First complete you enrollment'
+      redirect_to  enrollment_steps_path ,notice: 'First complete you Enrollment'
     end
   end
   private
