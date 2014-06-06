@@ -93,8 +93,8 @@ class JobStepsController < ApplicationController
 	end
 
 	def state_response
-		state = params[:value]
-		@states = COUNTRIES_STATES[state]
+		country = params[:value]
+		@states = COUNTRIES_STATES[country]
 		respond_to do |format|
 			format.js
 		end

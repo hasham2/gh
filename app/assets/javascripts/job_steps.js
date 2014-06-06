@@ -66,33 +66,31 @@ $(document).ready(function(){
 
 /*-----------Show states if Country is selected--------------*/
 $(document).ready(function(){
-
- 	 state = $('#job_location_attributes_state').val();
- 	if(state){
- 		$('.state_group').attr('style','display:inline-block');	
- 	}
-
-	$('#job_location_attributes_country').change(function(){
-	 country = $('#job_location_attributes_country').val();
-
-
-	 if (country){
-	 	$('.state_group').attr('style','display:inline-block');		 	
-	}else{
-		$('.state_group').attr('style','display:none');
-	}
-
-	});
-});
-
-/*========================Enrollment step industry manipulation===================================*/
-
-$(document).ready(function(){
+	var selected_country = $('#job_location_attributes_country').val();
+	var id = 'job_location_attributes_country'
+	populate_second_select(id)	 
 
  	//  state = $('#job_location_attributes_state').val();
  	// if(state){
  	// 	$('.state_group').attr('style','display:inline-block');	
  	// }
+
+	// $('#job_location_attributes_country').change(function(){
+	//  country = $('#job_location_attributes_country').val();
+
+
+	//  if (country){
+	//  	$('.state_group').attr('style','display:block');		 	
+	// }else{
+	// 	$('.state_group').attr('style','display:none');
+	// }
+
+	// });
+});
+
+/*========================Enrollment step industry manipulation===================================*/
+
+$(document).ready(function(){
 
 	$('#user_employer_attributes_industry').change(function(){
 	 var other = $('#user_employer_attributes_industry').val();
