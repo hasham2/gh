@@ -3,6 +3,7 @@ class EnrollmentStepsController < ApplicationController
   include Wicked::Wizard
   steps :enrollment_contact_information, :enrollment_detail, :enrollment_availabilty, :enrollment_images_attachments
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
   def show
   	@user = current_user
   	case step
@@ -69,6 +70,7 @@ class EnrollmentStepsController < ApplicationController
         respond_to do |format|
         format.js
     end
+
   end
 
 end
@@ -128,15 +130,25 @@ end
     end
   end
   def state_response
-    state = params[:value]
-    @states = COUNTRIES_STATES[state]
+    country = params[:value]
+    @states = COUNTRIES_STATES[country]
+    if current_user.location.present?
+      @selected_state = current_user.location.state
+    end
     respond_to do |format|
       format.js
     end
   end
 
   private
-  
+
+  def finish_wizard_path
+    current_user.update_attributes(:enrollment_complete=>true)
+    flash[:notice]= 'Enrollment completed successfully'
+    root_path
+    # redirect_to root_path,notice:'enrollment completed successfully'
+  end
+
   def user_params
     params.require(:user).permit!
   end

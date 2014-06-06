@@ -31,13 +31,19 @@ jQuery ->
         data.context.find('.bar').css('width', progress + '%')
 
 
+
+
+#========================Enrollment step industry manipulation===================================
 $(document).ready ->
-  $("#user_location_attributes_country").change ->
-    country = $("#user_location_attributes_country").val()
-    if country
-      $(".state_group").attr "style", "display:block"
+  $("#user_employer_attributes_industry").change ->
+    other = $("#user_employer_attributes_industry").val()
+    if other is "others"
+      $("#user_employer_attributes_other_industry").removeAttr "disabled"
     else
-      $(".state_group").attr "style", "display:none"
+      $("#user_employer_attributes_other_industry").val ""
+      $("#user_employer_attributes_other_industry").attr "disabled", true
     return
 
   return
+
+

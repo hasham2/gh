@@ -1,6 +1,6 @@
 .container
   .col-lg-12
-    %h2 Add Enrollment
+    = render 'enrollment_title'
 .container
   .row.job-listingout
     .container.enrollment_top
@@ -23,7 +23,9 @@
             .form-group
               = f.fields_for :work_hours do |builder|
                 =render 'workhours', f: builder
+              
               =link_to_add_fields " Add More", f, :work_hours
+              =link_to_add_Standards_fields " Add Standards", f, :work_hours
               %br
               %br
               .col-lg-12.btnnextstep

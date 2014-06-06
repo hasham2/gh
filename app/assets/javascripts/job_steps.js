@@ -64,51 +64,48 @@ $(document).ready(function(){
 
 });
 
-/*-----------Show states if Country is selected--------------*/
+/*================Show states if Country is selected(In job_steps)=====================*/
 $(document).ready(function(){
+	/*--------For Edit Mode-------------------------------*/
 	var selected_country = $('#job_location_attributes_country').val();
-	var id = 'job_location_attributes_country'
-	populate_second_select(id)	 
-
- 	//  state = $('#job_location_attributes_state').val();
- 	// if(state){
- 	// 	$('.state_group').attr('style','display:inline-block');	
- 	// }
-
-	// $('#job_location_attributes_country').change(function(){
-	//  country = $('#job_location_attributes_country').val();
-
-
-	//  if (country){
-	//  	$('.state_group').attr('style','display:block');		 	
-	// }else{
-	// 	$('.state_group').attr('style','display:none');
-	// }
-
-	// });
-});
-
-/*========================Enrollment step industry manipulation===================================*/
-
-$(document).ready(function(){
-
-	$('#user_employer_attributes_industry').change(function(){
-	 var other = $('#user_employer_attributes_industry').val();
-	 if (other=="others"){
-	 	$('#user_employer_attributes_other_industry').removeAttr("disabled");
-	}else{
-		 $('#user_employer_attributes_other_industry').attr('disabled',true);
-	}
-
+		if(selected_country){
+			var id = 'job_location_attributes_country'
+			populate_second_select(id)	
+			$('.state_group').attr('style','display:block');
+		}
+ 
+	/*--------For Create Mode-------------------------------*/
+	$('#job_location_attributes_country').change(function(){
+	 country = $('#job_location_attributes_country').val();
+	 if (country){
+	 	$('.state_group').attr('style','display:block');		 	
+		}else{
+		$('.state_group').attr('style','display:none');	
+		}
 	});
 });
 
+/*===============Show states if Country is selected(In Enrollments)=============*/
+$(document).ready(function() {
+    /*--------For Edit Mode-------------------------------*/
+	var selected_country = $('#user_location_attributes_country').val();
+		if(selected_country){
+			var id = 'user_location_attributes_country'
+			populate_second_select(id);
+			$('.state_group').attr('style','display:block');
+		}
 
-
-
-
-/*============================================================*/
-/*-------------Image Uploading---------------------*/
+	/*--------For Create Mode-------------------------------*/
+	$('#user_location_attributes_country').change(function(){
+	 country = $('#user_location_attributes_country').val();
+	 if (country){
+	 	$('.state_group').attr('style','display:block');		 	
+		}else{
+		$('.state_group').attr('style','display:none');	
+		}
+	});
+});
+/*==================Image Uploading=====================*/
 
 jQuery(function() {
 	$('#multiple_files').fileupload();
