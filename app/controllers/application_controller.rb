@@ -13,11 +13,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :name, :email, :password, :password_confirmation) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password_confirmation, :password, :current_password, :avatar) }
   end
+  
   def check_enrollment
-    if current_user.enrollment_complete?
-     #do nothing
-    else
-      redirect_to  enrollment_steps_path ,notice: 'First complete you Enrollment'
+    if user_signed_in?
+      if current_user.enrollment_complete?
+       # do nothing
+      else
+        redirect_to  enrollment_steps_path ,notice: 'First complete you Enrollment'
+      end
     end
   end
   private

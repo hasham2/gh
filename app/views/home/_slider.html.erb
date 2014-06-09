@@ -17,7 +17,10 @@
           <% end %>
         </div>
         <div class="col-lg-6 searchouter">
-          <input type="text" class="seainput" placeholder="Where are you...?">
-          <button type="button" class="btn btn-success btn-lg pull-right buttonsearch">Search</button>
+          <%= form_tag('/jobs/search', method: :get) do -%>
+            <p id="gmaps-error" style="display:none;"></p>
+            <%= text_field_tag 'gmaps-input-address', nil, class: 'seainput', placeholder: 'Where are you ... ?' %>
+            <%= submit_tag 'Search', class: 'btn btn-success btn-lg pull-right buttonsearch' %>
+          <% end %>
         </div>
       </div>

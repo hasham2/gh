@@ -6,12 +6,10 @@ before_action :is_employer
 	end
 
 	def new
-	@job = Job.new
-	@user = current_user
-	@job = @user.jobs.build
-
-	
-	end
+	  @job = Job.new
+	  @user = current_user
+	  @job = @user.jobs.build
+  end
 
 	def create
 		@user = current_user
@@ -22,6 +20,9 @@ before_action :is_employer
 	    end
 	end
 
+  def search
+    
+  end
 
 	private
 	
