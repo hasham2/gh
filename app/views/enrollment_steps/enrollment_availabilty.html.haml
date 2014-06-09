@@ -40,6 +40,8 @@
   
     $('.remove input[type=hidden]').val('1');
     $('fieldset').hide();
+    $(this).parent().parent().find('select:last').val('');
+    $('a.add_standard_fields').attr('disabled',false);
   
   });
 
