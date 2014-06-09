@@ -202,9 +202,29 @@ class JobStepsController < ApplicationController
      		format.js
      	end				
 	end
+
+
+	def set_employer_address
+		# binding.pry
+		if current_user.location.present?
+			@employer_address = current_user.location
+
+			country = @employer_address.country
+			@states = COUNTRIES_STATES[country]
+		else
+			@employer_address = nil
+		end
+	end
+
 private
-	def job_details_params	
-		params.require(:job).permit!#(:user_id,:title, :hours_per_day, :work_duration, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:city,:zip,:country,:state,:time_zone]])
+	def job_details_params
+		@desired_wage_is_firm = params[:job][:desired_wage_is_firm]
+		if @desired_wage_is_firm == "true"
+			@desired_wage = params[:job][:desired_wage]
+			params[:job][:max_wage] = @desired_wage
+		end
+
+		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone])
 	end
 
 	def candidate_prioritization_params

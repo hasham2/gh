@@ -1,0 +1,24 @@
+<% if @employer_address %>
+
+	$('.address_field').val('<%=@employer_address.address %>');
+	$('.second_address_field').val('<%=@employer_address.second_address %>');
+	$('.city_field').val('<%=@employer_address.city %>');
+	$('.zip_code_field').val('<%=@employer_address.zip %>');
+
+	/*setting country value*/
+	$("#job_location_attributes_country").children().remove();
+	$("<%= escape_javascript(options_for_select(["United States", "Canada"],:selected=>@employer_address.country) ) %>").appendTo("#job_location_attributes_country");
+
+	/*showing selected state corresponding selected country */
+		 var country = $('#job_location_attributes_country').val();
+		 if (country){
+		 	$('.state_group').attr('style','display:block');
+		 	$("#job_location_attributes_state").children().remove();
+		 	$("<%= escape_javascript(options_for_select(@states.collect(&:reverse),:selected=>@employer_address.state) ) %>").appendTo("#job_location_attributes_state");
+			}else{
+			$('.state_group').attr('style','display:none');	
+			}
+
+<% else %>
+	alert("Employer's Address is Not Available");
+<% end %>

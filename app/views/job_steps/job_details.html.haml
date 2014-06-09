@@ -12,11 +12,15 @@
             %label.col-sm-5.labl{:for => "inputPassword"} Job ID
             .col-sm-7
               %input#inputPassword.form-control.form-controlid{:placeholder =>@current_user_jobs, :style => "background-color:#23a327; text-align:center;", :type => "text", :disabled=>true}
+        .col-lg-3
+          .form-group
+            .col-sm-10
+              = j.select :job_category, options_for_select(['Full-time','Part-time','Temporary','Contract'],:selected=>j.object.job_category? ? j.object.job_category : '') , {:prompt => 'Job Category'}, :class=>"form-control",:id=>"job_category"
         .col-lg-4
           .form-group
             = j.label :work_duration, 'Work Duration (days)' ,:class=>"col-sm-6 labl"
             .col-sm-4
-              = j.text_field :work_duration, :class=>"form-control", :placeholder=>"5"
+              = j.text_field :work_duration,{ :class=>"form-control", :placeholder=>"5", :disabled=>true, :id=>"work_duration"}
       .col-lg-12.topfilde1
         .col-lg-4
           .form-group
@@ -46,19 +50,19 @@
             .col-sm-7
               = j.text_field :listing_expires_on, :class=>"form-control", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d-%m-%Y, %H:%M %p')
       .col-lg-12.topfilde1
-        .col-lg-5
+        .col-lg-6
           .form-group
-            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-5 labl"
-            .col-sm-2
-              = j.text_field :desired_wage, :class=>"form-control", :placeholder=>"14"
+            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-4 labl"
+            .col-sm-3
+              = j.text_field :desired_wage,:id=>"desired_wage", :class=>"form-control", :placeholder=>"14"
             .checkbox.checkbox2
-              = j.check_box:desired_wage_is_firm
+              = j.check_box:desired_wage_is_firm,{:id=>"desired_wage_is_firm"} , 'true','false'
               = j.label :desired_wage_is_firm, 'Desired Wage is Firm'
         .col-lg-4
           .form-group
             = j.label :max_wage, 'Max Wage ($/hr)' ,:class=>"col-sm-5 labl"
             .col-sm-4
-              = j.text_field :max_wage, :class=>"form-control", :placeholder=>"17"
+              = j.text_field :max_wage,:id=>"max_wage", :class=>"form-control", :placeholder=>"17"
       .col-lg-12.topfilde1
         .col-lg-5
           %h2 Job Description
@@ -72,41 +76,46 @@
         .col-lg-12.location-box
           = j.fields_for :location do |builder|
             %h2 Job Location Address
+            %button.btn.btn-success.pull-right.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"set_employer_address"} Set to Employer Address
             %h3#address_city
             %h3#state_country
             .col-lg-12.topfilde1.one
-              .col-lg-4
+              .col-lg-6
                 .form-group
-                  = builder.label :address, 'Address' ,:class=>"col-sm-4 labl"
-                  .col-sm-6
-                    = builder.text_field :address, :class=>"form-control address_field"
-              .col-lg-4
+                  = builder.label :address, 'Address Line 1' ,:class=>"col-sm-4 labl"
+                  = builder.text_field :address, :class=>"form-control address_field"
+            .col-lg-12.topfilde1.one
+              .col-lg-6
                 .form-group
-                  = builder.label :city, 'City' ,:class=>"col-sm-3 labl"
-                  .col-sm-6
-                    = builder.text_field :city, :class=>"form-control city_field"
+                  = builder.label :second_address, 'Address Line 2' ,:class=>"col-sm-4 labl"
+                  = builder.text_field :second_address, :class=>"form-control second_address_field"
+            .col-lg-12.topfilde1.one
+              .col-lg-6
+                .form-group
+                  = builder.label :city, 'City' ,:class=>"col-sm-4 labl"
+                  = builder.text_field :city, :class=>"form-control city_field"
             .col-lg-12.topfilde1.two
               .col-lg-4
                 .form-group
                   = builder.label :country, 'Country' ,:class=>"col-sm-4 labl"
-                  .col-sm-6
-                    = builder.select :country, ["United States", "Canada"] ,{:prompt => 'Select country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control",:style=>'width:132px'}
+                  .col-sm-7
+                    = builder.select :country, ["United States", "Canada"] ,{include_blank: 'Select Country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control"}
               .col-lg-4
                 .form-group.state_group{:style=>"display:none"}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
-                  .col-sm-6
-                    = builder.select :state, {},{},{ :class => 'form-control',:style=>"width:150px"}
+                  .col-sm-9
+                    = builder.select :state, {},{},{ :class => 'form-control'}
             .col-lg-12.topfilde1.three
-              .col-lg-4
+              .col-lg-6
                 .form-group
-                  = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-3 labl"
-                  .col-sm-6
-                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control',:style=>"width:325px" }
+                  = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 labl"
+                  .col-sm-9
+                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control'}
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
                 .col-sm-3
-                  = builder.text_field :zip, :class=>"form-control", :placeholder=>"M6j 3M7"
+                  = builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7"
             .col-lg-12.pull-left.checkjob
               .checkbox.checkbox2
                 %label
