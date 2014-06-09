@@ -24,7 +24,7 @@ class EnrollmentStepsController < ApplicationController
     when :enrollment_availabilty
        @s=3
     if @user.work_hours.empty?
-      @user.work_hours.build
+      # @user.work_hours.build
     end
     when :enrollment_images_attachments
        @s = 4 
