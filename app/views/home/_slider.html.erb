@@ -20,6 +20,8 @@
           <%= form_tag('/jobs/search', method: :get) do -%>
             <p id="gmaps-error" style="display:none;"></p>
             <%= text_field_tag 'gmaps-input-address', nil, class: 'seainput', placeholder: 'Where are you ... ?' %>
+            <%= hidden_field_tag 'lat' %>
+            <%= hidden_field_tag 'lng' %>
             <%= submit_tag 'Search', class: 'btn btn-success btn-lg pull-right buttonsearch' %>
           <% end %>
         </div>

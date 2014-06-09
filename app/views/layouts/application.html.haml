@@ -22,6 +22,9 @@
           errorField: '#gmaps-error',
           updateUI: function(address, latLng){
             //map.panTo([latLng.k,latLng.A]);
+            //set the lat/lng for direct pan to location
+            $('#lat').val(latLng.k);
+            $('#lng').val(latLng.A);
           }
         });
         completer.autoCompleteInit({region: "#{escape_javascript sniffed_region_code}", country: "#{escape_javascript sniffed_country_code}"});

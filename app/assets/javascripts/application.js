@@ -32,11 +32,11 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 
-//= require_tree .
-//= require leaflet-google
 //= require leaflet
+//= require leaflet-google
 //= require turbolinks
 
+//= require_tree .
 
 jQuery(function() {
    $('#user_certificate_list').tokenInput('./tags.json', {
