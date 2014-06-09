@@ -13,6 +13,7 @@ $(document).ready(function(){
 jQuery(function() {
   $('form').on('click', '.remove_fields', function(event) {
     var condition = $(this).closest('fieldset').find('select').val();
+    // alert(condition);
     switch (condition) {
       case 'm':
          $(this).closest('fieldset').find('select').val('su');
@@ -50,13 +51,14 @@ jQuery(function() {
    $('form').on('click', '.add_fields', function(event) {
    	$('a.add_standard_fields').attr('disabled',true)
 
-   	var condition = $(this).parent().parent().find('select:last').val();
+    var last_visible_select_val = $('fieldset:visible:last').find('select').val();
+
     var regexp, time;
     time = new Date().getTime();
     regexp = new RegExp($(this).data('id'), 'g');
     $(this).before($(this).data('fields').replace(regexp, time));
-
-      switch (condition) {
+     
+      switch (last_visible_select_val) {
         case 'm':
            $(this).parent().parent().find("select:last").val('t');
           break;
