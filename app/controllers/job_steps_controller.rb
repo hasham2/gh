@@ -120,6 +120,42 @@ class JobStepsController < ApplicationController
 	  end
 	end
 
+	def delete_certification
+		# binding.pry
+	 @certification = Certification.find(params[:value])
+
+	   if @certification.present?
+		  respond_to do |format|
+		  	if @certification.destroy
+		  		format.js
+		  	end
+		  end
+		end
+	end
+
+	def add_requirement
+	  @requirement = Requirement.new(:name => params[:value])
+	  respond_to do |format|
+	    if @requirement.save
+	    	format.js 
+	    	# format.json   {render json: @requirement }
+	    end
+	  end
+	end
+
+	def delete_requirement
+		# binding.pry
+	 @requirement = Requirement.find(params[:value])
+
+	   if @requirement.present?
+		  respond_to do |format|
+		  	if @requirement.destroy
+		  		format.js
+		  	end
+		  end
+		end
+	end
+
 	def add_photo
 		@job_id = session[:job_id]
      	@job = Job.find(@job_id)
@@ -140,7 +176,6 @@ class JobStepsController < ApplicationController
 		@job_id = session[:job_id]
      	@job = Job.find(@job_id)
      	@photo = @job.photos.find(params[:value])
-     	# binding.pry
      	@photo.destroy
      	@photos = @job.photos.where(:is_primary => nil)
      	respond_to do |format|
@@ -236,6 +271,7 @@ private
 	end
 
 	def education_and_certifications_params
+		 # binding.pry
 		params.require(:job).permit!
 	end
 

@@ -41,7 +41,7 @@ $(document).ready(function(){
 		$('#state_country').text(state+" "+country);
 	});
 
-
+/*=======Add Button functionality of Education and Certifications========*/
 	$('#add_certification').click(function(){
 		var new_certification =	$('#add_certification_value').val();
 		if (new_certification == ""){
@@ -56,6 +56,69 @@ $(document).ready(function(){
 			 });
 
 			$('#add_certification_value').val("");
+		}	
+
+	});
+
+	/*=======Delete Button functionality of Education and Certifications========*/
+	var current_certification_id =""
+
+	$('.delete_certification_value').change(function(){
+		current_certification_id =	$('.delete_certification_value').find('option:selected').val();
+	});
+
+	$('#delete_certification').click(function(){		
+		if (!current_certification_id){
+
+			alert('Please Selelct some Value');
+		}
+		else{		
+			$.ajax({
+			   method:'post',
+			   url:'./delete_certification',
+			   data: {value:current_certification_id}
+			 });
+		}	
+
+	});
+
+	/*=======Add Button functionality of Job Requiremets========*/
+	$('#add_requirement').click(function(){
+		var new_requirement =	$('#add_requirement_value').val();
+		if (new_requirement == ""){
+
+			alert('Please Enter some Value')
+		}else{
+		// alert(new_requirement);
+			$.ajax({
+			   method:'post',
+			   url:'./add_requirement',
+			   data: {value:new_requirement}
+			 });
+
+			$('#add_requirement_value').val("");
+		}	
+
+	});
+
+	/*=======Delete Button functionality of Job Requirements========*/
+	var current_requirement_id =""
+
+	$('.delete_requirement_value').change(function(){
+		current_requirement_id =	$('.delete_requirement_value').find('option:selected').val();
+	});
+
+	$('#delete_requirement').click(function(){		
+		if (!current_requirement_id){
+
+			alert('Please Selelct some Value');
+		}
+		else{		
+			$.ajax({
+			   method:'post',
+			   url:'./delete_requirement',
+			   data: {value:current_requirement_id}
+			 });
 		}	
 
 	});
@@ -179,11 +242,6 @@ $(document).ready(function(){
 				$('#job_metrics_attributes_'+i+'__destroy').prop('checked', true);
 			}
 	}
-
-
-	
-	
-
 
 });
 

@@ -1,0 +1,13 @@
+
+/*---Removing the Check Box that is currently deleted in the database---*/
+<% if @certification  %>
+$('#job_certification_ids_'+<%= @certification.id %>).next('label').remove();
+$('#job_certification_ids_'+<%= @certification.id %>).remove();
+
+
+/*-------------Removing only selected value of Dropdown-------------*/
+$('.delete_certification_value').find('option:selected').remove();
+
+<% else%>
+alert('Record Not Found');
+<% end %>

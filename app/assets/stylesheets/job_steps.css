@@ -9,3 +9,13 @@
   float: left;
       margin-right: 10px;
 }
+
+ul.thumbnails.image_picker_selector li .thumbnail img {
+
+	width: 115px;
+	height: 75px;
+}
+.modal-width{
+	width: 65% !important;
+
+}
