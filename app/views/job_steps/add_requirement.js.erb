@@ -1,0 +1,11 @@
+ $("<%= escape_javascript(check_box_tag'job_requirement_ids_'+@requirement.id.to_s, @requirement.id, true, :name=>"job[requirement_ids][]") %>").appendTo(".all_requirements");
+
+$("<%= escape_javascript(label_tag(@requirement.name)) %>").appendTo(".all_requirements");
+
+
+
+/*===Regenerating the Values of Dropdown of Delete===*/
+$(".delete_requirement_value").children().remove();
+$(".delete_requirement_value").append('<option value="">Select Value</option>')
+$("<%= escape_javascript(options_for_select(Requirement.all.collect{ |c| [c.name, c.id]})) %>").appendTo(".delete_requirement_value");
+

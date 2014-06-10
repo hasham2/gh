@@ -21,7 +21,7 @@
               = image_tag('icon-user-default.png', :width=>"217px", :height=>"176px")
         %button#select_primary_image.btn.btn-success.pull-left.btnuser{type: "button"} Select Primary Image
     .col-lg-12.additional_Photos
-      %h2 Additional Photos
+      %h2 Additional Images
       .additional-photos
         - if @photos
           = render @photos
@@ -29,21 +29,21 @@
       = f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;"
     .col-lg-12.btnnextstep
       = button_tag(type: 'button',id: 'add_photo_button', class: 'btn btn-success pull-left btn-nextstep') do
-        = content_tag(:div,'Add photo')
+        = content_tag(:div,'Add Image')
       %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{"data-target" => "#existing_photos", "data-toggle" => "modal"} Choose existing
       = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
       = link_to "Proceed to Next Step", next_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
   / /row
 #existing_photos.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
-  .modal-dialog
+  .modal-dialog.modal-width
     .modal-content
       .modal-header
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-        %h4#myModalLabel.modal-title Modal title
+        %h4#myModalLabel.modal-title Choose Existing Images
       .modal-body
         %select#image-picker.image-picker.show-html.post_image
           - @existing_photos.each do |p|
-            %option{"data-img-src" => p.image.url(:thumb), id: p.id, value: p.id}
+            %option{"data-img-src" => p.image.url, id: p.id, value: p.id}
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
         %button#save_changes.btn.btn-primary{type: "button"} Save changes

@@ -1,0 +1,12 @@
+/*---Removing the Check Box that is currently deleted in the database---*/
+<% if @requirement  %>
+$('#job_requirement_ids_'+<%= @requirement.id %>).next('label').remove();
+$('#job_requirement_ids_'+<%= @requirement.id %>).remove();
+
+
+/*-------------Removing only selected value of Dropdown-------------*/
+$('.delete_requirement_value').find('option:selected').remove();
+
+<% else%>
+alert('Record Not Found');
+<% end %>

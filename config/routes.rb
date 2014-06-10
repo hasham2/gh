@@ -12,6 +12,11 @@ Gh::Application.routes.draw do
   get "job_steps/state_response"
 
   post "job_steps/add_certification"
+  post "job_steps/delete_certification"
+
+  post "job_steps/add_requirement"
+  post "job_steps/delete_requirement"
+  
   post "job_steps/add_photo"
   post "job_steps/make_primary_photo"
   post "job_steps/delete_photo"
@@ -19,6 +24,7 @@ Gh::Application.routes.draw do
   post "job_steps/make_by_default_primary_image"
   post "job_steps/choose_existing_photo"
   post "job_steps/set_employer_address"
+
 
 
   post "enrollment_steps/add_photo"

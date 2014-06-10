@@ -1,3 +1,12 @@
  $("<%= escape_javascript(check_box_tag'job_certification_ids_'+@certification.id.to_s, @certification.id, true, :name=>"job[certification_ids][]") %>").appendTo(".all_certifications");
 
 $("<%= escape_javascript(label_tag(@certification.title)) %>").appendTo(".all_certifications");
+
+
+
+
+/*===Regenerating the Values of Dropdown of Delete===*/
+$(".delete_certification_value").children().remove();
+$(".delete_certification_value").append('<option value="">Select Value</option>')
+$("<%= escape_javascript(options_for_select(Certification.all.collect{ |c| [c.title, c.id]})) %>").appendTo(".delete_certification_value");
+
