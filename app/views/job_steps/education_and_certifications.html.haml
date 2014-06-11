@@ -23,12 +23,12 @@
           %h2 Job Requirements
           .col-lg-12.pull-left.checkjob{style: "width:115px;"}
             #align_check_boxes.education_checkbox.all_requirements
-              = f.collection_check_boxes(:requirement_ids, Requirement.all, :id, :name )
+              = f.collection_check_boxes(:requirement_ids, @universal_and_employer_requirements, :id, :name )
           .col-lg-12
             %div{style: "width:246px; margin:40px 0 0 0"}
               %button#delete_requirement.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Delete
               .col-sm-9.pull-right{style: "margin:-27px 0 0 0;"}
-                = select_tag "_destroy", options_for_select(Requirement.all.collect{ |r| [r.name, r.id]}), {:class =>"form-control delete_requirement_value",prompt: 'Select Value'}
+                = select_tag "_destroy", options_for_select(@employer_requirements.collect{ |r| [r.name, r.id]}), {:class =>"form-control delete_requirement_value",prompt: 'Select Value'}
           .col-lg-12
             %div{style: "width:246px; margin:40px 0 0 0"}
               %button#add_requirement.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Add
@@ -41,12 +41,12 @@
             Certifications
           .col-lg-12.pull-left.checkjob
             #align_check_boxes.all_certifications.education_checkbox
-              = f.collection_check_boxes(:certification_ids, Certification.all, :id, :title )
+              = f.collection_check_boxes(:certification_ids, @universal_and_employer_certifications, :id, :title )
           .col-lg-12
             %div{style: "width:246px; margin:40px 0 0 0"}
               %button#delete_certification.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Delete
               .col-sm-9.pull-right{style: "margin:-27px 0 0 0;"}
-                = select_tag "_destroy", options_for_select(Certification.all.collect{ |c| [c.title, c.id]}), {:class =>"form-control delete_certification_value",prompt: 'Select Value'}
+                = select_tag "_destroy", options_for_select(@employer_certifications.collect{ |c| [c.title, c.id]}), {:class =>"form-control delete_certification_value",prompt: 'Select Value'}
           .col-lg-12
             %div{style: "width:246px; margin:40px 0 0 0"}
               %button#add_certification.btn.btn-success.pull-left.btn-educationdelete{type: "button"} Add

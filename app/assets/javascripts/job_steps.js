@@ -72,12 +72,14 @@ $(document).ready(function(){
 
 			alert('Please Selelct some Value');
 		}
-		else{		
+		else if (current_certification_id){		
 			$.ajax({
 			   method:'post',
 			   url:'./delete_certification',
 			   data: {value:current_certification_id}
 			 });
+		/*Making the following variable empty to avoid reuse of the containing value*/
+		current_certification_id =""
 		}	
 
 	});
@@ -113,12 +115,14 @@ $(document).ready(function(){
 
 			alert('Please Selelct some Value');
 		}
-		else{		
+		else if (current_requirement_id){
 			$.ajax({
 			   method:'post',
 			   url:'./delete_requirement',
 			   data: {value:current_requirement_id}
 			 });
+			/*Making the following variable empty to avoid reuse of the containing value*/
+			current_requirement_id =""
 		}	
 
 	});

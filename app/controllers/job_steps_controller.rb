@@ -53,6 +53,17 @@ class JobStepsController < ApplicationController
      	@stp = 4
      	@job.requirements.build
      	@job.certifications.build
+     	@employer_id = current_user.employer.id
+
+     	# getting requirements of current employer and universal requirements
+     	@universal_and_employer_requirements = Requirement.where({:employer_id=>[nil,@employer_id]})
+     	# getting requirements of current employer only
+     	@employer_requirements = Requirement.where(:employer_id=>@employer_id)
+
+     	# getting certifications of current employer and universal certifications
+     	@universal_and_employer_certifications = Certification.where({:employer_id=>[nil,@employer_id]})
+     	# getting certifications of current employer only
+     	@employer_certifications = Certification.where(:employer_id=>@employer_id)
      end
 	   render_wizard
 	end
@@ -77,7 +88,7 @@ class JobStepsController < ApplicationController
 	   	@new_image = params[:job][:photos_attributes]["0"][:image]
 	   	@is_primary = params[:job][:photos_attributes]["0"][:is_primary]
 
-	   @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+	    @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
 	   	unless request.xhr?	  	
 	   	render_wizard @job
 	   	end
@@ -111,9 +122,12 @@ class JobStepsController < ApplicationController
 	end
 
 	def add_certification
-	  @certification = Certification.new(:title => params[:value])
+	  @employer_id = current_user.employer.id
+	  @certification = Certification.new(:title => params[:value], :employer_id =>@employer_id)
 	  respond_to do |format|
 	    if @certification.save
+	    	# getting certifications of current employer only
+	    	@employer_certifications = Certification.where(:employer_id=>@employer_id)
 	    	format.js 
 	    	# format.json   {render json: @certification }
 	    end
@@ -122,21 +136,26 @@ class JobStepsController < ApplicationController
 
 	def delete_certification
 		# binding.pry
-	 @certification = Certification.find(params[:value])
+		if params[:value]
+			@certification = Certification.find(params[:value])
 
-	   if @certification.present?
-		  respond_to do |format|
-		  	if @certification.destroy
-		  		format.js
-		  	end
-		  end
+		   if @certification.present?
+			  respond_to do |format|
+			  	if @certification.destroy
+			  		format.js
+			  	end
+			  end
+			end
 		end
 	end
 
 	def add_requirement
-	  @requirement = Requirement.new(:name => params[:value])
+	  @employer_id = current_user.employer.id
+	  @requirement = Requirement.new(:name => params[:value], :employer_id =>@employer_id)
 	  respond_to do |format|
 	    if @requirement.save
+     		# getting requirements of current employer only
+     		@employer_requirements = Requirement.where(:employer_id=>@employer_id)
 	    	format.js 
 	    	# format.json   {render json: @requirement }
 	    end
@@ -144,15 +163,17 @@ class JobStepsController < ApplicationController
 	end
 
 	def delete_requirement
-		# binding.pry
-	 @requirement = Requirement.find(params[:value])
 
-	   if @requirement.present?
-		  respond_to do |format|
-		  	if @requirement.destroy
-		  		format.js
-		  	end
-		  end
+		if params[:value]
+		 	@requirement = Requirement.find(params[:value])
+
+		   if @requirement.present?
+			  respond_to do |format|
+			  	if @requirement.destroy
+			  		format.js
+			  	end
+			  end
+			end
 		end
 	end
 
@@ -180,10 +201,7 @@ class JobStepsController < ApplicationController
      	@photos = @job.photos.where(:is_primary => nil)
      	respond_to do |format|
      		format.js
-     	end
-
-		
-		
+     	end		
 	end
 
 	def make_primary_photo
