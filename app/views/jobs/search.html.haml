@@ -1,0 +1,7 @@
+%div.col-xs-12.col-sm-6.col-md-8
+  #map
+:javascript
+  var map = L.map('map').setView(["#{lat_from_request}","#{lng_from_request}"],13);
+  var googleLayer = new L.Google('ROADMAP');
+  map.addLayer(googleLayer);
+

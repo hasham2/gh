@@ -47,4 +47,20 @@ module ApplicationHelper
       "US"
     end
   end
+
+  def lat_from_request
+    if defined? @lat
+      @lat
+    else
+      '49.248497'
+    end
+  end
+
+  def lng_from_request
+    if defined? @lng
+      @lng
+    else
+      '-122.942115'
+    end
+  end
 end
