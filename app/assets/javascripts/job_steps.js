@@ -41,7 +41,7 @@ $(document).ready(function(){
 		$('#state_country').text(state+" "+country);
 	});
 
-/*=======Add Button functionality of Education and Certifications========*/
+	/*=======Add Button functionality of Education and Certifications========*/
 	$('#add_certification').click(function(){
 		var new_certification =	$('#add_certification_value').val();
 		if (new_certification == ""){
@@ -173,12 +173,12 @@ jQuery(function() {
 
 /*=========== Is Firmed Field Functionalty Added===========*/
 $(document).ready(function(){
-/*================Edit Mode====================*/
+	/*================Edit Mode====================*/
 	var value = $('#desired_wage_is_firm').is(':checked')
 	if(value){
 		$('#max_wage').attr('disabled',true);
 	}
-/*=====================Create Mode=============================*/
+	/*=====================Create Mode=============================*/
 	$('#desired_wage_is_firm').click(function(){
 		var value = $(this).is(':checked')
 		if(value == true){
@@ -230,7 +230,7 @@ $(document).ready(function(){
 		$('#job_metrics_attributes_'+i+'__destroy').siblings('span').text('Enable '+e);
 	}
 
-/*Auto selecting Checkbox on changing the slider */
+	/*Auto selecting Checkbox on changing the slider */
 	$('.simple_slider').change(function(){
 		var current_slider_id = $(this).attr('id').split('_')[3];
 			/*making Checkbox true on changing the slider */
@@ -250,7 +250,75 @@ $(document).ready(function(){
 });
 
 
+/*Comparing dates*/
+$(document).ready(function(){
+		$('.zip_code_field').change(function(){
+				var country = $('#job_location_attributes_country').val();
+				var postal_or_zip = $('.zip_code_field').val();
+				/*Validation for US ZipCode */
+				if (country == 'United States'){
+							var zipcode_regex = /^\d{5}$/;
+							if (zipcode_regex.test($.trim(postal_or_zip)) == false){
+									alert('Invalid Zip Code');
+							}			    
+				}
+				/*Validation for Canadian postal Code */
+				else if (country == 'Canada'){
+					    var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
+					    if (regex.test(postal_or_zip) == false){
+					    	alert('Invalid Postal Code');
+					    }
+				}
 
+		});			
+});
+
+
+$(document).ready(function(){
+	// start_date = $('.start_date').val();
+	// listing_expires_on = $('.listing_expires_on').val();
+
+	// start_date ='10-07-2012';
+	// end_date = '05-05-2012';
+	// var startdate = start_date.split('-');
+	// start_date = new Date();
+	// start_date.setFullYear(startdate[2],startdate[1]-1,startdate[0]);
+	// var enddate = end_date.split('-');
+	// end_date = new Date();
+	// end_date.setFullYear(enddate[2],enddate[1]-1,enddate[0]);
+	// if (start_date > end_date ) 
+	// {
+	//     alert("Invalid Date Range!\nStart Date cannot be after End Date!")
+	//     alert(start_date)
+
+	//     return false;
+	// }
+
+
+	
+
+	// startDate = "04-29-1987"
+	// endadate ="04-30-1987";
+	// var startDate = new Date(jQuery('#from').val().replace(/-/g, '/')).getTime();
+
+
+	//  var endDate =  new Date(jQuery('#to').val().replace(/-/g, '/')).getTime(); 
+	//     var date = new Date();
+	//     var currentDate = new Date(date.getMonth() + 1 + '/' + date.getDate() + '/' +
+
+	//  date.getFullYear()).getTime();
+	//         if (startDate > endDate){
+	//             alert('From date is greater than To date');
+	//             return false;
+	//         } else if (startDate > currentDate || endDate > currentDate) {
+	//             alert('You have entered future date');
+	//         } else {
+	//             return true;
+	//         }
+
+
+
+});
 
 
 

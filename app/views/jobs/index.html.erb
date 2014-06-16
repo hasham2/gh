@@ -1,0 +1,26 @@
+
+<div class="col-lg-10">
+  <br>
+  <div class="col-lg-5 col-lg-offset-5">
+    <table class="table table-bordered">
+      <tr>
+       <th>Job Id</th>
+       <th>Title</th>
+       <th> Show Link </th>
+       <th> Edit Link </th>
+       <th> Delete link </th>
+     </tr>
+     <% @employer_job_id = 0 %>
+     <% @jobs.each do |job| %>
+     <tr>
+       <td> <%= @employer_job_id+=1  %> </td>
+       <td><%=job.title %></td>
+       <td><%=link_to "show", job_path(job,:employer_job_id=>@employer_job_id) %></td>
+       <td><%=link_to "Edit", edit_job_path(job) %></td>
+       <td><%=link_to "Delete", job, method: :delete, data:{confirm: "are you sure?"} %>
+     </tr>
+     <% end %>
+
+   </table>
+ </div>
+</div>
