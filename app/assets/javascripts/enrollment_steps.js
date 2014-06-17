@@ -32,13 +32,13 @@ jQuery(function() {
     // do nothing
     }
     else{
-    $('a.add_standard_fields').attr('disabled',false)
+   // $('a.add_standard_fields').attr('disabled',false)
     }
     return event.preventDefault();
   });
 /* ============= ADD  workhour fields with Day increment ==========================*/
    $('form').on('click', '.add_fields', function(event) {
-   	$('a.add_standard_fields').attr('disabled',true)
+   	// $('a.add_standard_fields').attr('disabled',true)
 
     var last_visible_select_val = $('fieldset:visible:last').find('select').val();
 
@@ -79,53 +79,64 @@ jQuery(function() {
     return event.preventDefault();
   });
    if($('fieldset').is(":visible")){
-   	$('a.add_standard_fields').attr('disabled',true)
+   	// $('a.add_standard_fields').attr('disabled',true)
    }
 });
 
 /* ============================ADD standards workhour fields===============*/
 
 jQuery(function() {
+
+
+
   $("form").on("click", ".add_standard_fields", function(event) {
-    var i, regexp, time;
-    i = 1;
-    while (i < 7) {
-      regexp = void 0;
-      time = void 0;
-      time = new Date().getTime();
-      regexp = new RegExp($(this).data("id"), "g");
-      $("a.add_fields").before($(this).data("fields").replace(regexp, time));
-      switch (i) {
-        case 1:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("m");
-          break;
-        case 2:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("t");
-          break;
-        case 3:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("w");
-          break;
-        case 4:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("th");
-          break;
-        case 5:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("f");
-          break;
-        case 6:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("s");
-          break;
-        case 7:
-          $("#user_work_hours_attributes_" + time + "_day_of_week").val("su");
-      }
-      i++;
-    }
-    return event.preventDefault();
+
+    var r=confirm("Would you like to select standard business hours?");
+    if (r==true) {
+      $('#clear').trigger('click');
+       var i, regexp, time;
+       i = 1;
+       while (i <= 7) {
+         regexp = void 0;
+         time = void 0;
+         time = new Date().getTime();
+         regexp = new RegExp($(this).data("id"), "g");
+         $("a.add_fields").before($(this).data("fields").replace(regexp, time));
+         switch (i) {
+           case 1:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("m");
+             break;
+           case 2:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("t");
+             break;
+           case 3:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("w");
+             break;
+           case 4:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("th");
+             break;
+           case 5:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("f");
+             break;
+           case 6:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("s");
+             break;
+           case 7:
+             $("#user_work_hours_attributes_" + time + "_day_of_week").val("su");
+         }
+         i++;
+       }
+       return event.preventDefault();
+    } else {
+        //Do nothing
+    } 
+
   });
 
 /* =========================Add preivous workhours field===============================*/
 
   $('form').on('click', '.add_previous_fields', function(event) {
-    $('a.add_standard_fields').attr('disabled',true)
+    // $('a.add_standard_fields').attr('disabled',true)
 
     var last_visible_select_val = $('fieldset:visible:last').find('select').val();
     var last_selected_start_date_val = $('fieldset:visible:last').find('.start_date').val();
@@ -176,14 +187,14 @@ jQuery(function() {
            break;
         default:
           $(this).parent().parent().find("select:last").val('m');
-          $('fieldset:visible:last').find('.start_date').val('9:00 AM')
-           $('fieldset:visible:last').find('.end_date').val('5:00 PM')
+          // $('fieldset:visible:last').find('.start_date').val('9:00 AM')
+          //  $('fieldset:visible:last').find('.end_date').val('5:00 PM')
           break;
       }
     return event.preventDefault();
   });
    if($('fieldset').is(":visible")){
-    $('a.add_standard_fields').attr('disabled',true)
+    // $('a.add_standard_fields').attr('disabled',true)
    }
 });
 

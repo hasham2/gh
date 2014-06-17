@@ -10,7 +10,7 @@
         %h2 Employee Prioritization Metrics
         = f.fields_for :metrics do |metric|
           .col-lg-12
-            .col-lg-4
+            .col-lg-4.combine
               .checkbox.checkbox2.selects
                 %label
                   = metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1'
@@ -42,3 +42,22 @@
         }
     });
   });
+  $(document).ready(function(){
+
+      $('input[type="checkbox"]').click(function(){
+
+      if($(this).is(":checked")){
+
+         $(this).parents('.combine').find('select').prop('required',true)
+
+      }
+
+      else {
+
+           $(this).parents('.combine').find('select').prop('required',false);
+
+      }
+    });
+  });
+
+  

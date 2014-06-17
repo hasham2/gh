@@ -235,6 +235,7 @@ $(document).ready(function(){
 		var current_slider_id = $(this).attr('id').split('_')[3];
 			/*making Checkbox true on changing the slider */
 		  $('#job_metrics_attributes_'+current_slider_id+'__destroy').prop('checked', true);
+		  $('#job_metrics_attributes_'+current_slider_id+'_metric_type_id').prop('required',true);
 
 	});
 
@@ -244,6 +245,7 @@ $(document).ready(function(){
 		var metric_type_value = $('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').text();
 			if(current_slider_value >1 || metric_type_value !='Metric Type' ){
 				$('#job_metrics_attributes_'+i+'__destroy').prop('checked', true);
+				$('#job_metrics_attributes_'+i+'_metric_type_id').prop('required',true);
 			}
 	}
 
