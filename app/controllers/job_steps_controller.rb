@@ -262,8 +262,10 @@ class JobStepsController < ApplicationController
 		if current_user.location.present?
 			@employer_address = current_user.location
 
+			if @employer_address.country.present?
 			country = @employer_address.country
 			@states = COUNTRIES_STATES[country]
+		  end
 		else
 			@employer_address = nil
 		end

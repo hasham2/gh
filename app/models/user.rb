@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
   validates :name, uniqueness: {case_sensitive: false}
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
-
+  # validates :name, presence: true
+  # validates :first_name, presence: true
+  # validates :last_name, presence: true
+  # validates :phone_primary, presence: true 
   has_many :jobs
   accepts_nested_attributes_for :jobs
 

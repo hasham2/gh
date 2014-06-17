@@ -19,6 +19,7 @@
 
 //= require certifications
 //= require requirements
+//= require enrollment_steps
 //= require user_steps
 //= require job_steps
 //= require jobs
