@@ -343,51 +343,74 @@ $(document).ready(function(){
 });
 
 
-
 // $(document).ready(function(){
-	// start_date = $('.start_date').val();
-	// listing_expires_on = $('.listing_expires_on').val();
 
-	// start_date ='10-07-2012';
-	// end_date = '05-05-2012';
-	// var startdate = start_date.split('-');
-	// start_date = new Date();
-	// start_date.setFullYear(startdate[2],startdate[1]-1,startdate[0]);
-	// var enddate = end_date.split('-');
-	// end_date = new Date();
-	// end_date.setFullYear(enddate[2],enddate[1]-1,enddate[0]);
-	// if (start_date > end_date ) 
-	// {
-	//     alert("Invalid Date Range!\nStart Date cannot be after End Date!")
-	//     alert(start_date)
+// 	$('#job_metrics_attributes_0_metric_type_id').change(function(){
 
-	//     return false;
-	// }
+// 		var metric_type_0 =	$('#job_metrics_attributes_0_metric_type_id').find('option:selected').text();
+// 		var metric_type_1 =	$('#job_metrics_attributes_1_metric_type_id').find('option:selected').text();
+// 		var metric_type_2 =	$('#job_metrics_attributes_2_metric_type_id').find('option:selected').text();
+// 		var metric_type_3 =	$('#job_metrics_attributes_3_metric_type_id').find('option:selected').text();
+// 		var metric_type_4 =	$('#job_metrics_attributes_4_metric_type_id').find('option:selected').text();
+		
+
+// 		// alert(metric_type_0+"-"+metric_type_1+"-"+metric_type_2+"-"+metric_type_3+"-"+metric_type_4)
+
+// 	});
 
 
-	
-
-	// startDate = "04-29-1987"
-	// endadate ="04-30-1987";
-	// var startDate = new Date(jQuery('#from').val().replace(/-/g, '/')).getTime();
 
 
-	//  var endDate =  new Date(jQuery('#to').val().replace(/-/g, '/')).getTime(); 
-	//     var date = new Date();
-	//     var currentDate = new Date(date.getMonth() + 1 + '/' + date.getDate() + '/' +
-
-	//  date.getFullYear()).getTime();
-	//         if (startDate > endDate){
-	//             alert('From date is greater than To date');
-	//             return false;
-	//         } else if (startDate > currentDate || endDate > currentDate) {
-	//             alert('You have entered future date');
-	//         } else {
-	//             return true;
-	//         }
-	
 // });
 
+
+
+
+// $(document).ready(function() {
+    
+//     function checkSelected(val) {
+//         var ret = false;
+//         $(".variable_priority").each(function() {
+//             if ($(this).val() === val) {
+//                 ret = true;
+//             }
+//         });
+//         return ret;
+//     }
+
+//     function totalValue() {
+//         var total = 0;
+//         $(".variable_priority:first option[value!=0]").each(function() {
+//             total = total + parseInt($(this).val(), 10);
+//         });
+//         return total;
+//     }
+//     function totalSelectedValue(){
+//         var total = 0;
+//         $(".variable_priority option:selected").each(function() {
+//             total = total + parseInt($(this).val(), 10);
+//         });
+//         return total;
+//     }
+//     $('.value').html(totalValue());
+//     $('.variable_priority').change(function() {
+//    //     variable_priority = variable_priority + parseInt($(this).val(), 10);
+//         $('.value').html(totalSelectedValue() + " out of " + totalValue());
+
+//         $('option', this).each(function() {
+//             if (checkSelected($(this).val()) && $(this).val() !== "0") {
+//                 $('.variable_priority option[value=' + $(this).val() + ']').attr('disabled', true);
+//             } else {
+//                 $('.variable_priority option[value=' + $(this).val() + ']').removeAttr('disabled');
+//             }
+//         });
+//         if (totalSelectedValue() === totalValue()) {
+//             $('.selects').removeClass('invalid').addClass('valid');
+//         } else {
+//             $('.selects').removeClass('valid').addClass('invalid');
+//         }
+//     });
+// });
 
 
 

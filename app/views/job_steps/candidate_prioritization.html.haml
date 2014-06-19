@@ -6,17 +6,17 @@
     .container
       = render 'progress_indicator'
     = form_for(@job, url: wizard_path, method: :put) do |f|
-      .col-lg-12.location-box
+      .col-lg-12.location-box.selects
         %h2 Employee Prioritization Metrics
         = f.fields_for :metrics do |metric|
           .col-lg-12
             .col-lg-4.combine
-              .checkbox.checkbox2.selects
+              .checkbox.checkbox2
                 %label
                   = metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1'
                   %span{:class=>"enable_metrics_label"} Enable
               .btn-group.menunnleft.col-sm-7
-                = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type"
+                = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type variable_priority unique required",:name=>"select[]"
             .col-lg-7.reting
               .col-lg-4
                 %h2 Least Important
@@ -28,47 +28,7 @@
         = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
         = f.submit "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
 
-:javascript
-  / $( function(){
-  /   $('select').change( function(){
-  /       current = $(this).val();
-  /       unique = 0;
-  /       $('select option:selected').each( function(){
-  /           if ($(this).val() == current) unique++;
-  /       });
-  /       if (unique!=1){
-  /       alert('Metric Type already selected') ;
-  /       $(this).val('');
-  /       }
-  /   });
-  / });
-  function HasDupe(){
-      a = $('select').map(function(i,o) {
-          return $(o).val();
-      });
-      return (a.length != $.unique(a).length);
-  }
+= render 'home/footer'
 
-  $('input').click(function() {
-      alert(HasDupe());
-  });
-
-  $(document).ready(function(){
-
-      $('input[type="checkbox"]').click(function(){
-
-      if($(this).is(":checked")){
-
-         $(this).parents('.combine').find('select').prop('required',true)
-
-      }
-
-      else {
-
-           $(this).parents('.combine').find('select').prop('required',false);
-
-      }
-    });
-  });
 
   

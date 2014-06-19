@@ -1,7 +1,7 @@
 
-<div class="col-lg-10">
+<div class="row">
   <br>
-  <div class="col-lg-5 col-lg-offset-5">
+  <div class="col-lg-5 col-lg-offset-4">
     <table class="table table-bordered">
       <tr>
        <th>Job Id</th>
@@ -17,10 +17,12 @@
        <td><%=job.title %></td>
        <td><%=link_to "show", job_path(job,:employer_job_id=>@employer_job_id) %></td>
        <td><%=link_to "Edit", edit_job_path(job) %></td>
-       <td><%=link_to "Delete", job, method: :delete, data:{confirm: "are you sure?"} %>
+       <td><%=link_to "Delete", job, method: :delete, data:{confirm: "are you sure?"} %></td>
      </tr>
      <% end %>
 
    </table>
  </div>
 </div>
+
+<%= render 'home/footer' %>
