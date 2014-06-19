@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :is_employer,  :except => [:search]
+  before_action :is_employer,  :except => [:search, :show]
 
   def index
     @jobs = current_user.jobs.all.order(:id)
@@ -21,21 +21,21 @@ class JobsController < ApplicationController
 
 
   def show
-    # @employer_job_id = params[:employer_job_id]
-     @employer_job_id = params[:employer_job_id]
-         @job = Job.find(params[:id])
 
-         @user_primary_photo = current_user.photos.where(:is_primary=>true)
+    @employer_job_id = params[:employer_job_id]
+    @job = Job.find(params[:id])
 
-         # Total Views of a Job
-         @counter = @job.views  
-         @counter = @counter+1
-         @job.update_attributes(:views=>@counter)
+    @user_primary_photo = current_user.photos.where(:is_primary=>true)
 
-         # Active Jobs of Employer
-         @active_listings = current_user.jobs.where(:active_job=>true).count
-         # Total Jobs of Employer
-         @total_listings = current_user.jobs.count
+    # Total Views of a Job
+    @counter = @job.views  
+    @counter = @counter+1
+    @job.update_attributes(:views=>@counter)
+
+    # Active Jobs of Employer
+    @active_listings = current_user.jobs.where(:active_job=>true).count
+    # Total Jobs of Employer
+    @total_listings = current_user.jobs.count
   end
 
   def edit

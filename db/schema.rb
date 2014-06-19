@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611111644) do
+ActiveRecord::Schema.define(version: 20140617073710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20140611111644) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "job_category"
+    t.integer  "views",                default: 0
+    t.boolean  "active_job",           default: false
   end
 
   create_table "jobs_metrics", id: false, force: true do |t|
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 20140611111644) do
     t.integer  "locateable_id"
     t.string   "locateable_type"
     t.string   "second_address"
+    t.boolean  "approximate_address"
   end
 
   create_table "metric_types", force: true do |t|

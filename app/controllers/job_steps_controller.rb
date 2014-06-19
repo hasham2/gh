@@ -280,7 +280,7 @@ private
 			params[:job][:max_wage] = @desired_wage
 		end
 
-		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone])
+		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
 	end
 
 	def candidate_prioritization_params
