@@ -40,15 +40,24 @@
               = j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d %b %Y'), :disabled=>"true"
         .col-lg-4
           .form-group
-            = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"
-            .col-sm-6
-              = j.date_field :start_date, :class=>"form-control start_date", :placeholder=>"March 1,2014",:value=>j.object.start_date.try(:strftime, '%d %b %Y'),:required=>true
+            = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"              
+            .col-sm-7
+              .form-group
+                #datetimepicker5.input-group.date{"data-date-format" => "YYYY/MM/DD"}
+                  = j.date_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%Y/%m/%d'),:required=>true}
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-time
       .col-lg-12.topfilde1
-        .col-lg-4
+        .col-lg-5
           .form-group
-            = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-4 labl"
+            = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-3 labl"
             .col-sm-8
-              = j.datetime_field :listing_expires_on, :class=>"form-control listing_expires_on", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d %b %Y, %H:%M %p'),:required=>true
+              .form-group
+                #datetimepicker1.input-group.date{:'data-date-format'=>"YYYY/MM/DD hh:mm A"}
+                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%Y/%m/%d %I:%M %p')}
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+              
       .col-lg-12.topfilde1
         .col-lg-6
           .form-group
@@ -79,6 +88,7 @@
             %button.btn.btn-success.pull-right.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"set_employer_address"} Set to Employer Address
             %h3#address_city
             %h3#state_country
+            %h3#zip_postal_code
             .col-lg-12.topfilde1.one
               .col-lg-6
                 .form-group
@@ -104,13 +114,13 @@
                 .form-group.state_group{:style=>"display:none"}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
                   .col-sm-9
-                    = builder.select :state, {},{},{ :class => 'form-control',:required=>true}
+                    = builder.select :state, {},{},{ :class => 'form-control state_field',:required=>true}
             .col-lg-12.topfilde1.three
               .col-lg-6
                 .form-group
                   = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 labl"
                   .col-sm-9
-                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control',:required=>true}
+                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true}
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
@@ -119,7 +129,25 @@
             .col-lg-12.pull-left.checkjob
               .checkbox.checkbox2
                 %label
-                  %input{:type => "checkbox"}
-                    Display approximate address only
+                  = builder.check_box :approximate_address,{:id=>"approximate_address"} , 'true','false'
+                  = builder.label :approximate_address, 'Display approximate address only'
           .col-lg-12.btnnextstep 
       = j.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep"
+
+
+
+
+:javascript
+  $(function () {
+      $('#datetimepicker1').datetimepicker();
+  });
+
+
+  $(function () {
+      $('#datetimepicker5').datetimepicker({
+          pickTime: false
+      });
+  });
+
+
+
