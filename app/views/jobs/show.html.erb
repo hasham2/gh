@@ -1,33 +1,483 @@
+<div class="container">
+<div class="row">
+<div class="container">
 
-<div class="col-lg-10">
-  <h1 align="center">Show Page </h1>
-  <div class="col-lg-5 col-lg-offset-5">
-    <table class="table table-bordered">
-      <tr ><th colspan="2">Job Detail</th></tr>
-      <tr><th>Job id</th> <td><%= @employer_job_id %></td></tr>
-      <tr><th>Job Title</th> <td><%=@job.title%></td></tr>
-      <tr><th>Posting Date</th> <td><%=@job.updated_at.try(:strftime, '%d %b %Y')%></td></tr>
-      <tr><th>Listing Expiry</th> <td><%=@job.listing_expires_on.try(:strftime, '%d %b %Y, %H:%M %p')%></td></tr>
-      <tr><th>Job Category</th> <td><%=@job.job_category%></td></tr>
-      <tr><th>Work Duration (days)</th> <td><%=@job.work_duration%></td></tr>
-      <tr><th>Hours per Day</th> <td><%=@job.hours_per_day%></td></tr>
-      <tr><th>Start Date</th> <td><%=@job.start_date%></td></tr>
-      <tr><th>Desired Wage ($/hr)</th> <td><%=@job.desired_wage%></td></tr>
-      <tr><th>Max Wage ($/hr)</th> <td><%=@job.max_wage%></td></tr>
-      <tr><th>Job Description</th> <td><%=@job.description%></td></tr>
-      <tr><th>Business Name</th> <td><%=current_user.employer.business_name%></td></tr>
+<div class="col-lg-12 banner_jobdetail"><img  src="/assets/detail_banner.png"></div>
+
+</div></div>
+
+
+<div class="col-lg-12 "><h2>Job Details</h2></div></div>
+
+<div class="container">
+
+  <div class="row  job-listingout">
+  
+    
+    <div class="col-lg-12 topfilde">
+    
+    <div class="col-lg-2 col-lg-6">
+    <div class="form-group ">
+    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
+    <div class="col-sm-7">
+      <input type="text" placeholder="1" id="inputPassword" style="background-color:#23a327; text-align:center;" class="form-control form-controlid">
+    </div>
+  </div></div>
+  
+  
+  
+   <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
+    <div class="col-sm-5">
+        <span class="form-control"><%=@job.work_duration%></span>
+    </div>
+  </div></div>
+    
+   <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
+    <div class="col-sm-5">
+          <span class="form-control"><%=@job.desired_wage%></span>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
+    <div class="col-sm-5">
+           <span class="form-control"><%=@job.max_wage%></span>
+    </div>
+  </div></div>
+  
+  </div>
+  
+  
+   <div class="col-lg-12 topfilde1">
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
+    <div class="col-sm-9">
+            <span class="form-control"><%=@job.title%></span>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
+    <div class="col-sm-4">
+            <span class="form-control"><%=@job.hours_per_day%></span>
+    </div>
+  </div></div>
+  
+  
+  
+          
+     </div>
      
-      <tr><th colspan="2">Job Location</th></tr>
-      <tr><th >Address Line 1</th> <td><%= @job.location.address rescue "nil" %></td></tr>
-      <tr><th >Address Line 2</th> <td><%=@job.location.second_address rescue "nil" %></td></tr>
-      <tr><th >Country</th> <td><%=@job.location.country rescue "nil" %></td></tr>
-      <tr><th >State</th> <td><%=@job.location.state rescue "nil" %></td></tr>
-      <tr><th >City</th> <td><%=@job.location.city rescue "nil" %></td></tr>
-      <tr><th >Zip Code</th> <td><%=@job.location.zip rescue "nil" %></td></tr>
-
-
-
-   </table>
- </div>
+     
+     <div class="col-lg-12 topfilde1">
+     
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-4 labl">Posting Date</label>
+    <div class="col-sm-6">
+      <span class="form-control"><%=@job.updated_at.try(:strftime, '%d %b %Y')%></span>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-3 labl">Start Date</label>
+    <div class="col-sm-6">
+      <span class="form-control"><%=@job.start_date.try(:strftime, '%d %b %Y')%></span>
+    </div>
+  </div></div>
+  
+  
+  
+          
+     </div>
+     
+     
+<div class="col-lg-12 topfilde1">
+     
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-4 labl">Listing Expiry</label>
+    <div class="col-sm-7">
+ <span class="form-control"><%=@job.listing_expires_on.try(:strftime, '%d %b %Y, %H:%M %p')%></span>    </div>
+  </div></div>
+  
+  
+  
+  
+  <div class="col-lg-5">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-4 labl">Business Name</label>
+    <div class="col-sm-6">
+           <span class="form-control"><%=current_user.employer.business_name%></span>
+    </div>
+  </div></div>
+  
+          
+     </div>     
+  
+  
+  
+  
+  
+  <div class="col-lg-12 topfilde1">
+  
+  <div class="col-lg-4">
+  <h2>Job Description</h2>
+    </div>
+  
+  
+  <div class="col-lg-5">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-5 labl">Business Category</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" id="inputPassword" placeholder="Joe's Distribution">
+    </div>
+  </div></div>
+  
+   
+     
 </div>
+
+<div class="col-lg-9">
+
+
+<div class="col-lg-12 topfildetext">
+
+           <%=@job.max_wage%>
+
+
+</div>
+
+
+
+
+</div>
+
+<div class="col-lg-3 pull-right">
+<div class="col-lg-12">
+   <div class="img_box1 bbox3">
+   <h2>Employer's Primary Image</h2>
+    <div class="img_bgbox">
+    <% if  @primary_photo.present? %>
+        <%= image_tag @primary_photo.first.image.url(:medium) %>
+      <% else %>
+        <% if @user_primary_photo.present? %>
+          <%= image_tag @user_primary_photo.first.image.url(:medium) %>
+        <% else  %>
+          <%= image_tag('icon-user-default.png', :width=>"217px", :height=>"176px") %>
+        <% end %>
+      <% end %>
+    </div>
+    <button class="btn btn-success pull-left btnuser" type="button">Select Primary Image</button>
+    <button class="btn btn-success pull-left btnuser" type="button">Additional Photos</button>
+   </div>
+<div class="col-lg-3 education_box1 employer_ratings">
+ <h2>Employer Ratings</h2>
+ <table class="table table1">
+ <tr bgcolor="#cccccc"><td><strong>Item</strong></td><td align="right"><strong>Rating</strong></td></tr>
+ <tr><td>Guidance</td><td align="right">3.0/5</td></tr>
+  <tr bgcolor="#e3e3e3"><td>Fairness</td><td align="right">3.0/5</td></tr>
+   <tr ><td>Wages</td><td align="right">3.0/5</td></tr>
+     <tr bgcolor="#e3e3e3"><td>Honesty</td><td align="right">3.0/5</td></tr>
+      <tr ><td>Profrssionalism</td><td align="right">3.0/5</td></tr>
+      <tr bgcolor="#e3e3e3"><td>Summary</td><td align="right">3.0/5</td></tr>
+</table>
+
+  
+  
+</div>
+
+
+<div class="col-lg-3 employer_ratings">
+
+ <div class="form-group">
+    <label class="col-sm-1 labl pull-left" for="inputPassword">Member Since</label>
+    <div class="col-sm-8 pull-right">
+      <input type="text" placeholder="Mar. 3, 2010" id="inputPassword" class="form-control">
+    </div>
+  </div>
+  
+  
+  
+</div>
+
+<div class="col-lg-3 employer_ratfiled">
+<div class="form-group">
+    <label class="col-sm-1 labl pull-left" for="inputPassword">Hours Employed</label>
+    <div class="col-sm-8 pull-right">
+      <input type="text" placeholder="3145" id="inputPassword" class="form-control">
+    </div>
+  </div></div>
+  
+  <div class="col-lg-3 employer_ratfiled">
+<div class="form-group">
+    <label class="col-sm-1 labl pull-left" for="inputPassword">Active
+Listings</label>
+    <div class="col-sm-8 pull-right">
+      <input type="text" placeholder="4" id="inputPassword" class="form-control">
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-3 employer_ratfiled">
+<div class="form-group">
+    <label class="col-sm-1 labl pull-left " for="inputPassword">Total Listinges</label>
+    <div class="col-sm-8 pull-right">
+      <input type="text" placeholder="31" id="inputPassword" class="form-control">
+    </div>
+  </div></div>
+
+</div>
+</div>
+
+
+<div class="col-lg-9 location-box">
+
+<h2>Job Location Address</h2>
+<h3>1 Yonge Street, Toronto, <br>
+Ontario</h3>
+
+
+<div class="col-lg-6 j-jobz">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Job Location Postal/Zip Code</label>
+    <div class="col-sm-5">
+      <span class="form-control"><%=@job.location.zip%></span>
+
+    </div>
+   
+    
+     </div>
+     
+     <div class="col-lg-12 pull-left" >
+      <div class="checkbox checkbox2">
+    <label>
+      <input type="checkbox">Display approximate address only
+    </label>
+  </div></div>
+     <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  </div>
+  
+<div class="col-lg-4 pull-right">
+<div class="box_outer">
+
+
+<h2>Total Views<br>
+<b>324</b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>  
+
+<div class="col-lg-4 pull-right">
+<div class="box_outerr">
+
+
+<h2>Total Applications<br>
+<b>4</b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>
+
+<div class="col-lg-4 pull-right">
+<div class="box_outerrr">
+
+
+<h2>Avg. Suggested<br>
+Wage ($/hr)<br>
+<b>324</b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>
+
+  
+  
+  </div>
+
+
+
+
+
+
+<div class="col-lg-9 job_cattop">
+
+<div class="col-lg-3 education_box1">
+ <h2>Job Category </h2>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox">
+    <label>
+      <input type="checkbox">Supervisor
+    </label>
+  </div></div>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Individual
+    </label>
+  </div></div>  
+  
+  
+</div>
+
+<div class="col-lg-4 education_box1 education_box2">
+ <h2>Job Requirements</h2>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox">
+    <label>
+      <input type="checkbox">Driver’s License
+    </label>
+  </div></div>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Car Pool
+    </label>
+  </div></div>  
+
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Vehicle
+    </label>
+  </div></div> 
+  
+<div class="col-lg-12">
+      <div style="width:246px;">
+    <button type="button" class="btn btn-success pull-left btn-educationdelete">Delete</button>
+    <div class="col-sm-9 pull-right" style="margin:-27px 0 0 0;">
+      <input type="text" placeholder="Min.50 Lb. Lift" id="inputPassword" class="form-control">
+    </div> 
+    </div>
+    
+    
+    
+      </div>  
+      
+<div class="col-lg-12">
+      <div style="width:246px; margin:40px 0 0 0">
+    <button type="button" class="btn btn-success pull-left btn-educationdelete">Add</button>
+    <div class="col-sm-9 pull-right" style="margin:-27px 0 0 0;">
+      <input type="text" placeholder="" id="inputPassword" class="form-control">
+    </div> 
+    </div>
+    
+    
+    
+      </div>      
+ 
+  
+</div>
+
+<div class="col-lg-4 education_box1 education_box2">
+ <h2>Education and <br>
+
+Certifications</h2>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox">
+    <label>
+      <input type="checkbox">High school diploma
+    </label>
+  </div></div>
+<div class="col-lg-12 pull-left checkjob">
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Fork lift operator.
+    </label>
+  </div></div>  
+  
+ <button type="button" class="btn btn-success pull-left btn-nextstep bttn_education">Pallet Jack Operator</button>
+  
+  
+  
+</div>
+
+
+</div>
+
+
+
+
+<div class="col-lg-9 tab_border2">
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home" data-toggle="tab">Q & A</a></li>
+  <li><a href="#profile" data-toggle="tab">Reviews</a></li>
+  <li><a href="#messages" data-toggle="tab">Images</a></li>
+ 
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  <h2>Q1</h2>
+  <p>is forklift certification required?</p>
+  <h2>A1</h2>
+  <p>Yes, forklift certification is required?</p>
+  <h2>+</h2><p>Expand all Q&A (4 more)</p>
+  </div>
+  <div class="tab-pane" id="profile"><h2>A1</h2>
+  <p>Yes, forklift certification is required?</p>
+  </div>
+  <div class="tab-pane" id="messages"></div>
+  
+</div>
+
+</div>
+  
+<div class="col-lg-12 btnnextstep">
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Apply For Job</button>
+ 
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Cantact Employer</button>
+  
+    <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Back to Search</button>
+    
+        <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Show all Active Listings</button>
+
+
+  
+  
+  
+  
+</div>  
+  
+</div>
+
+  <!--/row--> 
+  
+</div>
+
 

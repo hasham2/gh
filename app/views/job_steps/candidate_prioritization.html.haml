@@ -29,19 +29,30 @@
         = f.submit "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
 
 :javascript
-  $( function(){
-    $('select').change( function(){
-        current = $(this).val();
-        unique = 0;
-        $('select option:selected').each( function(){
-            if ($(this).val() == current) unique++;
-        });
-        if (unique!=1){
-        alert('Metric Type already selected') ;
-        $(this).val('');
-        }
-    });
+  / $( function(){
+  /   $('select').change( function(){
+  /       current = $(this).val();
+  /       unique = 0;
+  /       $('select option:selected').each( function(){
+  /           if ($(this).val() == current) unique++;
+  /       });
+  /       if (unique!=1){
+  /       alert('Metric Type already selected') ;
+  /       $(this).val('');
+  /       }
+  /   });
+  / });
+  function HasDupe(){
+      a = $('select').map(function(i,o) {
+          return $(o).val();
+      });
+      return (a.length != $.unique(a).length);
+  }
+
+  $('input').click(function() {
+      alert(HasDupe());
   });
+
   $(document).ready(function(){
 
       $('input[type="checkbox"]').click(function(){
