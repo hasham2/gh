@@ -11,23 +11,12 @@ class Location < ActiveRecord::Base
   # validates :zip, presence: true
   # validates :country, presence: true
   
-  # PostGIS Settings
-  #self.rgeo_factory_generator = RGeo::Geos.factory_generator
-  #set_rgeo_factory_for_column(:lonlat, RGeo::Geographic.spherical_factory(srid: 4326))
-  
-  #after_save :update_lonlat
-  
   geocoded_by :full_address, latitude: :lat, longitude: :lng
   after_validation :geocode
   
   def full_address
     ##convert address to geocoded values
     "#{self.address}, #{self.city}, #{self.zip}, #{self.state}, #{self.country}"
-  end
-  
-  def update_lonlat
-    self.lonlat = "POINT(#{self.lng} #{self.lat})"
-    save
   end
 
 end
