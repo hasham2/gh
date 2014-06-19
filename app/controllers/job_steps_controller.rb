@@ -78,7 +78,7 @@ class JobStepsController < ApplicationController
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
-	   	binding.pry 
+	   	# binding.pry 
 	   @job.update_attributes(candidate_prioritization_params)
 	   render_wizard @job
 	   when :images
@@ -97,7 +97,7 @@ class JobStepsController < ApplicationController
 
      	@primary_photo = @job.photos.where(:is_primary => true)
        	respond_to do |format|
-        	format.js
+        	format.js 
          end
 
 	   when :education_and_certifications
@@ -189,7 +189,7 @@ class JobStepsController < ApplicationController
 
      	@photo = @job.photos.last
        	respond_to do |format|
-        	format.js
+        	format.js 
          end
 
 	end

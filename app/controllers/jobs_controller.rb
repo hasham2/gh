@@ -29,7 +29,7 @@ class JobsController < ApplicationController
 
     # Total Views of a Job
     @counter = @job.views  
-    @counter = @counter+1
+    @counter = @counter
     @job.update_attributes(:views=>@counter)
 
     # Active Jobs of Employer
@@ -41,45 +41,63 @@ class JobsController < ApplicationController
   def edit
     @current_user_jobs = current_user.jobs.count
      @job = Job.find(params[:id])
-     if current_user.employer == nil 
+    
+    if current_user.employer == nil 
       @business_name = ''
     else
       @business_name = current_user.employer.business_name
-      end 
-     if @job.location == nil
+    end 
+
+    if @job.location == nil
       @job.build_location
-     else
-     @job.location
-     end
-    if @job.metrics.empty? 
-    5.times{@job.metrics.build}
     else
-      if @job.metrics.count < 5
+      @job.location
+    end
+
+    if @job.metrics.empty? 
+      5.times{@job.metrics.build}
+    else
+    if @job.metrics.count < 5
       @m = 5 - @job.metrics.count
       @m.times{@job.metrics.build}
-      end
-
-      @user_primary_photo = current_user.photos.where(:is_primary=>true)
-      @primary_photo = @job.photos.where(:is_primary => true)
-       if  @job.photos.empty?
-           @job.photos.build
-        end
     end
-    # sesion[:job_id] = @job.id
-    # redirect_to job_steps_path  
-  end
-  def set_primary
-    binding.pry 
+   end
+
+   @user_primary_photo = current_user.photos.where(:is_primary=>true)
+   @primary_photo = @job.photos.where(:is_primary => true)
+    if @job.photos.empty?
+      @job.photos.build
+    end
+    @employer_id = current_user.employer.id
+    @universal_and_employer_requirements = Requirement.where({:employer_id=>[nil,@employer_id]})
+    @counter = @job.views  
   end
   def update
-    binding.pry 
-    @job = Job.find(params[:id])
+   @job = Job.find(params[:id])
+
+   if params[:job][:photos_attributes]
+      @old_primary_photo = @job.photos.where(:is_primary => true)   
+      @old_primary_photo.each do |p|
+        p.update_attributes(:is_primary=>nil) 
+      end   
+
+    @new_image = params[:job][:photos_attributes]["0"][:image]
+    @is_primary = params[:job][:photos_attributes]["0"][:is_primary]
+    @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+    @primary_photo = @job.photos.where(:is_primary => true)
+    respond_to do |format|
+      format.js
+    end
+
+   else  
+
     @done = @job.update_attributes(job_params)
     if @done
       flash[:notice]="Job Successfully updated"
     else
       flash[:notice]="Unable to update"
     end
+  end
   end
   def destroy
     @job = Job.find(params[:id])

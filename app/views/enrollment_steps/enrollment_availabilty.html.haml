@@ -34,7 +34,7 @@
                 %button.btn.btn-success.pull-left.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"clear"} Clear
                 =f.submit "Next Step", :class =>"btn btn-success pull-left btn-nextstep bttn-leftmar"
         / = link_to "Next Step",previous_wizard_path,:class=>"btn btn-success pull-left btn-nextstep bttn-leftmar" 
-= render 'navigate_footer'
+= render 'home/footer'
 :javascript
 
   $('#clear').click(function(){
