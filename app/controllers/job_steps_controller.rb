@@ -78,7 +78,7 @@ class JobStepsController < ApplicationController
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
-	   	binding.pry 
+	   	# binding.pry 
 	   @job.update_attributes(candidate_prioritization_params)
 	   render_wizard @job
 	   when :images
