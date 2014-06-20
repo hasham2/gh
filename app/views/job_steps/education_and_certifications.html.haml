@@ -8,17 +8,15 @@
     = form_for(@job, url: wizard_path, :html=>{:multipart => true }, method: :put) do |f|
       .col-lg-12.education_outtop
         .col-lg-3.education_box1
-          %h2 Job Category
+          %h2 Job Level
+          %br
           .col-lg-12.pull-left.checkjob
-            .checkbox.education_checkbox
+            - [ 'Supervisor', 'Individual'].each do |job_level|
               %label
-                %input{type: "checkbox"}>/
-                Supervisor
-          .col-lg-12.pull-left.checkjob
-            .checkbox.education_checkbox2
-              %label
-                %input{type: "checkbox"}>/
-                Individual
+                = f.radio_button(:job_level, job_level)
+                = job_level.humanize
+              %br
+
         .col-lg-3.education_box1.education_box2
           %h2 Job Requirements
           .col-lg-12.pull-left.checkjob{style: "width:115px;"}
