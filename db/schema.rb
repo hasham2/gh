@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(version: 20140617073710) do
     t.integer "metric_id"
   end
 
-  add_index "jobs_metrics", ["job_id", "metric_id"], :name => "index_jobs_metrics_on_job_id_and_metric_id"
+  add_index "jobs_metrics", ["job_id", "metric_id"], name: "index_jobs_metrics_on_job_id_and_metric_id", using: :btree
 
   create_table "jobs_requirements", id: false, force: true do |t|
     t.integer "job_id"
     t.integer "requirement_id"
   end
 
-  add_index "jobs_requirements", ["job_id", "requirement_id"], :name => "index_jobs_requirements_on_job_id_and_requirement_id"
+  add_index "jobs_requirements", ["job_id", "requirement_id"], name: "index_jobs_requirements_on_job_id_and_requirement_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -129,7 +129,6 @@ ActiveRecord::Schema.define(version: 20140617073710) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "session_id"
   end
 
   create_table "requirements", force: true do |t|
@@ -137,6 +136,14 @@ ActiveRecord::Schema.define(version: 20140617073710) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "employer_id"
+  end
+
+  create_table "spatial_ref_sys", id: false, force: true do |t|
+    t.integer "srid",                   null: false
+    t.string  "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string  "srtext",    limit: 2048
+    t.string  "proj4text", limit: 2048
   end
 
   create_table "taggings", force: true do |t|
@@ -149,14 +156,14 @@ ActiveRecord::Schema.define(version: 20140617073710) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -198,8 +205,8 @@ ActiveRecord::Schema.define(version: 20140617073710) do
     t.boolean  "enrollment_complete",    default: false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "work_hours", force: true do |t|
     t.string   "day_of_week"
