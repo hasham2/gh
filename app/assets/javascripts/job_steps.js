@@ -410,11 +410,9 @@ $(document).ready(function() {
 			}
 
 			/*-----Enable the selected option only in the current Dropdown-----*/
-			for (var i = 0; i <=4; i++) {
-				if (i == select_box_id){
-						$('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').attr('disabled',false);
-				}
-
+			for (var i = 0; i <=4; i++) {		
+						var selected_option = $('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected');
+						selected_option.attr('disabled',false);					
 			}
 
 		}
