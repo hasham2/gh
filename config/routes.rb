@@ -26,6 +26,9 @@ Gh::Application.routes.draw do
   post "job_steps/set_employer_address"
 
 
+  post "jobs/add_photo"
+  # post "jobs/make_primary_photo"
+  p
 
   post "enrollment_steps/add_photo"
   post "enrollment_steps/make_primary_photo"
@@ -35,10 +38,16 @@ Gh::Application.routes.draw do
   get "jobs/search"
 
   resources :certifications
-  resources :jobs
+  resources :jobs do
+     member do
+      post 'make_primary_photo'
+      post 'delete_photo'
+      post 'save_photo_caption'
+      get 'state_response'
+     end
+  end
   resources :requirements
   resources :locations
-  resources :user_steps
   resources :business_activities
   resources :job_steps
   resources :metric_types

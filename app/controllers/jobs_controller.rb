@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :is_employer,  :except => [:search, :show]
+  before_action :is_employer,  :except => [:search, :show,:make_primary_photo]
 
   def index
     @jobs = current_user.jobs.all.order(:id)
@@ -41,6 +41,7 @@ class JobsController < ApplicationController
   def edit
     @current_user_jobs = current_user.jobs.count
      @job = Job.find(params[:id])
+     session[:job_id] = params[:id]
     
     if current_user.employer == nil 
       @business_name = ''
@@ -65,8 +66,11 @@ class JobsController < ApplicationController
 
    @user_primary_photo = current_user.photos.where(:is_primary=>true)
    @primary_photo = @job.photos.where(:is_primary => true)
-    if @job.photos.empty?
+   @existing_photos = Photo.where(:photoable_id != @job_id && :photoable_type=>'Job'  )
+    if  @job.photos.empty?
       @job.photos.build
+    else
+      @photos = @job.photos.where(:is_primary => nil)
     end
     @employer_id = current_user.employer.id
     @universal_and_employer_requirements = Requirement.where({:employer_id=>[nil,@employer_id]})
@@ -85,18 +89,18 @@ class JobsController < ApplicationController
     @is_primary = params[:job][:photos_attributes]["0"][:is_primary]
     @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
     @primary_photo = @job.photos.where(:is_primary => true)
-    respond_to do |format|
-      format.js
     end
-
    else  
-
     @done = @job.update_attributes(job_params)
     if @done
       flash[:notice]="Job Successfully updated"
     else
       flash[:notice]="Unable to update"
     end
+   
+   respond_to do |format|
+     format.html { redirect_to @job }
+     format.js
   end
   end
   def destroy
@@ -117,8 +121,61 @@ class JobsController < ApplicationController
       @lng = params[:lng]
     end
   end
+  
+    def make_primary_photo
+      @job_id = session[:job_id]
+        @job = Job.find(@job_id)
 
+        @all_photos = @job.photos.all
+      # make all photos unprimary
+      @all_photos.each do |p|
+        p.update_attributes(:is_primary=>nil) 
+      end 
+      # make unique primary photo
+      @make_primary_photo = @job.photos.find(params[:value])
+      @make_primary_photo.update_attributes(:is_primary=>true)
+      # primary photo
+      @primary_photo = @job.photos.where(:is_primary => true)
+      #additional photos
+      @photos = @job.photos.where(:is_primary => nil)
+        respond_to do |format|
+          format.js
+        end 
+    end
+    def delete_photo
+      @job_id = session[:job_id]
+      @job = Job.find(@job_id)
+      @photo = @job.photos.find(params[:value])
+      @photo.destroy
+      @photos = @job.photos.where(:is_primary => nil)
+      respond_to do |format|
+        format.js
+      end   
+    end
 
+    def save_photo_caption
+      @job_id = session[:job_id]
+        @job = Job.find(@job_id)
+        @photo = @job.photos.find(params[:photo_id])
+        @photo.update_attributes(:caption=>params[:photo_caption])
+
+    end
+
+    def state_response
+      country = params[:value]
+      @states = COUNTRIES_STATES[country]
+      # To find the selected state
+      @job_id = session[:job_id]
+      @job = Job.find(@job_id)
+      if @job.location.present?
+        @selected_state = @job.location.state
+      end
+      # binding.pry
+      respond_to do |format|
+        format.js
+      end
+    end
+    
   private
   def job_params
   params.require(:job).permit!    

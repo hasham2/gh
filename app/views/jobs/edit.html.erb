@@ -166,113 +166,162 @@
 
 
 <div class="col-lg-8 location-box">
-<h3> 
-      <%if @job.location &&  !@job.location.approximate_address %>   
-        <h2>Job Location Address</h2>
-        <h3><%="#{@job.location.address rescue ""} #{@job.location.second_address rescue ""} #{@job.location.city rescue ""}," %></h3>
-        <h3><%= "#{@job.location.state rescue ""}, #{@job.location.country rescue ""}"%></h3> 
-      <% end %>
-  </h3>
 
-<%= j.fields_for :location do |builder| %>
-<div class="col-lg-6 j-jobz">
-  
+  <div class="col-sm-7">
+
+      <h2>Job Location Address</h2>
+
+       <h3 id="address_city"></h3>
+      <h3 id="state_country"></h3>
+      <h3 id="zip_postal_code"></h3>
+
+    <br />  
+    <%= j.fields_for :location do |builder| %>
+    <div class="col-sm-12">
+      <div class="form-group">
+         <%= builder.label :address, 'Address Line 1' ,:class=>"col-sm-4 labl" %>
+        <div class="col-sm-8">
+        <%= builder.text_field :address, :class=>"form-control address_field",:required=>true %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-12">
     <div class="form-group">
-    <%= builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-7 labl" %>
-    <div class="col-sm-5">
+      <%= builder.label :second_address, 'Address Line 2' ,:class=>"col-sm-4 labl" %>
+      <div class="col-sm-8">
+      <%= builder.text_field :second_address, :class=>"form-control second_address_field" %>
+      </div>
+    </div>
+    </div>
+     
+     <div class="col-sm-12">
+     <div class="form-group">
+
+      <%= builder.label :city, 'City' ,:class=>"col-sm-4 labl" %>
+      <div class="col-sm-8">
+      <%= builder.text_field :city, :class=>"form-control city_field",:required=>true %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-12">
+     <div class="form-group">
+
+      
+      <%= builder.label :country, 'Country' ,:class=>"col-sm-4 labl" %>
+      <div class="col-sm-8">
+      <%= builder.select :country, ["United States", "Canada"] ,{include_blank: 'Select Country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control" ,:required=>true} %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-12">
+     <div class="form-group">
+
+      
+     <%= builder.label :state, 'State' ,:class=>"col-sm-4 labl"  %>
+      <div class="col-sm-8">
+       <%= builder.select :state, {},{},{ :class => 'form-control state_field',:required=>true} %>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-12">
+    <div class="form-group">
+      <%= builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-4 labl" %>
+      <div class="col-sm-8">
+        <%= builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true} %>
+      </div>
+    </div>
+    </div>
+ <div class="col-sm-12">
+    <%= builder.label :zip, 'Postal/Zip Code' ,:class=>"col-sm-4 labl" %>
+    <div class="col-sm-8">
       <%= builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7",:required=>true %>
     </div>
-   
-
-     </div>
-     
-     <div class="col-lg-12 pull-left" >
+  </div>
+ 
+   <!--   <div class="col-lg-12 pull-left" >
       <div class="checkbox checkbox2">
     <label>
       <input type="checkbox">Display approximate address only
     </label>
-  </div></div>
-  <% end %>
-     <br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  </div></div> -->
+    <% end %>
+ 
+  </div>
+
+  <div class="col-lg-4 pull-right">
+
+    <div class=" pull-right">
+    <div class="box_outer">
+
+
+    <h2>Total Views<br>
+    <b><%= @counter %></b>
+
+    </h2>
+
+
+
+    </div> 
+
+
+     
+    </div>  
+
+    <div class=" pull-right">
+    <div class="box_outerr">
+
+
+    <h2>Total Applications<br>
+    <b>0</b>
+
+    </h2>
+
+
+
+    </div> 
+
+
+     
+    </div>
+
+    <div class=" pull-right">
+    <div class="box_outerrr">
+
+
+    <h2>Avg. Suggested<br>
+    Wage ($/hr)<br>
+    <b>0.00</b>
+
+    </h2>
+
+
+
+    </div> 
+
+
+     
+    </div>
 
   </div>
   
-<div class="col-lg-4 pull-right">
-<div class="box_outer">
 
-
-<h2>Total Views<br>
-<b><%= @counter %></b>
-
-</h2>
-
-
-
-</div> 
-
-
- 
-</div>  
-
-<div class="col-lg-4 pull-right">
-<div class="box_outerr">
-
-
-<h2>Total Applications<br>
-<b>0</b>
-
-</h2>
-
-
-
-</div> 
-
-
- 
-</div>
-
-<div class="col-lg-4 pull-right">
-<div class="box_outerrr">
-
-
-<h2>Avg. Suggested<br>
-Wage ($/hr)<br>
-<b>0</b>
-
-</h2>
-
-
-
-</div> 
-
-
- 
-</div>
 
   
   
   </div>
+
+
 
 
 <div class="col-lg-3 education_box1 education_boxxxx">
  <h2>Job Category</h2>
-<div class="col-lg-12 pull-left checkjob" >
-      <div class="checkbox education_checkbox">
-    <label>
-      <input type="checkbox">Supervisor
-    </label>
-  </div></div>
-<div class="col-lg-12 pull-left checkjob" >
-      <div class="checkbox education_checkbox2">
-    <label>
-      <input type="checkbox">Individual
-    </label>
-  </div></div>  
+<% [ 'Supervisor', 'Individual'].each do |job_level| %>
+      <label>
+       <%= j.radio_button(:job_level, job_level)%>
+       <%= job_level.humanize%>  
+      </label>
+      <br>
+    <%end%>
   
   
 </div>
@@ -363,7 +412,11 @@ Wage ($/hr)<br>
   <div class="tab-pane" id="profile"><h2>A1</h2>
   <p>Yes, forklift certification is required?</p>
   </div>
-  <div class="tab-pane additional-photos" id="messages"></div>
+  <div class="tab-pane additional-photos" id="messages">
+    <% if @photos %>
+     <%=  render @photos%>
+     <% end%>
+  </div>
   
 </div>
 

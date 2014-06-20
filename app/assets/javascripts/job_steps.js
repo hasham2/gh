@@ -342,76 +342,84 @@ $(document).ready(function(){
 		});			
 });
 
+/*===Make sure that Every Drop Down selects Unique value===*/
+$(document).ready(function() {
 
-// $(document).ready(function(){
+		$('.select_metric_type').change(function(){
+				/*---Get ID of currently changed Dropdown ---*/
+				var select_box_id = $(this).attr('id').split('_')[3];
+				/*---Count the number of elements in the Dropdown---*/
+				var select_box_size = $('.select_metric_type').size(); 
 
-// 	$('#job_metrics_attributes_0_metric_type_id').change(function(){
+				/*Disabled the seleted options in the further Dropdowns*/
+				make_options_disable(select_box_id, select_box_size);
+				/*--Enabled the options if they are not being used now--*/
+				make_options_enable(select_box_id, select_box_size);
 
-// 		var metric_type_0 =	$('#job_metrics_attributes_0_metric_type_id').find('option:selected').text();
-// 		var metric_type_1 =	$('#job_metrics_attributes_1_metric_type_id').find('option:selected').text();
-// 		var metric_type_2 =	$('#job_metrics_attributes_2_metric_type_id').find('option:selected').text();
-// 		var metric_type_3 =	$('#job_metrics_attributes_3_metric_type_id').find('option:selected').text();
-// 		var metric_type_4 =	$('#job_metrics_attributes_4_metric_type_id').find('option:selected').text();
-		
-
-// 		// alert(metric_type_0+"-"+metric_type_1+"-"+metric_type_2+"-"+metric_type_3+"-"+metric_type_4)
-
-// 	});
-
-
+		});
 
 
-// });
+		function make_options_enable(select_box_id, select_box_size){
+
+			var selected_option_of_select_box_id_0 = $('#job_metrics_attributes_0_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_1 = $('#job_metrics_attributes_1_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_2 = $('#job_metrics_attributes_2_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_3 = $('#job_metrics_attributes_3_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_4 = $('#job_metrics_attributes_4_metric_type_id').find('option:selected').val();
 
 
 
+			for(var i = 0; i <=select_box_size ; i++){	
+					// alert(i)
+					if (i == selected_option_of_select_box_id_0 || i == selected_option_of_select_box_id_1 || i == selected_option_of_select_box_id_2 || i == selected_option_of_select_box_id_3 || i == selected_option_of_select_box_id_4 ){
 
-// $(document).ready(function() {
-    
-//     function checkSelected(val) {
-//         var ret = false;
-//         $(".variable_priority").each(function() {
-//             if ($(this).val() === val) {
-//                 ret = true;
-//             }
-//         });
-//         return ret;
-//     }
+					}else{
+						 $('.select_metric_type').find('option[value ='+i+']').attr('disabled',false);
+					}		 
+				
 
-//     function totalValue() {
-//         var total = 0;
-//         $(".variable_priority:first option[value!=0]").each(function() {
-//             total = total + parseInt($(this).val(), 10);
-//         });
-//         return total;
-//     }
-//     function totalSelectedValue(){
-//         var total = 0;
-//         $(".variable_priority option:selected").each(function() {
-//             total = total + parseInt($(this).val(), 10);
-//         });
-//         return total;
-//     }
-//     $('.value').html(totalValue());
-//     $('.variable_priority').change(function() {
-//    //     variable_priority = variable_priority + parseInt($(this).val(), 10);
-//         $('.value').html(totalSelectedValue() + " out of " + totalValue());
+			}
 
-//         $('option', this).each(function() {
-//             if (checkSelected($(this).val()) && $(this).val() !== "0") {
-//                 $('.variable_priority option[value=' + $(this).val() + ']').attr('disabled', true);
-//             } else {
-//                 $('.variable_priority option[value=' + $(this).val() + ']').removeAttr('disabled');
-//             }
-//         });
-//         if (totalSelectedValue() === totalValue()) {
-//             $('.selects').removeClass('invalid').addClass('valid');
-//         } else {
-//             $('.selects').removeClass('valid').addClass('invalid');
-//         }
-//     });
-// });
+		}
+	    
+		function make_options_disable(select_box_id, select_box_size){
 
+			var selected_option_of_select_box_id_0 = $('#job_metrics_attributes_0_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_1 = $('#job_metrics_attributes_1_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_2 = $('#job_metrics_attributes_2_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_3 = $('#job_metrics_attributes_3_metric_type_id').find('option:selected').val();
+			var selected_option_of_select_box_id_4 = $('#job_metrics_attributes_4_metric_type_id').find('option:selected').val();
+
+			for(var i = 0; i <=select_box_size ; i++){	
+					// alert(i)
+					if (i == selected_option_of_select_box_id_0){
+						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
+					} 
+					else if (i == selected_option_of_select_box_id_1){
+						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
+					}
+					else if (i == selected_option_of_select_box_id_2){
+						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
+					}
+					else if (i == selected_option_of_select_box_id_3){
+						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
+					}
+					else if (i == selected_option_of_select_box_id_4){
+						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
+					}
+			}
+
+			/*-----Enable the selected option only in the current Dropdown-----*/
+			for (var i = 0; i <=4; i++) {
+				if (i == select_box_id){
+						$('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').attr('disabled',false);
+				}
+
+			}
+
+		}
+
+});
 
 
 
