@@ -137,7 +137,7 @@ jQuery(function() {
 
   $('form').on('click', '.add_previous_fields', function(event) {
     // $('a.add_standard_fields').attr('disabled',true)
-
+    // alert("hellow world");
     var last_visible_select_val = $('fieldset:visible:last').find('select').val();
     var last_selected_start_date_val = $('fieldset:visible:last').find('.start_date').val();
     var last_selected_end_date_val = $('fieldset:visible:last').find('.end_date').val();
@@ -148,7 +148,6 @@ jQuery(function() {
     time = new Date().getTime();
     regexp = new RegExp($(this).data('id'), 'g');
     $('a.add_fields').before($(this).data('fields').replace(regexp, time));
-     
       switch (last_visible_select_val) {
         case 'm':
            $(this).parent().parent().find("select:last").val('t');
