@@ -1,0 +1,2 @@
+$("#job_location_attributes_state").children().remove();
+$("<%= escape_javascript(options_for_select(@states.collect(&:reverse),:selected=>@selected_state.present? ? @selected_state : '') ) %>").appendTo("#job_location_attributes_state");
