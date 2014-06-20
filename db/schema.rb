@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140620114055) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "session_id"
   end
 
   create_table "requirements", force: true do |t|
