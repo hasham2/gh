@@ -6,12 +6,23 @@ $(document).ready(function(){
 	var city=""
 	var country=""
 	var state=""
+	var zip_postal_code=""
 
 	$('.address_field').change(function(){
 		  address = $('.address_field').val();
 		 address = address+","
 		$('#address_city').text(address+" "+second_address+" "+city);
-		 $('#state_country').text(state+" "+country);
+		$('#state_country').text(state+" "+country);
+		if (zip_postal_code !=""){
+				if(country =='Canada'){
+					$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+				}else{
+					$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+				}
+			
+		}
+		
+
 	});
 
 	$('.second_address_field').change(function(){
@@ -19,6 +30,14 @@ $(document).ready(function(){
 		 second_address = second_address+","
 		$('#address_city').text(address+" "+second_address+" "+city);
 		$('#state_country').text(state+" "+country);
+		  if (zip_postal_code !=""){
+		  		if(country =='Canada'){
+		  			$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+		  		}else{
+		  			$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+		  		}
+		  	
+		  }
 	});
 
 	$('.city_field').change(function(){
@@ -26,12 +45,28 @@ $(document).ready(function(){
 		 city = city+","
 		$('#address_city').text(address+" "+second_address+" "+city);
 		$('#state_country').text(state+" "+country);
+			if (zip_postal_code !=""){
+					if(country =='Canada'){
+						$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+					}else{
+						$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+					}
+				
+			}
 	});
 
 	$('#job_location_attributes_country').change(function(){
 		 country = $('#job_location_attributes_country').val();
 		$('#address_city').text(address+" "+second_address+" "+city);
 		$('#state_country').text(state+" "+country);
+			if (zip_postal_code !=""){
+					if(country =='Canada'){
+						$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+					}else{
+						$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+					}
+				
+			}
 	});
 
 	$('#job_location_attributes_state').change(function(){
@@ -39,9 +74,31 @@ $(document).ready(function(){
 		 state = state+","
 		$('#address_city').text(address+" "+second_address+" "+city);
 		$('#state_country').text(state+" "+country);
+			if (zip_postal_code !=""){
+					if(country =='Canada'){
+						$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+					}else{
+						$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+					}
+				
+			}
 	});
 
-/*=======Add Button functionality of Education and Certifications========*/
+	$('.zip_code_field').change(function(){
+		 zip_postal_code = $('.zip_code_field').val();
+		$('#address_city').text(address+" "+second_address+" "+city);
+		$('#state_country').text(state+" "+country);
+			if (zip_postal_code !=""){
+					if(country =='Canada'){
+						$('#zip_postal_code').text("Postal Code: "+zip_postal_code);
+					}else{
+						$('#zip_postal_code').text("Zip Code: "+zip_postal_code);
+					}
+				
+			}
+	});
+
+	/*=======Add Button functionality of Education and Certifications========*/
 	$('#add_certification').click(function(){
 		var new_certification =	$('#add_certification_value').val();
 		if (new_certification == ""){
@@ -72,12 +129,14 @@ $(document).ready(function(){
 
 			alert('Please Selelct some Value');
 		}
-		else{		
+		else if (current_certification_id){		
 			$.ajax({
 			   method:'post',
 			   url:'./delete_certification',
 			   data: {value:current_certification_id}
 			 });
+		/*Making the following variable empty to avoid reuse of the containing value*/
+		current_certification_id =""
 		}	
 
 	});
@@ -113,12 +172,14 @@ $(document).ready(function(){
 
 			alert('Please Selelct some Value');
 		}
-		else{		
+		else if (current_requirement_id){
 			$.ajax({
 			   method:'post',
 			   url:'./delete_requirement',
 			   data: {value:current_requirement_id}
 			 });
+			/*Making the following variable empty to avoid reuse of the containing value*/
+			current_requirement_id =""
 		}	
 
 	});
@@ -169,12 +230,12 @@ jQuery(function() {
 
 /*=========== Is Firmed Field Functionalty Added===========*/
 $(document).ready(function(){
-/*================Edit Mode====================*/
+	/*================Edit Mode====================*/
 	var value = $('#desired_wage_is_firm').is(':checked')
 	if(value){
 		$('#max_wage').attr('disabled',true);
 	}
-/*=====================Create Mode=============================*/
+	/*=====================Create Mode=============================*/
 	$('#desired_wage_is_firm').click(function(){
 		var value = $(this).is(':checked')
 		if(value == true){
@@ -192,6 +253,16 @@ $(document).ready(function(){
 
 /*=======================Job Category Functionality Added========================*/
 $(document).ready(function(){
+	/*-----------Edit Mode------------*/
+	var value = $('#job_category').val();
+	if (value == 'Temporary' || value == 'Contract'){
+		$('#work_duration').attr('disabled',false);
+	}
+	else{
+		$('#work_duration').attr('disabled',true);
+	}
+
+	/*-----------Create Mode------------*/
 	$('#job_category').change(function(){
 		var value = $(this).val();
 		if (value == 'Temporary' || value == 'Contract'){
@@ -226,11 +297,12 @@ $(document).ready(function(){
 		$('#job_metrics_attributes_'+i+'__destroy').siblings('span').text('Enable '+e);
 	}
 
-/*Auto selecting Checkbox on changing the slider */
+	/*Auto selecting Checkbox on changing the slider */
 	$('.simple_slider').change(function(){
 		var current_slider_id = $(this).attr('id').split('_')[3];
 			/*making Checkbox true on changing the slider */
 		  $('#job_metrics_attributes_'+current_slider_id+'__destroy').prop('checked', true);
+		  $('#job_metrics_attributes_'+current_slider_id+'_metric_type_id').prop('required',true);
 
 	});
 
@@ -240,14 +312,105 @@ $(document).ready(function(){
 		var metric_type_value = $('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').text();
 			if(current_slider_value >1 || metric_type_value !='Metric Type' ){
 				$('#job_metrics_attributes_'+i+'__destroy').prop('checked', true);
+				$('#job_metrics_attributes_'+i+'_metric_type_id').prop('required',true);
 			}
 	}
 
 });
 
 
+/*Comparing dates*/
+$(document).ready(function(){
+		$('.zip_code_field').change(function(){
+				var country = $('#job_location_attributes_country').val();
+				var postal_or_zip = $('.zip_code_field').val();
+				/*Validation for US ZipCode */
+				if (country == 'United States'){
+							var zipcode_regex = /^\d{5}$/;
+							if (zipcode_regex.test($.trim(postal_or_zip)) == false){
+									alert('Invalid Zip Code');
+							}			    
+				}
+				/*Validation for Canadian postal Code */
+				else if (country == 'Canada'){
+					    var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
+					    if (regex.test(postal_or_zip) == false){
+					    	alert('Invalid Postal Code');
+					    }
+				}
+
+		});			
+});
 
 
+// $(document).ready(function(){
+
+// 	$('#job_metrics_attributes_0_metric_type_id').change(function(){
+
+// 		var metric_type_0 =	$('#job_metrics_attributes_0_metric_type_id').find('option:selected').text();
+// 		var metric_type_1 =	$('#job_metrics_attributes_1_metric_type_id').find('option:selected').text();
+// 		var metric_type_2 =	$('#job_metrics_attributes_2_metric_type_id').find('option:selected').text();
+// 		var metric_type_3 =	$('#job_metrics_attributes_3_metric_type_id').find('option:selected').text();
+// 		var metric_type_4 =	$('#job_metrics_attributes_4_metric_type_id').find('option:selected').text();
+		
+
+// 		// alert(metric_type_0+"-"+metric_type_1+"-"+metric_type_2+"-"+metric_type_3+"-"+metric_type_4)
+
+// 	});
+
+
+
+
+// });
+
+
+
+
+// $(document).ready(function() {
+    
+//     function checkSelected(val) {
+//         var ret = false;
+//         $(".variable_priority").each(function() {
+//             if ($(this).val() === val) {
+//                 ret = true;
+//             }
+//         });
+//         return ret;
+//     }
+
+//     function totalValue() {
+//         var total = 0;
+//         $(".variable_priority:first option[value!=0]").each(function() {
+//             total = total + parseInt($(this).val(), 10);
+//         });
+//         return total;
+//     }
+//     function totalSelectedValue(){
+//         var total = 0;
+//         $(".variable_priority option:selected").each(function() {
+//             total = total + parseInt($(this).val(), 10);
+//         });
+//         return total;
+//     }
+//     $('.value').html(totalValue());
+//     $('.variable_priority').change(function() {
+//    //     variable_priority = variable_priority + parseInt($(this).val(), 10);
+//         $('.value').html(totalSelectedValue() + " out of " + totalValue());
+
+//         $('option', this).each(function() {
+//             if (checkSelected($(this).val()) && $(this).val() !== "0") {
+//                 $('.variable_priority option[value=' + $(this).val() + ']').attr('disabled', true);
+//             } else {
+//                 $('.variable_priority option[value=' + $(this).val() + ']').removeAttr('disabled');
+//             }
+//         });
+//         if (totalSelectedValue() === totalValue()) {
+//             $('.selects').removeClass('invalid').addClass('valid');
+//         } else {
+//             $('.selects').removeClass('valid').addClass('invalid');
+//         }
+//     });
+// });
 
 
 

@@ -1,0 +1,416 @@
+<div class="container">
+<div class="col-lg-12 "><h2>Job Details</h2></div></div>
+
+<div class="container">
+
+  <div class="row  job-listingout">
+  
+
+    <%= form_for @job, method: :put, :class=>"form-horizontal center" do |j| %>
+    
+    <div class="col-lg-12 topfilde">
+    
+    <div class="col-lg-2 col-lg-6">
+     
+    <div class="form-group ">
+    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
+    <div class="col-sm-7">
+      <input type="text" placeholder="1" id="inputPassword" style="background-color:#23a327; text-align:center;" class="form-control form-controlid" disabled=true>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <%= j.label :work_duration, 'Work Duration (days)' ,:class=>"col-sm-6 labl" %>
+    <div class="col-sm-4">
+      <%= j.text_field :work_duration,{ :class=>"form-control", :placeholder=>"5",:id=>"work_duration"} %>
+    </div>
+  </div></div>
+
+  <div class="col-lg-4">
+    <div class="form-group">
+    <%= j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-6 labl",:required=>true %>
+
+    <div class="col-sm-4">
+      <%= j.text_field :desired_wage,:id=>"desired_wage", :class=>"form-control", :placeholder=>"14" %>
+    </div>
+  </div></div>
+  
+  </div>
+  
+  
+   <div class="col-lg-12 topfilde1">
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= j.label :title, 'Job Title' ,:class=>"col-sm-3 labl" %>
+    <div class="col-sm-9">
+      <%= j.text_field :title, :class=>"form-control",:placeholder=>"Fork Lift Operator",:required=>true %>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= j.label :hours_per_day, 'Hours per day' ,:class=>"col-sm-4 labl"%>
+      <div class="col-sm-4">
+        <%= j.text_field :hours_per_day, :class=>"form-control",:placeholder=>"8",:required=>true%>
+    </div>
+  </div></div>
+  
+  
+  
+          
+     </div>
+     
+     
+     <div class="col-lg-12 topfilde1">
+     
+  <div class="col-lg-4">
+    <div class="form-group">
+   <label for="inputPassword" class="col-sm-4 labl">Posting Date</label>
+   <div class="col-sm-6">
+     <%= j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d %b %Y'), :disabled=>"true"%>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <%= j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl" %> 
+    <div class="col-sm-6">
+      <%= j.date_field :start_date, :class=>"form-control start_date", :placeholder=>"March 1,2014",:value=>j.object.start_date.try(:strftime, '%d %b %Y'),:required=>true%>
+    </div>
+  </div></div>
+  
+  
+  
+          
+     </div>
+     
+     
+<div class="col-lg-12 topfilde1">
+     
+  <div class="col-lg-4">
+    <div class="form-group">
+    <%= j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-4 labl"%>
+    <div class="col-sm-7">
+      <%= j.datetime_field :listing_expires_on, :class=>"form-control listing_expires_on", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d %b %Y, %H:%M %p'),:required=>true%>
+    </div>
+  </div></div>
+  
+  
+  
+  
+  
+  
+          
+     </div>     
+  
+  
+  
+   
+  
+  <div class="col-lg-12 topfilde1">
+  
+  <div class="col-lg-4">
+  <h2>Job Description</h2>
+    </div>      
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label for="inputPassword" class="col-sm-5 labl">Business Name</label>
+    <div class="col-sm-7">
+      <input class="form-control" disabled="<%= true %>" type="text" value="<%= @business_name %>"/>
+    </div>
+  </div></div>
+  
+   
+     
+</div>
+
+<div class="col-lg-8">
+
+
+<div class="col-lg-12 topfildetext">
+
+ <%= j.text_area :description, :class=>"form-control", :placeholder=>"Joe's Distribution",:required=>true %>
+
+</div>
+
+
+
+
+</div>
+
+<div class="col-lg-4 pull-right">
+<div class="col-lg-12">
+   <div class="img_box1 bbox3">
+   <h2>Employer's Primary Image</h2>
+    <div class="img_bgbox" id="primary_image">
+    <% if  @primary_photo.present? %>
+        <%= image_tag @primary_photo.first.image.url(:medium) %>
+      <% else %>
+        <% if @user_primary_photo.present? %>
+          <%= image_tag @user_primary_photo.first.image.url(:medium) %>
+        <% else  %>
+          <%= image_tag('icon-user-default.png', :width=>"217px", :height=>"176px") %>
+        <% end %>
+      <% end %>
+    </div>
+   
+    <button id="select_primary_image" class="btn btn-success pull-left btnuser" type="button">Select Primary Image</button>
+    <button id= "add_photo_button" class="btn btn-success pull-left btnuser" type="button">Additional Photos</button>
+   </div>
+
+</div>
+</div>
+
+
+<div class="col-lg-8 location-box">
+<h3> 
+      <%if @job.location &&  !@job.location.approximate_address %>   
+        <h2>Job Location Address</h2>
+        <h3><%="#{@job.location.address rescue ""} #{@job.location.second_address rescue ""} #{@job.location.city rescue ""}," %></h3>
+        <h3><%= "#{@job.location.state rescue ""}, #{@job.location.country rescue ""}"%></h3> 
+      <% end %>
+  </h3>
+
+<%= j.fields_for :location do |builder| %>
+<div class="col-lg-6 j-jobz">
+  
+    <div class="form-group">
+    <%= builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-7 labl" %>
+    <div class="col-sm-5">
+      <%= builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7",:required=>true %>
+    </div>
+   
+
+     </div>
+     
+     <div class="col-lg-12 pull-left" >
+      <div class="checkbox checkbox2">
+    <label>
+      <input type="checkbox">Display approximate address only
+    </label>
+  </div></div>
+  <% end %>
+     <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  </div>
+  
+<div class="col-lg-4 pull-right">
+<div class="box_outer">
+
+
+<h2>Total Views<br>
+<b><%= @counter %></b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>  
+
+<div class="col-lg-4 pull-right">
+<div class="box_outerr">
+
+
+<h2>Total Applications<br>
+<b>0</b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>
+
+<div class="col-lg-4 pull-right">
+<div class="box_outerrr">
+
+
+<h2>Avg. Suggested<br>
+Wage ($/hr)<br>
+<b>0</b>
+
+</h2>
+
+
+
+</div> 
+
+
+ 
+</div>
+
+  
+  
+  </div>
+
+
+<div class="col-lg-3 education_box1 education_boxxxx">
+ <h2>Job Category</h2>
+<div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox">
+    <label>
+      <input type="checkbox">Supervisor
+    </label>
+  </div></div>
+<div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Individual
+    </label>
+  </div></div>  
+  
+  
+</div>
+
+
+
+<div class="col-lg-8 location-box employee_metrics">
+
+<h2>Employee Prioritization Metrics</h2>
+
+
+<%= j.fields_for :metrics do |metric| %>
+<div class="col-lg-12">
+ <div class="col-lg-5">
+ 
+  <div class="checkbox checkbox2">
+    <%= metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1' %>
+                     <span class="enable_metrics_label">Enable</span>
+  </div>
+  
+<div class="btn-group  menunnleft col-sm-7">
+   <%= metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type" %>
+</div> 
+</div>
+
+<div class="col-lg-7 reting">
+  <div class="col-lg-4">
+    <h2>Least Important</h2>
+  </div>
+  <div class="col-lg-3">
+    <%= metric.text_field :value, :'data-slider'=>"true" , :'data-slider-highlight'=>"true", :'data-slider-range'=>"1,5", :'data-slider-step'=>"1",:'data-slider-tooltip'=>"show",:class=>"simple_slider" %>
+  </div>
+  <div class="col-lg-4" style="margin:0 0 0 30px;">
+    <h2>Most Important</h2>
+  </div>
+</div>
+</div>
+<% end %>
+
+
+
+ 
+   
+  </div>
+
+
+<div class="col-lg-3 education_box1 education_boxxxx education_boxxxx12">
+ <h2>Job Requirements </h2>
+<div class="col-lg-12 pull-left checkjob" >
+
+      <div class="checkbox education_checkbox">
+     <%= j.collection_check_boxes(:requirement_ids, @universal_and_employer_requirements, :id, :name )%>
+  </div>
+</div>
+<!-- <div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Car Pool
+    </label>
+  </div></div>  
+  
+  <div class="col-lg-12 pull-left checkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Vehicle
+    </label>
+  </div></div> -->
+  
+  
+</div>
+
+<div class="col-lg-8 tab_border2">
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home" data-toggle="tab">Q & A</a></li>
+  <li><a href="#profile" data-toggle="tab">Reviews</a></li>
+  <li><a href="#messages" data-toggle="tab">Images</a></li>
+ 
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  <h2>Q1</h2>
+  <p>is forklift certification required?</p>
+  <h2>A1</h2>
+  <p>Yes, forklift certification is required?</p>
+  <h2>+</h2><p>Expand all Q&A (4 more)</p>
+  </div>
+  <div class="tab-pane" id="profile"><h2>A1</h2>
+  <p>Yes, forklift certification is required?</p>
+  </div>
+  <div class="tab-pane additional-photos" id="messages"></div>
+  
+</div>
+
+</div>
+  
+<div class="col-lg-12 btnnextstep">
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Cancel Listing</button>
+ 
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">See All Applicants</button>
+  
+    <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Show all Listings</button>
+    <%=  j.submit "Update Listing" ,class:"btn btn-success pull-left btn-nextstep bttn-leftmar"%>
+        
+
+
+  
+  
+  
+  
+</div>  
+  
+</div>
+
+  <!--/row--> 
+  
+</div>
+ <% end %>
+ <%= form_for(@job, :html=>{:multipart => true }, method: :put) do |f| %>
+   <%= f.fields_for :photos do |photo| %>
+     <%= photo.file_field :image,:id=>"primary_image_field",:style=>"display:none" %>
+     <%= photo.check_box :is_primary,  {checked: true , :style=>"display:none" } %>
+   <% end %>
+ <% end %>
+ <%= form_for(Photo.new, url: "/job_steps/add_photo", :html=>{:multipart => true }, method: :post) do |f| %>
+     <%= f.file_field :image,:multiple=>true ,:id=>"multiple_files" ,:class=>"form-control",:style=>"display:none;" %>
+   <% end %>
+
+<%= render 'home/footer'%>
+
+<script type="text/javascript">
+/*Single Image Upload*/
+    $('#select_primary_image').on('click',function(){
+      
+       jQuery('#primary_image_field').trigger('click');
+    });
+    $('#add_photo_button').on('click',function(){
+      jQuery('#multiple_files').trigger('click');
+    });
+    
+</script>

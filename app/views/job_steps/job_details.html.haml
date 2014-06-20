@@ -15,7 +15,7 @@
         .col-lg-3
           .form-group
             .col-sm-10
-              = j.select :job_category, options_for_select(['Full-time','Part-time','Temporary','Contract'],:selected=>j.object.job_category? ? j.object.job_category : '') , {:prompt => 'Job Category'}, :class=>"form-control",:id=>"job_category"
+              = j.select :job_category, options_for_select(['Full-time','Part-time','Temporary','Contract'],:selected=>j.object.job_category? ? j.object.job_category : '') , {:prompt => 'Job Category'}, :class=>"form-control",:id=>"job_category",:required=>true
         .col-lg-4
           .form-group
             = j.label :work_duration, 'Work Duration (days)' ,:class=>"col-sm-6 labl"
@@ -26,33 +26,42 @@
           .form-group
             = j.label :title, 'Job Title' ,:class=>"col-sm-3 labl"
             .col-sm-9
-              = j.text_field :title, :class=>"form-control",:placeholder=>"Fork Lift Operator"
+              = j.text_field :title, :class=>"form-control",:placeholder=>"Fork Lift Operator",:required=>true
         .col-lg-4
           .form-group
             = j.label :hours_per_day, 'Hours per day' ,:class=>"col-sm-4 labl"
             .col-sm-4
-              = j.text_field :hours_per_day, :class=>"form-control",:placeholder=>"8"
+              = j.text_field :hours_per_day, :class=>"form-control",:placeholder=>"8",:required=>true
       .col-lg-12.topfilde1
         .col-lg-4
           .form-group
             %label.col-sm-4.labl{:for => "inputPassword"} Posting Date
             .col-sm-6
-              = j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d-%m-%Y'), :disabled=>"true"
+              = j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d %b %Y'), :disabled=>"true"
         .col-lg-4
           .form-group
-            = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"
-            .col-sm-6
-              = j.date_field :start_date, :class=>"form-control", :placeholder=>"March 1,2014",:value=>j.object.start_date.try(:strftime, '%d-%m-%Y')
-      .col-lg-12.topfilde1
-        .col-lg-4
-          .form-group
-            = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-4 labl"
+            = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"              
             .col-sm-7
-              = j.text_field :listing_expires_on, :class=>"form-control", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d-%m-%Y, %H:%M %p')
+              .form-group
+                #datetimepicker5.input-group.date{"data-date-format" => "YYYY/MM/DD"}
+                  = j.date_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%Y/%m/%d'),:required=>true}
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-time
+      .col-lg-12.topfilde1
+        .col-lg-5
+          .form-group
+            = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-3 labl"
+            .col-sm-8
+              .form-group
+                #datetimepicker1.input-group.date{:'data-date-format'=>"YYYY/MM/DD hh:mm A"}
+                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%Y/%m/%d %I:%M %p')}
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+              
       .col-lg-12.topfilde1
         .col-lg-6
           .form-group
-            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-4 labl"
+            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-4 labl",:required=>true
             .col-sm-3
               = j.text_field :desired_wage,:id=>"desired_wage", :class=>"form-control", :placeholder=>"14"
             .checkbox.checkbox2
@@ -62,7 +71,7 @@
           .form-group
             = j.label :max_wage, 'Max Wage ($/hr)' ,:class=>"col-sm-5 labl"
             .col-sm-4
-              = j.text_field :max_wage,:id=>"max_wage", :class=>"form-control", :placeholder=>"17"
+              = j.text_field :max_wage,:id=>"max_wage", :class=>"form-control", :placeholder=>"17",:required=>true
       .col-lg-12.topfilde1
         .col-lg-5
           %h2 Job Description
@@ -72,18 +81,19 @@
             .col-sm-7
               %input.form-control{:type => "text",:disabled=>true, :value=>@business_name}
       .col-lg-12.topfildetext
-        = j.text_area :description, :class=>"form-control", :placeholder=>"Joe's Distribution"
+        = j.text_area :description, :class=>"form-control", :placeholder=>"Joe's Distribution",:required=>true
         .col-lg-12.location-box
           = j.fields_for :location do |builder|
             %h2 Job Location Address
             %button.btn.btn-success.pull-right.btn-nextstep.bttn-leftmar{type: "button" ,:id=>"set_employer_address"} Set to Employer Address
             %h3#address_city
             %h3#state_country
+            %h3#zip_postal_code
             .col-lg-12.topfilde1.one
               .col-lg-6
                 .form-group
                   = builder.label :address, 'Address Line 1' ,:class=>"col-sm-4 labl"
-                  = builder.text_field :address, :class=>"form-control address_field"
+                  = builder.text_field :address, :class=>"form-control address_field",:required=>true
             .col-lg-12.topfilde1.one
               .col-lg-6
                 .form-group
@@ -93,33 +103,51 @@
               .col-lg-6
                 .form-group
                   = builder.label :city, 'City' ,:class=>"col-sm-4 labl"
-                  = builder.text_field :city, :class=>"form-control city_field"
+                  = builder.text_field :city, :class=>"form-control city_field",:required=>true
             .col-lg-12.topfilde1.two
               .col-lg-4
                 .form-group
                   = builder.label :country, 'Country' ,:class=>"col-sm-4 labl"
                   .col-sm-7
-                    = builder.select :country, ["United States", "Canada"] ,{include_blank: 'Select Country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control"}
+                    = builder.select :country, ["United States", "Canada"] ,{include_blank: 'Select Country' }, {:onChange => "populate_second_select(this.id)", :class=>"form-control" ,:required=>true}
               .col-lg-4
                 .form-group.state_group{:style=>"display:none"}
                   = builder.label :state, 'State' ,:class=>"col-sm-3 labl"
                   .col-sm-9
-                    = builder.select :state, {},{},{ :class => 'form-control'}
+                    = builder.select :state, {},{},{ :class => 'form-control state_field',:required=>true}
             .col-lg-12.topfilde1.three
               .col-lg-6
                 .form-group
                   = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 labl"
                   .col-sm-9
-                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control'}
+                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true}
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
                 .col-sm-3
-                  = builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7"
+                  = builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7",:required=>true
             .col-lg-12.pull-left.checkjob
               .checkbox.checkbox2
                 %label
-                  %input{:type => "checkbox"}
-                    Display approximate address only
+                  = builder.check_box :approximate_address,{:id=>"approximate_address"} , 'true','false'
+                  = builder.label :approximate_address, 'Display approximate address only'
           .col-lg-12.btnnextstep 
       = j.submit "Proceed to Next Step",:class=>"btn btn-success pull-left btn-nextstep"
+
+
+= render 'home/footer'
+
+:javascript
+  $(function () {
+      $('#datetimepicker1').datetimepicker();
+  });
+
+
+  $(function () {
+      $('#datetimepicker5').datetimepicker({
+          pickTime: false
+      });
+  });
+
+
+

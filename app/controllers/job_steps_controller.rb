@@ -53,6 +53,17 @@ class JobStepsController < ApplicationController
      	@stp = 4
      	@job.requirements.build
      	@job.certifications.build
+     	@employer_id = current_user.employer.id
+
+     	# getting requirements of current employer and universal requirements
+     	@universal_and_employer_requirements = Requirement.where({:employer_id=>[nil,@employer_id]})
+     	# getting requirements of current employer only
+     	@employer_requirements = Requirement.where(:employer_id=>@employer_id)
+
+     	# getting certifications of current employer and universal certifications
+     	@universal_and_employer_certifications = Certification.where({:employer_id=>[nil,@employer_id]})
+     	# getting certifications of current employer only
+     	@employer_certifications = Certification.where(:employer_id=>@employer_id)
      end
 	   render_wizard
 	end
@@ -67,7 +78,8 @@ class JobStepsController < ApplicationController
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
-	   @job.assign_attributes(candidate_prioritization_params)
+	   	# binding.pry 
+	   @job.update_attributes(candidate_prioritization_params)
 	   render_wizard @job
 	   when :images
 		@old_primary_photo = @job.photos.where(:is_primary => true)		
@@ -77,7 +89,7 @@ class JobStepsController < ApplicationController
 	   	@new_image = params[:job][:photos_attributes]["0"][:image]
 	   	@is_primary = params[:job][:photos_attributes]["0"][:is_primary]
 
-	   @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+	    @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
 	   	unless request.xhr?	  	
 	   	render_wizard @job
 	   	end
@@ -85,7 +97,7 @@ class JobStepsController < ApplicationController
 
      	@primary_photo = @job.photos.where(:is_primary => true)
        	respond_to do |format|
-        	format.js
+        	format.js 
          end
 
 	   when :education_and_certifications
@@ -111,9 +123,12 @@ class JobStepsController < ApplicationController
 	end
 
 	def add_certification
-	  @certification = Certification.new(:title => params[:value])
+	  @employer_id = current_user.employer.id
+	  @certification = Certification.new(:title => params[:value], :employer_id =>@employer_id)
 	  respond_to do |format|
 	    if @certification.save
+	    	# getting certifications of current employer only
+	    	@employer_certifications = Certification.where(:employer_id=>@employer_id)
 	    	format.js 
 	    	# format.json   {render json: @certification }
 	    end
@@ -122,21 +137,26 @@ class JobStepsController < ApplicationController
 
 	def delete_certification
 		# binding.pry
-	 @certification = Certification.find(params[:value])
+		if params[:value]
+			@certification = Certification.find(params[:value])
 
-	   if @certification.present?
-		  respond_to do |format|
-		  	if @certification.destroy
-		  		format.js
-		  	end
-		  end
+		   if @certification.present?
+			  respond_to do |format|
+			  	if @certification.destroy
+			  		format.js
+			  	end
+			  end
+			end
 		end
 	end
 
 	def add_requirement
-	  @requirement = Requirement.new(:name => params[:value])
+	  @employer_id = current_user.employer.id
+	  @requirement = Requirement.new(:name => params[:value], :employer_id =>@employer_id)
 	  respond_to do |format|
 	    if @requirement.save
+     		# getting requirements of current employer only
+     		@employer_requirements = Requirement.where(:employer_id=>@employer_id)
 	    	format.js 
 	    	# format.json   {render json: @requirement }
 	    end
@@ -144,15 +164,17 @@ class JobStepsController < ApplicationController
 	end
 
 	def delete_requirement
-		# binding.pry
-	 @requirement = Requirement.find(params[:value])
 
-	   if @requirement.present?
-		  respond_to do |format|
-		  	if @requirement.destroy
-		  		format.js
-		  	end
-		  end
+		if params[:value]
+		 	@requirement = Requirement.find(params[:value])
+
+		   if @requirement.present?
+			  respond_to do |format|
+			  	if @requirement.destroy
+			  		format.js
+			  	end
+			  end
+			end
 		end
 	end
 
@@ -167,7 +189,7 @@ class JobStepsController < ApplicationController
 
      	@photo = @job.photos.last
        	respond_to do |format|
-        	format.js
+        	format.js 
          end
 
 	end
@@ -180,10 +202,7 @@ class JobStepsController < ApplicationController
      	@photos = @job.photos.where(:is_primary => nil)
      	respond_to do |format|
      		format.js
-     	end
-
-		
-		
+     	end		
 	end
 
 	def make_primary_photo
@@ -244,8 +263,10 @@ class JobStepsController < ApplicationController
 		if current_user.location.present?
 			@employer_address = current_user.location
 
+			if @employer_address.country.present?
 			country = @employer_address.country
 			@states = COUNTRIES_STATES[country]
+		  end
 		else
 			@employer_address = nil
 		end
@@ -259,7 +280,7 @@ private
 			params[:job][:max_wage] = @desired_wage
 		end
 
-		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone])
+		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
 	end
 
 	def candidate_prioritization_params

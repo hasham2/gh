@@ -8,7 +8,7 @@ class Job < ActiveRecord::Base
   accepts_nested_attributes_for :requirements
 
   has_and_belongs_to_many :metrics
-  accepts_nested_attributes_for :metrics
+  accepts_nested_attributes_for :metrics, allow_destroy: true
 
   has_many :photos, as: :photoable
   accepts_nested_attributes_for :photos

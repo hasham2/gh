@@ -62,7 +62,7 @@
                         .form-group
                           = builder.label :business_name, 'BusinessName' ,:class=>"col-sm-3 control-label text-right"
                           .col-sm-8
-                            = builder.text_field :business_name, :class=>"form-control"
+                            = builder.text_field :business_name, :class=>"form-control", required: true
                         .form-group
                           = builder.label :website, 'Business URL ' ,:class=>"col-sm-3 control-label text-right"
                           .col-sm-8

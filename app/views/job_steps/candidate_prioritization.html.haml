@@ -6,17 +6,17 @@
     .container
       = render 'progress_indicator'
     = form_for(@job, url: wizard_path, method: :put) do |f|
-      .col-lg-12.location-box
+      .col-lg-12.location-box.selects
         %h2 Employee Prioritization Metrics
         = f.fields_for :metrics do |metric|
           .col-lg-12
-            .col-lg-4
+            .col-lg-4.combine
               .checkbox.checkbox2
                 %label
                   = metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1'
                   %span{:class=>"enable_metrics_label"} Enable
               .btn-group.menunnleft.col-sm-7
-                = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type"
+                = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type variable_priority unique required",:name=>"select[]"
             .col-lg-7.reting
               .col-lg-4
                 %h2 Least Important
@@ -27,3 +27,8 @@
       .col-lg-12.btnnextstep
         = link_to "Return to Previous Step", previous_wizard_path,:id=>"next_step_from_images", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar "
         = f.submit "Proceed to Next Step", :class=>"btn btn-success pull-left btn-nextstep bttn-leftmar"
+
+= render 'home/footer'
+
+
+  

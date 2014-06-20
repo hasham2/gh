@@ -7,5 +7,5 @@ $("<%= escape_javascript(label_tag(@requirement.name)) %>").appendTo(".all_requi
 /*===Regenerating the Values of Dropdown of Delete===*/
 $(".delete_requirement_value").children().remove();
 $(".delete_requirement_value").append('<option value="">Select Value</option>')
-$("<%= escape_javascript(options_for_select(Requirement.all.collect{ |c| [c.name, c.id]})) %>").appendTo(".delete_requirement_value");
+$("<%= escape_javascript(options_for_select(@employer_requirements.collect{ |c| [c.name, c.id]})) %>").appendTo(".delete_requirement_value");
 
