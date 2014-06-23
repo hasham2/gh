@@ -93,7 +93,7 @@
   <div class="col-lg-4">
     <div class="form-group">
     <%= j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-4 labl"%>
-    <div class="col-sm-7">
+    <div class="col-sm-8">
       <%= j.datetime_field :listing_expires_on, :class=>"form-control listing_expires_on", :placeholder=>"April 25,2014 , 7pm",:value=>j.object.listing_expires_on.try(:strftime, '%d %b %Y, %H:%M %p'),:required=>true%>
     </div>
   </div></div>
@@ -343,7 +343,7 @@
   </div>
   
 <div class="btn-group  menunnleft col-sm-7">
-   <%= metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type" %>
+   <%= metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type select_metric_type" %>
 </div> 
 </div>
 
