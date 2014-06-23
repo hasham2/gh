@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
-  before_action :is_employer,  :except => [:search, :show,:make_primary_photo]
+  before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
+
 
   def index
     @jobs = current_user.jobs.all.order(:id)
@@ -39,7 +40,8 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @current_user_jobs = current_user.jobs.count
+    @employer_job_id = params[:employer_job_id]
+    
      @job = Job.find(params[:id])
      session[:job_id] = params[:id]
     

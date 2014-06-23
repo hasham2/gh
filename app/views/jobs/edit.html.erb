@@ -15,7 +15,7 @@
     <div class="form-group ">
     <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
     <div class="col-sm-7">
-      <input type="text" placeholder="1" id="inputPassword" style="background-color:#23a327; text-align:center;" class="form-control form-controlid" disabled=true>
+      <input type="text" placeholder="<%= @employer_job_id %>" id="inputPassword" style="background-color:#23a327; text-align:center;" class="form-control form-controlid" disabled=true>
     </div>
   </div></div>
   
@@ -372,7 +372,7 @@
  <h2>Job Requirements </h2>
 <div class="col-lg-12 pull-left checkjob" >
 
-      <div class="checkbox education_checkbox">
+      <div id="align_check_boxes_in_edit" class="education_checkbox " style: "width:115px;">
      <%= j.collection_check_boxes(:requirement_ids, @universal_and_employer_requirements, :id, :name )%>
   </div>
 </div>

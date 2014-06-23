@@ -1,3 +1,4 @@
+/*==Align Check Boxes In Education & Certification==========Start========= */
 #align_check_boxes label{
 
     float: left;
@@ -9,7 +10,20 @@
   float: left;
       margin-right: 10px;
 }
+/*==Align Check Boxes In Education & Certification==========End========= */
 
+/*==Align Check Boxes In Edit Mode of Jobs==========Start========= */
+#align_check_boxes_in_edit label{
+  float: left;
+  width: 175px;
+}
+
+#align_check_boxes_in_edit input {
+  display: inline-block;
+  float: left;
+      margin-right: 10px;
+}
+/*==Align Check Boxes In Edit Mode of Jobs==========End========= */
 ul.thumbnails.image_picker_selector li .thumbnail img {
 
 	width: 115px;
