@@ -75,7 +75,7 @@ class JobStepsController < ApplicationController
      	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
-
+	   #	binding.pry
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization

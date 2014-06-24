@@ -1,3 +1,15 @@
+$(function () {
+    $('#datetimepicker1').datetimepicker();
+});
+
+
+$(function () {
+    $('#datetimepicker5').datetimepicker({
+        pickTime: false
+    });
+});
+
+
 
 
 // $(document).ready(function(){

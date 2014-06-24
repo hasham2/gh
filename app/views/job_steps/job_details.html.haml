@@ -1,3 +1,5 @@
+
+
 .container
   .col-lg-12
     %h2 Create Job Listing
@@ -53,8 +55,8 @@
             = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-3 labl"
             .col-sm-8
               .form-group
-                #datetimepicker1.input-group.date{:'data-date-format'=>"YYYY/MM/DD hh:mm A"}
-                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%Y/%m/%d %I:%M %p')}
+                #datetimepicker1.input-group.date{:'data-date-format'=>"DD/MM/YYYY hh:mm A"}
+                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%d/%m/%Y %I:%M %p')}
                   %span.input-group-addon
                     %span.glyphicon.glyphicon-calendar
               
