@@ -3,6 +3,8 @@ class JobStepsController < ApplicationController
 	include Wicked::Wizard
     before_filter :authenticate_user!
     before_action :check_enrollment
+    before_action :check_job_exit
+    
 
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
 
@@ -274,6 +276,12 @@ class JobStepsController < ApplicationController
 	end
 
 private
+	def check_job_exit
+		
+		if session[:job_id]==nil
+		 	redirect_to root_path ,:notice=>"Create job first "
+		 end 
+	end
 	def job_details_params
 		@desired_wage_is_firm = params[:job][:desired_wage_is_firm]
 		if @desired_wage_is_firm == "true"
