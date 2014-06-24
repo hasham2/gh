@@ -122,6 +122,20 @@ class JobsController < ApplicationController
       @lat = params[:lat]
       @lng = params[:lng]
     end
+    #-------------------------------------------------------------#
+
+
+   @max_distance =  params[:max_distance]
+
+    @counter = Location.near('New York, NY, US', @max_distance,{:order => :distance, :units => :km})
+    @counter = @counter.where(:locateable_type=>'Job').count(:all)
+
+    # binding.pry
+
+
+
+
+
   end
   
     def make_primary_photo

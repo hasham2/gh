@@ -1,0 +1,20 @@
+
+#map{ 
+  height: 1095px;
+  width:650px;
+}
+
+
+
+/*==Align Check Boxes In Edit Mode of Jobs==========Start========= */
+#align_check_boxes_in_edit label{
+  float: left;
+  width: 175px;
+}
+
+#align_check_boxes_in_edit input {
+  display: inline-block;
+  float: left;
+      margin-right: 10px;
+}
+/*==Align Check Boxes In Edit Mode of Jobs==========End========= */
