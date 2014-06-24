@@ -237,7 +237,10 @@
       <%= builder.text_field :zip, :class=>"form-control zip_code_field", :placeholder=>"M6j 3M7",:required=>true %>
     </div>
   </div>
- 
+<div class="col-lg-12 pull-left ">
+<%= builder.check_box :approximate_address,{:id=>"approximate_address"} , 'true','false'%>
+ <%= builder.label :approximate_address, 'Display approximate address only'%>
+</div>
    <!--   <div class="col-lg-12 pull-left" >
       <div class="checkbox checkbox2">
     <label>
@@ -322,7 +325,8 @@
       </label>
       <br>
     <%end%>
-  
+   <br> 
+   <br>
   
 </div>
 

@@ -75,6 +75,7 @@ class JobStepsController < ApplicationController
      	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
+
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
@@ -280,7 +281,8 @@ private
 			params[:job][:max_wage] = @desired_wage
 		end
 
-		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
+		# params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
+		params.require(:job).permit!
 	end
 
 	def candidate_prioritization_params

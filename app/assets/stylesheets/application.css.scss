@@ -13,14 +13,14 @@
  
  *= require_self
  *= require jquery.ui.all
+ *= require bootstrap
  *= require job_steps
  *= require jobs
  *= require tagmanager
  *= require token-input
  *= require leaflet
+ *= require bootstrap-datetimepicker
  *= require_tree .
-
- */
 
 
 
