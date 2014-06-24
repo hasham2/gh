@@ -13,6 +13,7 @@
  
  *= require_self
  *= require jquery.ui.all
+ *= require bootstrap
  *= require job_steps
  *= require tagmanager
  *= require token-input
@@ -21,7 +22,6 @@
  *= require_tree .
 
  */
-
 #map{ height: 400px;}
 
 
