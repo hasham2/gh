@@ -37,6 +37,7 @@ gem 'jquery-turbolinks'
 gem 'jquery-fileupload-rails'
 # Geolocations
 gem 'geocoder'
+gem 'google_timezone'
 # Testing
 gem 'shoulda', group: :test
 gem 'poltergeist', group: :test

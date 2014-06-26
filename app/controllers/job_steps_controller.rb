@@ -14,11 +14,23 @@ class JobStepsController < ApplicationController
      	@current_user_jobs = @user.jobs.count
      case step      
      when :job_details
-     	@stp = 1
-     	if  current_user.employer == nil 
-			@business_name = ''
-		else
-			@business_name = current_user.employer.business_name
+     	
+      @stp = 1
+     	@user_time_zone = nil
+      ## Code to fetch user location from ip address
+      ## and set time zone accordingly
+      gl = Geocoder.search(request.remote_ip).first
+      unless gl.nil?
+        if gl.longitude > 0 and gl.latitude > 0
+          gtz = GoogleTimezone.fetch(gl.longitude,gl.latitude)
+          @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id)]
+        end
+      end
+      # Time zone code ends here
+      if  current_user.employer == nil 
+			  @business_name = ''
+		  else
+			  @business_name = current_user.employer.business_name
      	end 
      	
 		if @job.location == nil
