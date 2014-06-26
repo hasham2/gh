@@ -45,8 +45,8 @@
             = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"              
             .col-sm-7
               .form-group
-                #datetimepicker5.input-group.date{"data-date-format" => "DD/MM/YYYY"}
-                  = j.text_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%d/%m/%Y'),:required=>true}
+                #datetimepicker5.input-group.date
+                  = j.date_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%m/%d/%Y'),:required=>true}
                   %span.input-group-addon
                     %span.glyphicon.glyphicon-calendar
       .col-lg-12.topfilde1
@@ -63,15 +63,15 @@
       .col-lg-12.topfilde1
         .col-lg-6
           .form-group
-            = j.label :desired_wage, 'Desired Wage ($/hr)' ,:class=>"col-sm-4 labl",:required=>true
+            = j.label :desired_wage, 'Wage or Price ($/hr or $)' ,:class=>"col-sm-5 labl",:required=>true
             .col-sm-3
               = j.text_field :desired_wage,:id=>"desired_wage", :class=>"form-control", :placeholder=>"14"
             .checkbox.checkbox2
               = j.check_box:desired_wage_is_firm,{:id=>"desired_wage_is_firm"} , 'true','false'
               = j.label :desired_wage_is_firm, 'Desired Wage is Firm'
-        .col-lg-4
+        .col-lg-5
           .form-group
-            = j.label :max_wage, 'Max Wage ($/hr)' ,:class=>"col-sm-5 labl"
+            = j.label :max_wage, 'Max Wage or Price ($/hr or $)' ,:class=>"col-sm-5 labl"
             .col-sm-4
               = j.text_field :max_wage,:id=>"max_wage", :class=>"form-control", :placeholder=>"17",:required=>true
       .col-lg-12.topfilde1
@@ -145,11 +145,11 @@
   });
 
 
-  $(function () {
-      $('#datetimepicker5').datetimepicker({
-          pickTime: false
-      });
-  });
+  / $(function () {
+  /     $('#datetimepicker5').datetimepicker({
+  /         pickTime: false
+  /     });
+  / });
 
 
 

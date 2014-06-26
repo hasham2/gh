@@ -30,15 +30,17 @@ class JobStepsController < ApplicationController
 		end
      when :candidate_prioritization
      	@stp = 2
-     	if @job.metrics.empty? 
-     	5.times{@job.metrics.build}
-     	else
-     		if @job.metrics.count < 5
-     		@m = 5 - @job.metrics.count
-     		@m.times{@job.metrics.build}
-     		end
+     	# if @job.metrics.empty? 
+     	#5.times{@job.metrics.build}
+     	 5.times{@job.metrics.build} if @job.metrics.empty?
+
+     	# else
+     	# 	if @job.metrics.count < 5
+     	# 	@m = 5 - @job.metrics.count
+     	# 	@m.times{@job.metrics.build}
+     	# 	end
      	 
-     	end	
+     	# end	
      when :images
      	@stp = 3
      	@user_primary_photo = current_user.photos.where(:is_primary=>true)
@@ -77,7 +79,14 @@ class JobStepsController < ApplicationController
      	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
-	   #	binding.pry
+	   	month = params[:job][:start_date].split('/')[0].to_i
+	   	day = params[:job][:start_date].split('/')[1].to_i
+	   	year = params[:job][:start_date].split('/')[2].to_i
+	   	date = Date.new(year,month,day)
+	   	params[:job][:start_date] = date
+
+	   	#binding.pry
+	   	#@job.update_attributes(:start_date=>formated_date)
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
@@ -289,8 +298,8 @@ private
 			params[:job][:max_wage] = @desired_wage
 		end
 
-		# params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
-		params.require(:job).permit!
+		 # params.require(:job).permit(:id,:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
+		 params.require(:job).permit!
 	end
 
 	def candidate_prioritization_params

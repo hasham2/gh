@@ -292,31 +292,43 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	/*Displaying correct Enable Number*/
-	for(var i = 0; i <=4 ; i++){
-		var e = i + 1;
-		$('#job_metrics_attributes_'+i+'__destroy').siblings('span').text('Enable '+e);
-	}
+	// for(var i = 0; i <=4 ; i++){
+	// 	var e = i + 1;
+	// 	$('#job_metrics_attributes_'+i+'__destroy').siblings('span').text('Enable '+e);
+	// }
 
-	/*Auto selecting Checkbox on changing the slider */
+	/*Auto selecting Checkbox on changing the MetricType */
 	$('.simple_slider').change(function(){
-		var current_slider_id = $(this).attr('id').split('_')[3];
+		var current_metric_id = $(this).attr('id').split('_')[3];
 			/*making Checkbox true on changing the slider */
-		  $('#job_metrics_attributes_'+current_slider_id+'__destroy').prop('checked', true);
+		  $('#job_metrics_attributes_'+current_slider_id+'_enable').prop('checked', true);
 		  $('#job_metrics_attributes_'+current_slider_id+'_metric_type_id').prop('required',true);
 
 	});
-
+    /*Auto selecting Checkbox on changing the slider */
+    $('.metric_type').change(function(){
+    	var current_slider_id = $(this).attr('id').split('_')[3];
+    		/*making Checkbox true on changing the slider */
+    	  $('#job_metrics_attributes_'+current_slider_id+'_enable').prop('checked', true);
+    });
 	/*Settig Checkbox state in Edit Mode*/
-	for(var i = 0; i <=4 ; i++){
-		var current_slider_value = $('#job_metrics_attributes_'+i+'_value').val();
-		var metric_type_value = $('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').text();
-			if(current_slider_value >1 || metric_type_value !='Metric Type' ){
-				$('#job_metrics_attributes_'+i+'__destroy').prop('checked', true);
-				$('#job_metrics_attributes_'+i+'_metric_type_id').prop('required',true);
-			}
-	}
+	 for(var i = 0; i <=4 ; i++){
 
-});
+	   if($('#job_metrics_attributes_'+i+'_enable').is(":checked")){
+
+	     $('#job_metrics_attributes_'+i+'_metric_type_id').prop('required',true);
+	   }
+	}
+	// for(var i = 0; i <=4 ; i++){
+	// 	var current_slider_value = $('#job_metrics_attributes_'+i+'_value').val();
+	// 	var metric_type_value = $('#job_metrics_attributes_'+i+'_metric_type_id').find('option:selected').text();
+	// 		if(current_slider_value >1 || metric_type_value !='Metric Type' ){
+	// 			$('#job_metrics_attributes_'+i+'_enable').prop('checked', true);
+	// 			$('#job_metrics_attributes_'+i+'_metric_type_id').prop('required',true);
+	// 		}
+	// }
+
+ });
 
 
 /*Comparing dates*/

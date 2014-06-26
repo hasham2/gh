@@ -22,7 +22,7 @@ jQuery ->
 
 
 
-#=======Start=================Enrollment step industry manipulation===================================
+#======================Enrollment step industry manipulation==============#
 $(document).ready ->
   $("#user_employer_attributes_industry").change ->
     other = $("#user_employer_attributes_industry").val()
@@ -35,9 +35,7 @@ $(document).ready ->
 
   return
 
-#========Start================Workhour_with_standard_hours_and day ====================================
-
-#===============Show states if Country is selected(In Enrollments)=============
+#===============Show states if Country is selected(In Enrollments)=============#
 $(document).ready ->
   
   #--------For Edit Mode-------------------------------
