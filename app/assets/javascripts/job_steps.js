@@ -292,17 +292,17 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	/*Displaying correct Enable Number*/
-	// for(var i = 0; i <=4 ; i++){
-	// 	var e = i + 1;
-	// 	$('#job_metrics_attributes_'+i+'__destroy').siblings('span').text('Enable '+e);
-	// }
+	for(var i = 0; i <=4 ; i++){
+		var e = i + 1;
+		$('#job_metrics_attributes_'+i+'_enable').siblings('span').text('Enable '+e);
+	}
 
 	/*Auto selecting Checkbox on changing the MetricType */
 	$('.simple_slider').change(function(){
 		var current_metric_id = $(this).attr('id').split('_')[3];
 			/*making Checkbox true on changing the slider */
-		  $('#job_metrics_attributes_'+current_slider_id+'_enable').prop('checked', true);
-		  $('#job_metrics_attributes_'+current_slider_id+'_metric_type_id').prop('required',true);
+		  $('#job_metrics_attributes_'+current_metric_id+'_enable').prop('checked', true);
+		  $('#job_metrics_attributes_'+current_metric_id+'_metric_type_id').prop('required',true);
 
 	});
     /*Auto selecting Checkbox on changing the slider */
@@ -328,7 +328,19 @@ $(document).ready(function(){
 	// 		}
 	// }
 
+	$('#enable_fixed_price').click(function(){
+		if($('#enable_fixed_price').is(":checked")){
+
+		  $('#job_fixed_price').prop('disabled',false);
+		}
+		else{
+			$('#job_fixed_price').val('');
+			$('#job_fixed_price').prop('disabled',true);	
+		}
+	});
+
  });
+
 
 
 /*Comparing dates*/
@@ -378,11 +390,10 @@ $(document).ready(function() {
 			var selected_option_of_select_box_id_2 = $('#job_metrics_attributes_2_metric_type_id').find('option:selected').val();
 			var selected_option_of_select_box_id_3 = $('#job_metrics_attributes_3_metric_type_id').find('option:selected').val();
 			var selected_option_of_select_box_id_4 = $('#job_metrics_attributes_4_metric_type_id').find('option:selected').val();
-
-
+		
 
 			for(var i = 0; i <=select_box_size ; i++){	
-					// alert(i)
+					 // alert(i)
 					if (i == selected_option_of_select_box_id_0 || i == selected_option_of_select_box_id_1 || i == selected_option_of_select_box_id_2 || i == selected_option_of_select_box_id_3 || i == selected_option_of_select_box_id_4 ){
 
 					}else{

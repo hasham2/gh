@@ -33,7 +33,6 @@
           <span class="form-control"><%=@job.work_duration%></span>
       </div>
     </div></div>
-      
      <div class="col-lg-4">
       <div class="form-group">
       <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
@@ -41,7 +40,7 @@
             <span class="form-control"><%=@job.desired_wage%></span>
       </div>
     </div></div>
-    
+
     <div class="col-lg-3">
       <div class="form-group">
       <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
@@ -98,8 +97,17 @@
       <div class="col-sm-6">
         <span class="form-control"><%=@job.start_date.try(:strftime, '%d %b %Y')%></span>
       </div>
-    </div></div>
-    
+    </div>
+ 
+  </div>
+    <div class="col-lg-4">
+      <div  class="form-group">
+        <label for="inputPassword" class="col-sm-4 labl">Fixed Price</label>
+         <div class="col-sm-6">
+        <span class="form-control"><%=@job.fixed_price if @job.fixed_price?%></span>
+      </label>
+      </div>
+    </div>
     
     
             
@@ -140,14 +148,14 @@
       </div>
     
     
-    <div class="col-lg-5">
+    <!-- <div class="col-lg-5">
       <div class="form-group">
       <label for="inputPassword" class="col-sm-5 labl">Business Category</label>
       <div class="col-sm-5">
         <input type="text" class="form-control" id="inputPassword" placeholder="Joe's Distribution">
       </div>
     </div></div>
-    
+     -->
      
        
   </div>

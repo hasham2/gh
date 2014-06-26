@@ -55,10 +55,17 @@
             = j.label :listing_expires_on, 'Listing Expiry' ,:class=>"col-sm-3 labl"
             .col-sm-8
               .form-group
-                #datetimepicker1.input-group.date{:'data-date-format'=>"DD/MM/YYYY hh:mm A"}
-                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%d/%m/%Y %I:%M %p')}
+                #datetimepicker1.input-group.date
+                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%m/%d/%Y %I:%M %p')}
                   %span.input-group-addon
                     %span.glyphicon.glyphicon-calendar
+        .col-lg-7
+          = check_box_tag 'enable_fixed_price', 'no', false, class: 'form-group col-sm-1',style:"margin-top:11px;"
+          .form-group
+            = j.label :fixed_price, 'Fixed Price' ,:class=>"col-sm-2 labl"
+            .col-sm-5
+              = j.text_field :fixed_price, :class=>"form-control",:value=>j.object.fixed_price,:required=>true,:disabled=>"disabled"
+                
               
       .col-lg-12.topfilde1
         .col-lg-6
@@ -67,13 +74,14 @@
             .col-sm-3
               = j.text_field :desired_wage,:id=>"desired_wage", :class=>"form-control", :placeholder=>"14"
             .checkbox.checkbox2
-              = j.check_box:desired_wage_is_firm,{:id=>"desired_wage_is_firm"} , 'true','false'
+              = j.check_box :desired_wage_is_firm,{:id=>"desired_wage_is_firm"} , 'true','false'
               = j.label :desired_wage_is_firm, 'Desired Wage is Firm'
         .col-lg-5
           .form-group
             = j.label :max_wage, 'Max Wage or Price ($/hr or $)' ,:class=>"col-sm-5 labl"
             .col-sm-4
               = j.text_field :max_wage,:id=>"max_wage", :class=>"form-control", :placeholder=>"17",:required=>true
+
       .col-lg-12.topfilde1
         .col-lg-5
           %h2 Job Description
@@ -145,11 +153,11 @@
   });
 
 
-  / $(function () {
-  /     $('#datetimepicker5').datetimepicker({
-  /         pickTime: false
-  /     });
-  / });
+  $(function () {
+      $('#datetimepicker5').datetimepicker({
+          pickTime: false
+      });
+  });
 
 
 

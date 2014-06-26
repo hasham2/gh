@@ -118,7 +118,18 @@
            </div>
          </div>
        </div>
-     </div>     
+       
+       <div class="col-lg-7">
+      <%= check_box_tag 'enable_fixed_price', 'no', false, class: 'form-group col-sm-1',style:"margin-top:11px;"%>
+      <div class="form-group">
+        <%= j.label :fixed_price, 'Fixed Price' ,:class=>"col-sm-2 labl"%>
+        <div class='col-sm-5'>
+          <%= j.text_field :fixed_price, :class=>"form-control",:value=>j.object.fixed_price,:required=>true,:disabled=>"disabled"%>
+         </div>
+        </div>
+       </div>
+     </div>  
+    
 <!-- <div class="col-lg-12 topfilde1">
      
   <div class="col-lg-4">
@@ -361,14 +372,17 @@
 
 <h2>Employee Prioritization Metrics</h2>
 
-
-<%= j.fields_for :metrics do |metric| %>
+<% order = j.object.metrics.order(:id) unless j.object.metrics.order(:id).empty? %>
+<%= j.fields_for(:metrics ,order) do |metric| %>
 <div class="col-lg-12">
  <div class="col-lg-5">
  
   <div class="checkbox checkbox2">
-    <%= metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1' %>
-                     <span class="enable_metrics_label">Enable</span>
+    <%#= metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1' %>
+       <!--               <span class="enable_metrics_label">Enable</span>
+        -->
+    <%= metric.check_box :enable%>
+    <span class="enable_metrics_label"> Enable</span>
   </div>
   
 <div class="btn-group  menunnleft col-sm-7">
