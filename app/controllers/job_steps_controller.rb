@@ -3,6 +3,8 @@ class JobStepsController < ApplicationController
 	include Wicked::Wizard
     before_filter :authenticate_user!
     before_action :check_enrollment
+    before_action :check_job_exit
+    
 
 	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
 
@@ -41,15 +43,17 @@ class JobStepsController < ApplicationController
 		end
      when :candidate_prioritization
      	@stp = 2
-     	if @job.metrics.empty? 
-     	5.times{@job.metrics.build}
-     	else
-     		if @job.metrics.count < 5
-     		@m = 5 - @job.metrics.count
-     		@m.times{@job.metrics.build}
-     		end
+     	# if @job.metrics.empty? 
+     	#5.times{@job.metrics.build}
+     	 5.times{@job.metrics.build} if @job.metrics.empty?
+
+     	# else
+     	# 	if @job.metrics.count < 5
+     	# 	@m = 5 - @job.metrics.count
+     	# 	@m.times{@job.metrics.build}
+     	# 	end
      	 
-     	end	
+     	# end	
      when :images
      	@stp = 3
      	@user_primary_photo = current_user.photos.where(:is_primary=>true)
@@ -88,6 +92,22 @@ class JobStepsController < ApplicationController
      	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
+	   	month = params[:job][:start_date].split('/')[0].to_i
+	   	day = params[:job][:start_date].split('/')[1].to_i
+	   	year = params[:job][:start_date].split('/')[2].to_i
+	   	date = Date.new(year,month,day)
+	   	params[:job][:start_date] = date
+
+	   	date = params[:job][:listing_expires_on].split(' ')[0]
+	   	date_month = date.split('/')[0].to_i
+	   	date_day   = date.split('/')[1].to_i
+	   	date_year  = date.split('/')[2].to_i
+   	  time = params[:job][:listing_expires_on].split(' ')[1]
+   	  time_hour = time.split(':')[0].to_i
+   	  time_minut= time.split(':')[1].to_i
+	   	# date = DateTime.new(date_year, date_month, date_day, time_hour, time_minut, time_second,00)
+	   	date = DateTime.new(date_year, date_month, date_day,  time_hour,  time_minut,  0)
+	   	params[:job][:listing_expires_on] =  date.strftime("%Y/%m/%d %I:%M %p")
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
@@ -286,6 +306,12 @@ class JobStepsController < ApplicationController
 	end
 
 private
+	def check_job_exit
+		
+		if session[:job_id]==nil
+		 	redirect_to root_path ,:notice=>"Create job first "
+		 end 
+	end
 	def job_details_params
 		@desired_wage_is_firm = params[:job][:desired_wage_is_firm]
 		if @desired_wage_is_firm == "true"
@@ -293,7 +319,8 @@ private
 			params[:job][:max_wage] = @desired_wage
 		end
 
-		params.require(:job).permit(:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
+		 # params.require(:job).permit(:id,:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
+		 params.require(:job).permit!
 	end
 
 	def candidate_prioritization_params

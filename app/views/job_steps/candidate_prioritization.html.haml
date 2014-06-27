@@ -7,14 +7,17 @@
       = render 'progress_indicator'
     = form_for(@job, url: wizard_path, method: :put) do |f|
       .col-lg-12.location-box.selects
+        - order = f.object.metrics.order(:id) unless f.object.metrics.order(:id).empty?
         %h2 Employee Prioritization Metrics
-        = f.fields_for :metrics do |metric|
+        = f.fields_for(:metrics, order )  do |metric|
           .col-lg-12
             .col-lg-4.combine
               .checkbox.checkbox2
-                %label
-                  = metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1'
-                  %span{:class=>"enable_metrics_label"} Enable
+                = metric.check_box :enable#, {:class=>"enable_metrics"}
+                %span{:class=>"enable_metrics_label"} Enable
+                / = metric.label :enable, 'Enable'
+                /= metric.check_box :_destroy, {:class=>"enable_metrics"}, '0', '1'
+                / %span{:class=>"enable_metrics_label"} Enable
               .btn-group.menunnleft.col-sm-7
                 = metric.select :metric_type_id, MetricType.all.collect {|m| [ m.name, m.id ] }, {include_blank: 'Metric Type'}, :class=>"form-control metric_type select_metric_type"
             .col-lg-7.reting
@@ -42,7 +45,6 @@ $(document).ready(function(){
     if($(this).is(":checked")){
 
        $(this).parents('.combine').find('select').prop('required',true)
-
     }
 
     else {
@@ -51,7 +53,9 @@ $(document).ready(function(){
 
     }
   });
+    
 });
+
 
 
 

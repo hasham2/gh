@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620114055) do
+ActiveRecord::Schema.define(version: 20140626083450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "postgis"
 
   create_table "business_activities", force: true do |t|
     t.string   "keyword"
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140620114055) do
     t.integer  "views",                default: 0
     t.boolean  "active_job",           default: false
     t.string   "job_level"
+    t.string   "fixed_price"
   end
 
   create_table "jobs_metrics", id: false, force: true do |t|
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20140620114055) do
     t.float    "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "enable"
   end
 
   create_table "photos", force: true do |t|
@@ -130,6 +131,7 @@ ActiveRecord::Schema.define(version: 20140620114055) do
     t.datetime "image_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "session_id"
   end
 
   create_table "requirements", force: true do |t|
@@ -137,14 +139,6 @@ ActiveRecord::Schema.define(version: 20140620114055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "employer_id"
-  end
-
-  create_table "spatial_ref_sys", id: false, force: true do |t|
-    t.integer "srid",                   null: false
-    t.string  "auth_name", limit: 256
-    t.integer "auth_srid"
-    t.string  "srtext",    limit: 2048
-    t.string  "proj4text", limit: 2048
   end
 
   create_table "taggings", force: true do |t|

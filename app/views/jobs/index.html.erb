@@ -16,7 +16,7 @@
        <td> <%= @employer_job_id+=1  %> </td>
        <td><%=job.title %></td>
        <td><%=link_to "show", job_path(job,:employer_job_id=>@employer_job_id) %></td>
-       <td><%=link_to "Edit", edit_job_path(job) %></td>
+       <td><%=link_to "Edit", edit_job_path(job,:employer_job_id=>@employer_job_id) %></td>
        <td><%=link_to "Delete", job, method: :delete, data:{confirm: "are you sure?"} %></td>
      </tr>
      <% end %>

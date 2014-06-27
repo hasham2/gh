@@ -32,7 +32,7 @@ gem 'acts-as-taggable-on'
 gem 'tagmanager-rails'
 gem 'exception_notification'
 gem 'momentjs-rails', '~> 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.1'
 gem 'jquery-turbolinks'
 gem 'jquery-fileupload-rails'
 # Geolocations
