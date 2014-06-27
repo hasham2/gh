@@ -79,22 +79,22 @@ class JobStepsController < ApplicationController
      	@job = Job.find(@job_id)
 	   case step
 	   when :job_details
-	   	month = params[:job][:start_date].split('/')[0].to_i
-	   	day = params[:job][:start_date].split('/')[1].to_i
-	   	year = params[:job][:start_date].split('/')[2].to_i
+	   	month = params[:job][:start_date].split('/')[0].to_i rescue nil
+	   	day = params[:job][:start_date].split('/')[1].to_i   rescue nil
+	   	year = params[:job][:start_date].split('/')[2].to_i  rescue nil
 	   	date = Date.new(year,month,day)
-	   	params[:job][:start_date] = date
+	   	params[:job][:start_date] = date rescue nil
 
-	   	date = params[:job][:listing_expires_on].split(' ')[0]
-	   	date_month = date.split('/')[0].to_i
-	   	date_day   = date.split('/')[1].to_i
-	   	date_year  = date.split('/')[2].to_i
-   	  time = params[:job][:listing_expires_on].split(' ')[1]
-   	  time_hour = time.split(':')[0].to_i
-   	  time_minut= time.split(':')[1].to_i
+	   	date = params[:job][:listing_expires_on].split(' ')[0] rescue nil
+	   	date_month = date.split('/')[0].to_i rescue nil
+	   	date_day   = date.split('/')[1].to_i rescue nil
+	   	date_year  = date.split('/')[2].to_i rescue nil
+   	  time = params[:job][:listing_expires_on].split(' ')[1] rescue nil
+   	  time_hour = time.split(':')[0].to_i rescue nil
+   	  time_minut= time.split(':')[1].to_i rescue nil
 	   	# date = DateTime.new(date_year, date_month, date_day, time_hour, time_minut, time_second,00)
 	   	date = DateTime.new(date_year, date_month, date_day,  time_hour,  time_minut,  0)
-	   	params[:job][:listing_expires_on] =  date.strftime("%Y/%m/%d %I:%M %p")
+	   	params[:job][:listing_expires_on] =  date.strftime("%Y/%m/%d %I:%M %p") rescue nil
 	   @job.update_attributes(job_details_params)
 	   render_wizard @job
 	   when :candidate_prioritization
