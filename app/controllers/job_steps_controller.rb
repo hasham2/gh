@@ -25,8 +25,12 @@ class JobStepsController < ApplicationController
       unless gl.nil?
         if gl.longitude > 0 and gl.latitude > 0
           gtz = GoogleTimezone.fetch(gl.latitude,gl.longitude)
-          gtzin = ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id) unless gtz.time_zone_id.blank?
-          @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[gtzin] unless gtzin.nil?
+          unless gtz.time_zone_id.blank?
+            gtzin = ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id)
+            unless gtzin.nil?
+              @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[gtzin] 
+            end
+          end
         end
       end
       # Time zone code ends here
@@ -36,11 +40,11 @@ class JobStepsController < ApplicationController
 			  @business_name = current_user.employer.business_name
      	end 
      	
-		if @job.location == nil
-			@job.build_location
-		else
-		@job.location
-		end
+      if @job.location == nil
+        @job.build_location
+      else
+        @job.location
+      end
      when :candidate_prioritization
      	@stp = 2
      	# if @job.metrics.empty? 
