@@ -332,13 +332,42 @@ $(document).ready(function(){
 		if($('#enable_fixed_price').is(":checked")){
 
 		  $('#job_fixed_price').prop('disabled',false);
+		  $('#desired_wage_is_firm').prop('disabled',true);
+		  
+		  $('#desired_wage').val('');
+		  $('#max_wage').val('');
+		  $('#desired_wage').prop('disabled',true);
+		  $('#max_wage').prop('disabled',true);
 		}
 		else{
 			$('#job_fixed_price').val('');
-			$('#job_fixed_price').prop('disabled',true);	
+			$('#job_fixed_price').prop('disabled',true);
+			$('#desired_wage').prop('disabled',false);
+			$('#max_wage').prop('disabled',false);
+			$('#desired_wage_is_firm').prop('disabled',false);
+
+				
 		}
 	});
+	if($('#enable_fixed_price').is(":checked")){
 
+	  $('#job_fixed_price').prop('disabled',false);
+	  $('#desired_wage_is_firm').prop('disabled',true);
+	  
+	  $('#desired_wage').val('');
+	  $('#max_wage').val('');
+	  $('#desired_wage').prop('disabled',true);
+	  $('#max_wage').prop('disabled',true);
+	}
+	else{
+		$('#job_fixed_price').val('');
+		$('#job_fixed_price').prop('disabled',true);
+		$('#desired_wage').prop('disabled',false);
+		$('#max_wage').prop('disabled',false);
+		$('#desired_wage_is_firm').prop('disabled',false);
+
+			
+	}
  });
 
 
