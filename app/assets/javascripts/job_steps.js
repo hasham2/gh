@@ -372,13 +372,14 @@ $(document).ready(function() {
 		$('.select_metric_type').change(function(){
 				/*---Get ID of currently changed Dropdown ---*/
 				var select_box_id = $(this).attr('id').split('_')[3];
+				// alert(select_box_id);
 				/*---Count the number of elements in the Dropdown---*/
 				var select_box_size = $('.select_metric_type').size(); 
 
 				/*Disabled the seleted options in the further Dropdowns*/
 				make_options_disable(select_box_id, select_box_size);
 				/*--Enabled the options if they are not being used now--*/
-				make_options_enable(select_box_id, select_box_size);
+				// make_options_enable(select_box_id, select_box_size);
 
 		});
 
@@ -416,6 +417,8 @@ $(document).ready(function() {
 			for(var i = 0; i <=select_box_size ; i++){	
 					// alert(i)
 					if (i == selected_option_of_select_box_id_0){
+						// alert(i);
+						// alert($('.select_metric_type').find('option[value ='+i+']').text());
 						$('.select_metric_type').find('option[value ='+i+']').attr('disabled',true);
 					} 
 					else if (i == selected_option_of_select_box_id_1){
