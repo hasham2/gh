@@ -19,11 +19,12 @@ class JobStepsController < ApplicationController
      	@user_time_zone = nil
       ## Code to fetch user location from ip address
       ## and set time zone accordingly
-      gl = Geocoder.search(request.remote_ip).first
+      gl = Geocoder.search(request.env['REMOTE_ADDR']).first
       unless gl.nil?
         if gl.longitude > 0 and gl.latitude > 0
-          gtz = GoogleTimezone.fetch(gl.longitude,gl.latitude)
-          @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id)]
+          gtz = GoogleTimezone.fetch(gl.latitude,gl.longitude)
+          gtzin = ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id) unless gtz.time_zone_id.blank?
+          @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[gtzin] unless gtzin.nil?
         end
       end
       # Time zone code ends here
