@@ -16,18 +16,35 @@ class JobStepsController < ApplicationController
      	@current_user_jobs = @user.jobs.count
      case step      
      when :job_details
-     	@stp = 1
-     	if  current_user.employer == nil 
-			@business_name = ''
-		else
-			@business_name = current_user.employer.business_name
+     	
+      @stp = 1
+     	@user_time_zone = nil
+      ## Code to fetch user location from ip address
+      ## and set time zone accordingly
+      gl = Geocoder.search(request.env['REMOTE_ADDR']).first
+      unless gl.nil?
+        if gl.longitude > 0 and gl.latitude > 0
+          gtz = GoogleTimezone.fetch(gl.latitude,gl.longitude)
+          unless gtz.time_zone_id.blank?
+            gtzin = ActiveSupport::TimeZone::MAPPING.values.index(gtz.time_zone_id)
+            unless gtzin.nil?
+              @user_time_zone = ActiveSupport::TimeZone::MAPPING.keys[gtzin] 
+            end
+          end
+        end
+      end
+      # Time zone code ends here
+      if  current_user.employer == nil 
+			  @business_name = ''
+		  else
+			  @business_name = current_user.employer.business_name
      	end 
      	
-		if @job.location == nil
-			@job.build_location
-		else
-		@job.location
-		end
+      if @job.location == nil
+        @job.build_location
+      else
+        @job.location
+      end
      when :candidate_prioritization
      	@stp = 2
      	# if @job.metrics.empty? 

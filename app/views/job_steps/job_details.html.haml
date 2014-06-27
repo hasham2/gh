@@ -130,7 +130,10 @@
                 .form-group
                   = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 labl"
                   .col-sm-9
-                    = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true}
+                    - if @user_time_zone.nil?
+                      = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true}
+                    - else
+                      = builder.time_zone_select :time_zone, nil, {default: @user_time_zone}, {:class => 'form-control time_zone_field',:required=>true}
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
