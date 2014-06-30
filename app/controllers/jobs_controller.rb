@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
+   autocomplete :requirement, :name,:full => true
 
 
   def index
@@ -113,6 +114,14 @@ def destroy
 end
 
 def search
+  # @auto = Requirement.all
+  # @autocomplete_items =@auto.to_json
+
+
+
+#   @autocomplete_items  = @auto
+# binding.pry 
+
   if params[:lat].blank? || params[:lng].blank?
       # Geocode the address
       resp = Geocoder.search("#{params['gmaps-input-address']}")

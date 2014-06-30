@@ -6,6 +6,7 @@ Gh::Application.routes.draw do
   #  get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   #end
   resources :users 
+
   get "enrollment_steps/tags" => "enrollment_steps#tags", :as => :tags
   
   get "enrollment_steps/state_response"
@@ -39,6 +40,7 @@ Gh::Application.routes.draw do
 
   resources :certifications
   resources :jobs do
+     get :autocomplete_requirement_name, :on => :collection
      member do
       post 'make_primary_photo'
       post 'delete_photo'
@@ -46,7 +48,7 @@ Gh::Application.routes.draw do
       get 'state_response'
      end
   end
-  resources :requirements
+  resources :requirements 
   resources :locations
   resources :business_activities
   resources :job_steps

@@ -1,3 +1,4 @@
+
 <div class="container">
 <div class="row">
 <div class="container">
@@ -152,32 +153,41 @@ Shift” OR “Weekends”) ">
 <br>
 
       <div style="margin:10px 0 53px 0;">
-    <button type="button" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-      <input type="text" placeholder="High School Diploma" id="inputPassword" class="form-control">
-    </div> 
+    <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+    <%#= text_field_tag '' , nil, {id:"auto_complete",:class=>'form-control'} %>
+   <%=form_tag 'some/path' do %>
+   <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+  <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req1",:class=>"form-control", :size => 75%>
+</div>
+  <% end %>
     </div>
     
     <div style="margin:10px 0 95px 0;">
-    <button type="button" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-      <input type="text" placeholder="Fork Lift Operator" id="inputPassword" class="form-control">
-    </div> 
+    <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+     <%=form_tag 'some/path' do %>
+     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+    <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req2",:class=>"form-control", :size => 75%>
+  </div>
+    <% end %>
     </div>
     
     
     <div style="margin:10px 0 140px 0;">
-    <button type="button" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-      <input type="text" placeholder="Pallet Jack Operator" id="inputPassword" class="form-control">
-    </div> 
+    <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+     <%=form_tag 'some/path' do %>
+     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+    <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req3",:class=>"form-control", :size => 75%>
+  </div>
+    <% end %>
     </div>
      
      <div style="margin:10px 0 70px 0;">
-    <button type="button" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+    <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+    <%=form_tag 'some/path' do %>
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-      <input type="text" placeholder="Pallet Jack Operator" id="inputPassword" class="form-control">
-    </div> 
+   <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req4",:class=>"form-control", :size => 75%>
+ </div>
+   <% end %>
     </div>
      
      <div style="float: left; margin: 7px 0 0 !important;">  
@@ -386,9 +396,10 @@ Displaying 1 to 10 of 26 Listing
 
 <%=render 'home/footer'%>
 
+<%#= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
 
 <script>
-
+//alert(autocomplete_items);
 
 
 
@@ -433,6 +444,12 @@ Displaying 1 to 10 of 26 Listing
   //   marker = new L.marker([planes[i][0],planes[i][1]])
   //     .addTo(map);
   // }
+
+      // jQuery(document).ready(function() {
+      //    alert(autocomplete_items);
+      //     // $('#auto_complete').typeahead({source: autocomplete_items});
+      // });
+
 
 </script>
 
