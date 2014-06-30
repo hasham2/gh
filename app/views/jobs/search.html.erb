@@ -10,16 +10,16 @@
 
 </div>
 
-<%= form_tag("search", method: "get") do %>
+<%= form_tag("search", method: "get", :remote=>true, :id=>'search_form') do %>
 <div class="container">
 
 <div class="col-lg-5 left_filter_outer pull-left">
 <h2>Filters</h2>
 
    <div class="input-group input-group12">
-       <input type="Search" placeholder="Where are you..." class="form-control" />
+      <%= text_field_tag :'gmaps-input-address', nil, {:class=>'form-control', :type=>"Search", :placeholder=>"Where are you...", :value=>@address }%>
        <div class="input-group-btn">
-           <button class="btn btn-info" type='submit'>
+           <button id ='search' class="btn btn-info" type='submit'>
            <span class="glyphicon glyphicon-search"></span>
            </button>
        </div>
@@ -35,11 +35,11 @@ Shift” OR “Weekends”) ">
     </div>
   </div></div>
   
-<div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;" >  
 <div class="form-group">
     <%= label_tag :max_distance, "Maximum Distance(Kms)", :class=>"col-sm-8 control-label btn_text"  %>
       <div class="col-sm-4">
-          <%= text_field_tag :max_distance , nil, {:class=>'form-control'} %>
+          <%= text_field_tag :max_distance , nil, {:class=>'form-control', :value=>@max_distance} %>
       </div>
 
   </div>
@@ -48,27 +48,13 @@ Shift” OR “Weekends”) ">
 
     
     
-<div style="float: left; margin: 7px 0 0 !important; width: 357px;">  
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;">  
 <div class="form-group">
     
-    <label>
-      <input type="checkbox">&nbsp;Hourly Pay &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min. ($/hr)
-    </label>
- 
-    <div class="btn-group  menunlefttt pull-right">
-  <button type="button" class="btn btn-default btn-w">$12.00</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menunn" role="menu">
-    <li><a href="#">7</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">8</a></li>
-    <li class="divider"></li>
-    <li><a href="#">10</a></li>
-  </ul>
-</div>
+      <%= label_tag :hourly_pay, "Hourly Pay        Min. ($/hr)", :class=>"col-sm-8 control-label btn_text"  %>
+      <div class="col-sm-4">
+          <%= text_field_tag :hourly_pay , nil, {:class=>'form-control'} %>
+      </div>
   </div>
 </div>   
  
@@ -109,89 +95,56 @@ Shift” OR “Weekends”) ">
 </div>
 
 <div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
-<div class="form-group">
-    <label for="inputEmail3" class="col-sm-8 control-label btn_text">Max.Days Listed</label>
-    <div class="btn-group  menunlefttt">
-  <button type="button" class="btn btn-default btn-w">14</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menunn" role="menu">
-    <li><a href="#">7</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">8</a></li>
-    <li class="divider"></li>
-    <li><a href="#">10</a></li>
-  </ul>
-</div>
-  </div>
+  <div class="form-group">    
+        <%= label_tag :max_days_listed, "Max.Days Listed", :class=>"col-sm-8 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :max_days_listed , nil, {:class=>'form-control'} %>
+        </div>
+    </div>
 </div>
 
 <div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
-<div class="form-group">
-    <label for="inputEmail3" class="col-sm-8 control-label btn_text">Earliest Start Date</label>
-    <div class="btn-group  menunlefttt">
-  <button type="button" class="btn btn-default btn-w">6/19/2014</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menunn" role="menu">
-    <li><a href="#">7</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">8</a></li>
-    <li class="divider"></li>
-    <li><a href="#">10</a></li>
-  </ul>
-</div>
-  </div>
+  <div class="form-group">    
+        <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-8 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control', :placeholder=>'dd/mm/yyyy' } %>
+        </div>
+    </div>
 </div>
 
 
 <div class="filter_cat">
-<h2>Job Category </h2>
+<h2>Job Level </h2>
 <br>
-<div class="col-lg-8 pull-left checkjob" >
-      <div class="checkbox education_checkbox">
+<div class="col-lg-8  checkjob" >
+      <div class="education_checkbox">
     <label>
-      <input type="checkbox">Supervisor
+      <%=radio_button_tag(:job_level, 'Supervisor') %>
+      Supervisor
+    </label> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label>
+      <%=radio_button_tag( :job_level, 'Individual')%>
+      Individual
     </label>
   </div></div>
-  
-  <div class="col-lg-5 pull-left checkjob2" >
-      <div class="checkbox education_checkbox2">
-    <label>
-      <input type="checkbox">Individual
-    </label>
-  </div></div>
+
 
 </div>
 
 <div class="filter_cat2">
 <h2>Job Requirements</h2>
 <br>
+<% @requirements.each do |r| %>
 <div class="col-lg-8 pull-left checkjob" >
       <div class="checkbox education_checkbox">
     <label>
-      <input type="checkbox">Driver's License
+      <%= check_box_tag('req_ids[]', r.id )%>
+      <%=r.name %>
     </label>
   </div></div>
   
-  <div class="col-lg-5 pull-left checkjob22" >
-      <div class="checkbox education_checkbox2">
-    <label>
-      <input type="checkbox">Vehicle
-    </label>
-  </div></div>
-  
-  <div class="col-lg-5 pull-left checkjob" >
-      <div class="checkbox education_checkbox2">
-    <label>
-      <input type="checkbox">Car Pool
-    </label>
-  </div></div>
-
+<% end %>
 </div>
 
 <div class="filter_cat2">
@@ -259,14 +212,6 @@ Shift” OR “Weekends”) ">
 </div>
 <div class="col-lg-7 pull-right">
     <div id="map"></div>
-
-    <script>
-
-      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],13);
-      var googleLayer = new L.Google('ROADMAP');
-      map.addLayer(googleLayer);
-
-    </script>
 </div>
 
 </div>
@@ -350,6 +295,9 @@ Displaying 1 to 10 of 26 Listing
   </div></div>
   </div>
 
+<% if @jobs.present? %>
+  <% @jobs.each do |j| %>
+<div class="job">
 <div class="col-lg-12 topfilde borlist">
     <br>
 
@@ -357,7 +305,7 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group ">
     <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
     <div class="col-sm-7">
-      <input type="text" placeholder="1" id="inputPassword"  class="form-control ">
+      <span class="form-control"><%=j.id rescue "" %></span>
     </div>
   </div></div>
   
@@ -367,7 +315,7 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group">
     <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
     <div class="col-sm-5">
-      <input type="text" placeholder="5" id="inputPassword" class="form-control">
+      <span class="form-control"><%=j.work_duration rescue "" %></span>
     </div>
   </div></div>
     
@@ -375,7 +323,7 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group">
     <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
     <div class="col-sm-5">
-      <input type="text" placeholder="4" id="inputPassword" class="form-control">
+      <span class="form-control"><%=j.desired_wage rescue "" %></span>
     </div>
   </div></div>
   
@@ -383,7 +331,7 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group">
     <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="inputPassword" placeholder="5">
+      <span class="form-control"><%=j.max_wage rescue "" %></span>
     </div>
   </div></div>
   
@@ -394,7 +342,7 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group">
     <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
     <div class="col-sm-9">
-      <input type="text" placeholder="Fork Lift Operator" id="inputPassword" class="form-control">
+      <span class="form-control"><%=j.title rescue "" %></span>
     </div>
   </div></div>
   
@@ -403,21 +351,24 @@ Displaying 1 to 10 of 26 Listing
     <div class="form-group">
     <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
     <div class="col-sm-4">
-      <input type="text" placeholder="8" id="inputPassword" class="form-control">
+      <span class="form-control"><%=j.hours_per_day rescue "" %></span>
     </div>
   </div></div>
   
   <div class="col-lg-4">
     <div class="form-group">
     <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
-    <div class="col-sm-4">
-      <input type="text" placeholder="8" id="inputPassword" class="form-control">
+    <div class="col-sm-5">
+      <span class="form-control"><%=j.start_date rescue "" %></span>
     </div>
   </div></div>
   
           
      </div>
-     
+
+ </div>    
+  <% end %> 
+<% end %>      
 </div> 
 
 
@@ -434,5 +385,55 @@ Displaying 1 to 10 of 26 Listing
 </div>
 
 <%=render 'home/footer'%>
+
+
+<script>
+
+
+
+
+
+
+   $(document).ready(function() {
+
+    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],13);
+    var googleLayer = new L.Google('ROADMAP');
+    map.addLayer(googleLayer);
+
+
+  //     $("#search_form").on("ajax:success", function(e, data, status, xhr) {
+    
+  // //     var jo = $.parseJSON(data);
+
+  // //     alert('The JSON object has this many elements: ' + jo.length);
+  //    for (var i = 0; i < data.length; i++) {
+  //            alert(data[i].id)
+  //          }
+
+
+     // $.getJSON(url_1, function(data) {
+     //         $.each(data, function() {
+     //             alert(this.id);
+     //         });
+     //       });
+
+    // });
+});
+
+  // <%@jobs.each do |j|%>
+  // var lat =<%=j.location.lat%>
+  //  var lng =<%=j.location.lng%>
+
+
+  // <%end%>
+
+  //  var planes = [
+  //   [40.7082024 , -74.0065449], [40.7055024 , -74.0065449]];
+  // for (var i = 0; i < planes.length; i++) {
+  //   marker = new L.marker([planes[i][0],planes[i][1]])
+  //     .addTo(map);
+  // }
+
+</script>
 
 
