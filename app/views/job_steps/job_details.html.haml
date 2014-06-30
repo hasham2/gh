@@ -46,7 +46,7 @@
             .col-sm-7
               .form-group
                 #datetimepicker5.input-group.date
-                  = j.date_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%m/%d/%Y'),:required=>true}
+                  = j.text_field :start_date,{ :class=>"form-control start_date validate_date",:value=>j.object.start_date.try(:strftime, '%m/%d/%Y'),:required=>true,placeholder:"mm/dd/yyyy"}
                   %span.input-group-addon
                     %span.glyphicon.glyphicon-calendar
       .col-lg-12.topfilde1
@@ -56,7 +56,7 @@
             .col-sm-8
               .form-group
                 #datetimepicker1.input-group.date
-                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%m/%d/%Y %I:%M %p')}
+                  = j.datetime_field :listing_expires_on,{ :class=>"form-control listing_expires_on validate_datetime ", :type=>"text",:value=>j.object.listing_expires_on.try(:strftime, '%m/%d/%Y %I:%M %p'),placeholder:"mm/dd/yyyy hh:mm AM"}
                   %span.input-group-addon
                     %span.glyphicon.glyphicon-calendar
         .col-lg-7

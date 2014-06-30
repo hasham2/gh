@@ -78,7 +78,7 @@
       <div class="col-sm-7">
         <div class="form-group">
           <div class="input-group date" data-date-format="DD/MM/YYYY" id="datetimepicker5">
-            <%= j.text_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%d/%m/%Y'),:required=>true} %>
+            <%= j.text_field :start_date,{ :class=>"form-control start_date validate_date",:value=>j.object.start_date.try(:strftime, '%d/%m/%Y'),:required=>true} %>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
             </span>
