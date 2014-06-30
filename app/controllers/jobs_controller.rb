@@ -129,7 +129,7 @@ def search
     if params[:max_distance].present?
       @max_distance = params[:max_distance]
     else
-      @max_distance = 2500
+      @max_distance = 450
     end
 
 
@@ -154,13 +154,14 @@ def search
 
     if request.xhr? 
       @locations = Array.new
-    @jobs.each do |j|
-      @locations << j.location
-    end  
+        @jobs.each do |j|
+          @locations << j.location
+        end  
 
      respond_to do |format|
-
+      format.html{render @jobs}
      format.js  {render json: @locations}
+
     end 
 
    end 

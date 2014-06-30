@@ -294,81 +294,11 @@ Displaying 1 to 10 of 26 Listing
     </label>
   </div></div>
   </div>
-
+<div id="all_jobs">
 <% if @jobs.present? %>
-  <% @jobs.each do |j| %>
-<div class="job">
-<div class="col-lg-12 topfilde borlist">
-    <br>
-
-    <div class="col-lg-2 col-lg-6">
-    <div class="form-group ">
-    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
-    <div class="col-sm-7">
-      <span class="form-control"><%=j.id rescue "" %></span>
-    </div>
-  </div></div>
-  
-  
-  
-   <div class="col-lg-3">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.work_duration rescue "" %></span>
-    </div>
-  </div></div>
-    
-   <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.desired_wage rescue "" %></span>
-    </div>
-  </div></div>
-  
-  <div class="col-lg-3">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.max_wage rescue "" %></span>
-    </div>
-  </div></div>
-  
-  </div>
-
-<div class="col-lg-12 topfilde1">
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
-    <div class="col-sm-9">
-      <span class="form-control"><%=j.title rescue "" %></span>
-    </div>
-  </div></div>
-  
-  
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
-    <div class="col-sm-4">
-      <span class="form-control"><%=j.hours_per_day rescue "" %></span>
-    </div>
-  </div></div>
-  
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.start_date rescue "" %></span>
-    </div>
-  </div></div>
-  
-          
-     </div>
-
- </div>    
-  <% end %> 
-<% end %>      
+  <%=render @jobs %>
+<% end %>
+ </div>       
 </div> 
 
 
@@ -389,50 +319,26 @@ Displaying 1 to 10 of 26 Listing
 
 <script>
 
-
-
-
-
-
    $(document).ready(function() {
 
-    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],13);
+    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],5);
     var googleLayer = new L.Google('ROADMAP');
     map.addLayer(googleLayer);
+      $("#search_form").on("ajax:success", function(e, json, status, xhr) {
+       $.each($.parseJSON(json), function(idx, obj) {
+           // alert(obj.id);
+          if (obj.lat && obj.lng){
 
+             var  marker = new L.marker([obj.lat,obj.lng]);
+              map.addLayer(marker);
+          }
 
-  //     $("#search_form").on("ajax:success", function(e, data, status, xhr) {
-    
-  // //     var jo = $.parseJSON(data);
+     });
 
-  // //     alert('The JSON object has this many elements: ' + jo.length);
-  //    for (var i = 0; i < data.length; i++) {
-  //            alert(data[i].id)
-  //          }
+    // $("#all_jobs").children().remove();
 
-
-     // $.getJSON(url_1, function(data) {
-     //         $.each(data, function() {
-     //             alert(this.id);
-     //         });
-     //       });
-
-    // });
+    });
 });
-
-  // <%@jobs.each do |j|%>
-  // var lat =<%=j.location.lat%>
-  //  var lng =<%=j.location.lng%>
-
-
-  // <%end%>
-
-  //  var planes = [
-  //   [40.7082024 , -74.0065449], [40.7055024 , -74.0065449]];
-  // for (var i = 0; i < planes.length; i++) {
-  //   marker = new L.marker([planes[i][0],planes[i][1]])
-  //     .addTo(map);
-  // }
 
 </script>
 
