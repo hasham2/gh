@@ -1,12 +1,12 @@
 class JobStepsController < ApplicationController
 
 	include Wicked::Wizard
+
     before_filter :authenticate_user!
     before_action :check_enrollment
     before_action :check_job_exit
     
-
-	steps :job_details, :candidate_prioritization, :images, :education_and_certifications
+  steps :job_details, :candidate_prioritization, :images, :education_and_certifications
 
 	def show
 		@user = current_user
@@ -86,10 +86,10 @@ class JobStepsController < ApplicationController
      	# getting certifications of current employer only
      	@employer_certifications = Certification.where(:employer_id=>@employer_id)
      end
-	   render_wizard
-	end
+     render_wizard
+   end
 
-	def update
+   def update
 
 		@user = current_user
 		@job_id = session[:job_id]
@@ -116,37 +116,37 @@ class JobStepsController < ApplicationController
 	   render_wizard @job
 	   when :candidate_prioritization
 	   	# binding.pry 
-	   @job.update_attributes(candidate_prioritization_params)
-	   render_wizard @job
-	   when :images
-		@old_primary_photo = @job.photos.where(:is_primary => true)		
-	   	@old_primary_photo.each do |p|
-	   		p.update_attributes(:is_primary=>nil)	
-	   	end	   
-	   	@new_image = params[:job][:photos_attributes]["0"][:image]
-	   	@is_primary = params[:job][:photos_attributes]["0"][:is_primary]
+      @job.update_attributes(candidate_prioritization_params)
+      render_wizard @job
+    when :images
+      @old_primary_photo = @job.photos.where(:is_primary => true)		
+      @old_primary_photo.each do |p|
+        p.update_attributes(:is_primary=>nil)	
+      end	   
+      @new_image = params[:job][:photos_attributes]["0"][:image]
+      @is_primary = params[:job][:photos_attributes]["0"][:is_primary]
 
-	    @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
-	   	unless request.xhr?	  	
-	   	render_wizard @job
-	   	end
+      @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
+      unless request.xhr?	  	
+       render_wizard @job
+     end
 
 
-     	@primary_photo = @job.photos.where(:is_primary => true)
-       	respond_to do |format|
-        	format.js 
-         end
+     @primary_photo = @job.photos.where(:is_primary => true)
+     respond_to do |format|
+       format.js 
+     end
 
-	   when :education_and_certifications
-	   @job.update_attributes(education_and_certifications_params)
-	   render_wizard @job
+   when :education_and_certifications
+    @job.update_attributes(education_and_certifications_params)
+    render_wizard @job
 	   	# session[:job_id] = nil
 	   end
-	end
+  end
 
-	def state_response
-		country = params[:value]
-		@states = COUNTRIES_STATES[country]
+  def state_response
+    country = params[:value]
+    @states = COUNTRIES_STATES[country]
 		# To find the selected state
 		@job_id = session[:job_id]
 		@job = Job.find(@job_id)
@@ -160,10 +160,10 @@ class JobStepsController < ApplicationController
 	end
 
 	def add_certification
-	  @employer_id = current_user.employer.id
-	  @certification = Certification.new(:title => params[:value], :employer_id =>@employer_id)
-	  respond_to do |format|
-	    if @certification.save
+   @employer_id = current_user.employer.id
+   @certification = Certification.new(:title => params[:value], :employer_id =>@employer_id)
+   respond_to do |format|
+     if @certification.save
 	    	# getting certifications of current employer only
 	    	@employer_certifications = Certification.where(:employer_id=>@employer_id)
 	    	format.js 
@@ -177,24 +177,24 @@ class JobStepsController < ApplicationController
 		if params[:value]
 			@certification = Certification.find(params[:value])
 
-		   if @certification.present?
-			  respond_to do |format|
-			  	if @certification.destroy
-			  		format.js
-			  	end
-			  end
-			end
-		end
-	end
+     if @certification.present?
+       respond_to do |format|
+        if @certification.destroy
+         format.js
+       end
+     end
+   end
+ end
+end
 
-	def add_requirement
-	  @employer_id = current_user.employer.id
-	  @requirement = Requirement.new(:name => params[:value], :employer_id =>@employer_id)
-	  respond_to do |format|
-	    if @requirement.save
+def add_requirement
+ @employer_id = current_user.employer.id
+ @requirement = Requirement.new(:name => params[:value], :employer_id =>@employer_id)
+ respond_to do |format|
+   if @requirement.save
      		# getting requirements of current employer only
      		@employer_requirements = Requirement.where(:employer_id=>@employer_id)
-	    	format.js 
+        format.js 
 	    	# format.json   {render json: @requirement }
 	    end
 	  end
@@ -203,50 +203,50 @@ class JobStepsController < ApplicationController
 	def delete_requirement
 
 		if params[:value]
-		 	@requirement = Requirement.find(params[:value])
+      @requirement = Requirement.find(params[:value])
 
-		   if @requirement.present?
-			  respond_to do |format|
-			  	if @requirement.destroy
-			  		format.js
-			  	end
-			  end
-			end
-		end
-	end
+      if @requirement.present?
+       respond_to do |format|
+        if @requirement.destroy
+         format.js
+       end
+     end
+   end
+ end
+end
 
-	def add_photo
-		@job_id = session[:job_id]
-     	@job = Job.find(@job_id)
+def add_photo
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
 
-     	@multiple_images = params[:photo][:image] 		
-     	   @multiple_images.each { |i|
-     	    @job.photos.create(image: i)
-     	  }
+  @multiple_images = params[:photo][:image] 		
+  @multiple_images.each { |i|
+    @job.photos.create(image: i)
+  }
 
-     	@photo = @job.photos.last
-       	respond_to do |format|
-        	format.js 
-         end
+  @photo = @job.photos.last
+  respond_to do |format|
+   format.js 
+ end
 
-	end
+end
 
-	def delete_photo
-		@job_id = session[:job_id]
-     	@job = Job.find(@job_id)
-     	@photo = @job.photos.find(params[:value])
-     	@photo.destroy
-     	@photos = @job.photos.where(:is_primary => nil)
-     	respond_to do |format|
-     		format.js
-     	end		
-	end
+def delete_photo
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
+  @photo = @job.photos.find(params[:value])
+  @photo.destroy
+  @photos = @job.photos.where(:is_primary => nil)
+  respond_to do |format|
+   format.js
+ end		
+end
 
-	def make_primary_photo
-		@job_id = session[:job_id]
-     	@job = Job.find(@job_id)
+def make_primary_photo
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
 
-     	@all_photos = @job.photos.all
+  @all_photos = @job.photos.all
 		# make all photos unprimary
 		@all_photos.each do |p|
 			p.update_attributes(:is_primary=>nil)	
@@ -258,49 +258,50 @@ class JobStepsController < ApplicationController
 		@primary_photo = @job.photos.where(:is_primary => true)
 		#additional photos
 		@photos = @job.photos.where(:is_primary => nil)
-     	respond_to do |format|
-     		format.js
-     	end	
-	end
+    respond_to do |format|
+     format.js
+   end	
+ end
 
-	def save_photo_caption
-		@job_id = session[:job_id]
-     	@job = Job.find(@job_id)
-     	@photo = @job.photos.find(params[:photo_id])
-     	@photo.update_attributes(:caption=>params[:photo_caption])
+ def save_photo_caption
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
+  @photo = @job.photos.find(params[:photo_id])
+  @photo.update_attributes(:caption=>params[:photo_caption])
 
-	end
+end
 
-	def make_by_default_primary_image
-		@job_id = session[:job_id]
-     	@job = Job.find(@job_id)
-		@primary_photo = @job.photos.where(:is_primary => true)
+def make_by_default_primary_image
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
+  @primary_photo = @job.photos.where(:is_primary => true)
 
-		unless @primary_photo.present?	
-			@user_primary_photo = current_user.photos.where(:is_primary=>true).first
-			@job.photos.create(:photoable_type=>"Job", :is_primary=>true,:image=>@user_primary_photo.image)
-		end
-		
-	end
+  unless @primary_photo.present?	
+   @user_primary_photo = current_user.photos.where(:is_primary=>true).first
+   @job.photos.create(:photoable_type=>"Job", :is_primary=>true,:image=>@user_primary_photo.image)
+ end
+ 
+end
 
-	def choose_existing_photo
-		@job_id = session[:job_id]
-    @job = Job.find(@job_id)
-    @selected_photo = Photo.where(:id =>params[:value]).first
-    @job.photos.create(:photoable_type=>"Job", :is_primary=>nil, :image=>@selected_photo.image)
-		@photo = @job.photos.last
-     	respond_to do |format|
-     		format.js
-     	end				
-	end
+def choose_existing_photo
+  @job_id = session[:job_id]
+  @job = Job.find(@job_id)
+  @selected_photo = Photo.where(:id =>params[:value]).first
+  @job.photos.create(:photoable_type=>"Job", :is_primary=>nil, :image=>@selected_photo.image)
+  @photo = @job.photos.last
+  respond_to do |format|
+   format.js
+ end				
+end
 
 
-	def set_employer_address
+def set_employer_address
 		# binding.pry
 		if current_user.location.present?
 			@employer_address = current_user.location
 
 			if @employer_address.country.present?
+
 			country = @employer_address.country
 			@states = COUNTRIES_STATES[country]
 		  end
@@ -322,7 +323,6 @@ private
 			@desired_wage = params[:job][:desired_wage]
 			params[:job][:max_wage] = @desired_wage
 		end
-
 		 # params.require(:job).permit(:id,:title, :hours_per_day, :work_duration, :job_category, :desired_wage, :max_wage, :desired_wage_is_firm, :start_date, :listing_expires_on, :description,location_attributes: [:address,:second_address,:city,:zip,:country,:state,:time_zone,:approximate_address])
 		 params.require(:job).permit!
 	end
@@ -337,7 +337,8 @@ private
 
 	def education_and_certifications_params
 		 # binding.pry
-		params.require(:job).permit!
-	end
+     params.require(:job).permit!
+   end
+
 
 end

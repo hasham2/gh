@@ -13,15 +13,12 @@ $(function () {
 
 
 // $(document).ready(function(){
-// 	$('#new_job').click(function(){
-// 		var new_job = "NewJob"
-// 		$.ajax({
-// 		   method:'post',
-// 		   url:'./',
-// 		   data: {value:new_job}
-// 		 });
+//     $.ajax({
+//       method:'get',
+//       url:'./search',
+//       success:function(result){
 
-// 		// alert('click')
+//       }
 
-// 	});
+//     });
 // });

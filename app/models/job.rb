@@ -1,19 +1,127 @@
 class Job < ActiveRecord::Base
   belongs_to :user #Employer
 
-  has_and_belongs_to_many :certifications
+  has_and_belongs_to_many :certifications, dependent: :destroy
   accepts_nested_attributes_for :certifications
 
-  has_and_belongs_to_many :requirements
+  has_and_belongs_to_many :requirements, dependent: :destroy
   accepts_nested_attributes_for :requirements
 
-  has_and_belongs_to_many :metrics
+  has_and_belongs_to_many :metrics, dependent: :destroy
   accepts_nested_attributes_for :metrics, allow_destroy: true
 
-  has_many :photos, as: :photoable
+  has_many :photos, as: :photoable, dependent: :destroy
   accepts_nested_attributes_for :photos
 
-  has_one :location, as: :locateable
+  has_one :location, as: :locateable, dependent: :destroy
   accepts_nested_attributes_for :location
+
+
+
+   def self.my_search(max_distance, address, hourly_pay, earliest_start_date, max_days_listed, job_level, req_ids)
+
+    # unless (max_distance.blank? && address.blank? && hourly_pay.blank? && earliest_start_date.blank? && max_days_listed.blank? && job_level.blank? && req_ids.blank?)
+    #  @jobs = Job.all
+
+    #  # binding.pry
+    # end
+
+    unless max_distance.blank?
+      @jobs = Array.new
+      @locations_of_jobs = Location.near(address, max_distance,{:units => :km}).where(:locateable_type=>'Job')
+      
+      @locations_of_jobs.collect do |l| 
+        if l.locateable.present?
+            @jobs << l.locateable
+        end
+      end
+
+        if @jobs.blank?
+          return     
+        end
+    end
+
+   unless hourly_pay.blank?
+      hourly_pay_based_jobs = Array.new
+
+     @jobs.collect do |j|
+        if j.desired_wage.present? && j.desired_wage >= hourly_pay.to_f
+         hourly_pay_based_jobs << j 
+        end
+      end
+      @jobs = hourly_pay_based_jobs
+   end
+
+   unless max_days_listed.blank?
+    max_days_listed_based_jobs = Array.new
+         now = Date.today
+         days_listed = now - max_days_listed.to_i  
+
+    @jobs.collect do |j|
+       if j.created_at.present?  && j.created_at >= days_listed
+        max_days_listed_based_jobs << j 
+       end
+     end
+
+     @jobs = max_days_listed_based_jobs
+   end
+
+    unless earliest_start_date.blank?
+     earliest_start_date_based_jobs = Array.new
+
+      day = earliest_start_date.split('/')[0].to_i
+      month = earliest_start_date.split('/')[1].to_i
+      year = earliest_start_date.split('/')[2].to_i
+      earliest = Date.new(year,month,day)
+     @jobs.collect do |j|
+        if j.start_date.present?  && j.start_date >= earliest
+         earliest_start_date_based_jobs << j 
+        end
+      end
+
+      @jobs = earliest_start_date_based_jobs
+    end
+
+
+    unless job_level.blank?
+      job_level_based_jobs = Array.new
+     # @jobs = @jobs.where(:job_level=>job_level)
+     @jobs.collect do |j|
+        if j.job_level.present? && j.job_level == job_level
+         job_level_based_jobs  << j 
+        end
+      end
+      @jobs = job_level_based_jobs
+      binding.pry
+      
+    end
+
+    unless req_ids.blank?
+       req_based_jobs = Array.new
+           @jobs.each do |j|
+              if j.requirements.present?
+                req_ids.each do |r_i|
+                  j.requirements.each do |r|
+                     
+
+                        if r.id == r_i.to_i
+                          
+                          req_based_jobs << j                        
+                        end
+
+                     end    
+                  end 
+              end
+             
+           end          
+           @jobs = req_based_jobs.uniq
+   end
+
+
+
+   # binding.pry
+  return @jobs
+ end
+
 
 end
