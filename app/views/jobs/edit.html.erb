@@ -78,7 +78,7 @@
       <div class="col-sm-7">
         <div class="form-group">
           <div class="input-group date" data-date-format="DD/MM/YYYY" id="datetimepicker5">
-            <%= j.text_field :start_date,{ :class=>"form-control start_date",:value=>j.object.start_date.try(:strftime, '%d/%m/%Y'),:required=>true} %>
+            <%= j.text_field :start_date,{ :class=>"form-control start_date validate_date",:value=>j.object.start_date.try(:strftime, '%d/%m/%Y'),:required=>true} %>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -120,11 +120,11 @@
        </div>
        
        <div class="col-lg-7">
-      <%= check_box_tag 'enable_fixed_price', 'no', false, class: 'form-group col-sm-1',style:"margin-top:11px;"%>
+      <%= check_box_tag 'enable_fixed_price', 'no', j.object.fixed_price? ? true :false , class: 'form-group col-sm-1',style:"margin-top:11px;"%>
       <div class="form-group">
         <%= j.label :fixed_price, 'Fixed Price' ,:class=>"col-sm-2 labl"%>
         <div class='col-sm-5'>
-          <%= j.text_field :fixed_price, :class=>"form-control",:value=>j.object.fixed_price,:required=>true,:disabled=>"disabled"%>
+          <%= j.text_field :fixed_price, :class=>"form-control",:value=>j.object.fixed_price,:required=>true%>
          </div>
         </div>
        </div>

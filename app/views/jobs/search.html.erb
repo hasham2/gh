@@ -1,0 +1,448 @@
+
+<div class="container">
+<div class="row">
+<div class="container">
+
+<div class="col-lg-12 banner_jobdetail">
+  <%=image_tag('featured_banner.png')%>
+</div>
+
+</div></div>
+
+</div>
+
+<%= form_tag("search", method: "get", :remote=>true, :id=>'search_form') do %>
+<div class="container">
+
+<div class="col-lg-5 left_filter_outer pull-left">
+<h2>Filters</h2>
+
+   <div class="input-group input-group12">
+      <%= text_field_tag :'gmaps-input-address', nil, {:class=>'form-control', :type=>"Search", :placeholder=>"Where are you...", :value=>@address }%>
+       <div class="input-group-btn">
+           <button id ='search' class="btn btn-info" type='submit'>
+           <span class="glyphicon glyphicon-search"></span>
+           </button>
+       </div>
+   </div>
+
+<div style="float: left; margin: 7px 0 0 !important;">
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Search 
+Criteria</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="“Richmond Hill” AND (“Day  
+Shift” OR “Weekends”) ">
+    </div>
+  </div></div>
+  
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;" >  
+<div class="form-group">
+    <%= label_tag :max_distance, "Maximum Distance(Kms)", :class=>"col-sm-8 control-label btn_text"  %>
+      <div class="col-sm-4">
+          <%= text_field_tag :max_distance , nil, {:class=>'form-control', :id=>'max_distance'} %>
+      </div>
+
+  </div>
+</div>  
+  
+
+    
+    
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;">  
+<div class="form-group">
+    <input type="radio" id="enable_radio_button_1" checked="checked" name="mark" value="check" style="margin-top: 11px!important;" class="col-sm-1 enable_checkbox">
+      <%= label_tag :hourly_pay, "Hourly Pay        Min. ($/hr)", :class=>"col-sm-7 control-label btn_text"  %>
+      <div class="col-sm-4">
+          <%= text_field_tag :hourly_pay , nil, {:class=>'form-control'} %>
+      </div>
+  </div>
+</div>   
+ 
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;">  
+  <div class="form-group">
+      <input type="radio" id="enable_radio_button_2" name="mark" value="check" style="margin-top: 11px!important;" class="col-sm-1 enable_checkbox">
+        <%= label_tag :fixed_price, "Fixed Price", :class=>"col-sm-7 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :fixed_price , nil, {:class=>'form-control',:disabled=>"disabled"} %>
+        </div>
+    </div> 
+</div>
+
+
+<div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-8 control-label btn_text">Min.Employer Rating</label>
+    <%=image_tag('star.png',:style=>"float:right; margin:-20px 0 0 0;")%>
+    
+    
+  </div>
+  
+  
+</div>
+
+<div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
+  <div class="form-group">    
+        <%= label_tag :max_days_listed, "Max.Days Listed", :class=>"col-sm-8 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :max_days_listed , nil, {:class=>'form-control'} %>
+        </div>
+    </div>
+</div>
+
+<div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
+  <div class="form-group">    
+        <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-8 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control', :placeholder=>'dd/mm/yyyy' } %>
+        </div>
+    </div>
+</div>
+
+
+<div class="filter_cat">
+<h2>Job Level </h2>
+<br>
+<div class="col-lg-8  checkjob" >
+      <div class="education_checkbox">
+    <label>
+      <%=radio_button_tag(:job_level, 'Supervisor') %>
+      Supervisor
+    </label> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label>
+      <%=radio_button_tag( :job_level, 'Individual')%>
+      Individual
+    </label>
+  </div></div>
+
+
+</div>
+
+<div class="filter_cat2">
+<h2>Job Requirements</h2>
+<br>
+<% @requirements.each do |r| %>
+<div class="col-lg-8 pull-left checkjob" >
+      <div class="checkbox education_checkbox">
+    <label>
+      <%= check_box_tag('req_ids[]', r.id )%>
+      <%=r.name %>
+    </label>
+  </div></div>
+  
+<% end %>
+</div>
+
+<div class="filter_cat2">
+<h2>Education and Certifications</h2>
+<br>
+
+      <div style="margin:10px 0 53px 0;">
+    <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+    <%#= text_field_tag '' , nil, {id:"auto_complete",:class=>'form-control'} %>
+   <%=form_tag '' do %>
+   <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+  <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_0', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+
+</div>
+    </div>
+    
+    <div style="margin:10px 0 95px 0;">
+    <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_1', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+ 
+  </div>
+    </div>
+    
+    
+    <div style="margin:10px 0 140px 0;">
+    <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_2', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+   
+  </div>
+    </div>
+     
+     <div style="margin:10px 0 70px 0;">
+    <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
+
+    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
+   <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_3', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+  
+ </div>
+   <% end %>
+    </div>
+    <div style="display:none;">
+      <%= check_box_tag 'certificate_ids[0]','', true %>
+        <%= check_box_tag 'certificate_ids[1]','', true %>
+         <%= check_box_tag 'certificate_ids[2]', '', true %>
+          <%= check_box_tag 'certificate_ids[3]','', true %>
+          </div>
+     <div style="float: left; margin: 7px 0 0 !important;">  
+<div class="form-group">
+    
+   
+ 
+    <div class="btn-group  menunlefttt">
+  <button type="button" class="btn btn-default btn-w2">Suggestions</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menunn" role="menu">
+    <li><a href="#">7</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">8</a></li>
+    <li class="divider"></li>
+    <li><a href="#">10</a></li>
+  </ul>
+</div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="plusmore">
+<h2>+ More options</h2>
+</div>
+
+</div>
+<div class="col-lg-7 pull-right">
+    <div id="map"></div>
+</div>
+
+</div>
+<% end %>
+
+<div class="container">
+
+
+<div class="col-lg-12 list">
+<div class="form-group col-lg-4 topmrggg22">
+    <label for="inputEmail3" class="col-sm-4 control-labelll ">Listings/page</label>
+    <div class="btn-group  menunlefttt">
+  <button type="button" class="btn btn-default">10</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menunn" role="menu">
+    <li><a href="#">1965</a></li>
+    <li><a href="#">1988</a></li>
+    <li><a href="#">1970</a></li>
+    
+    <li><a href="#">1865</a></li>
+  </ul>
+</div>
+  </div>
+  
+<div class="col-lg-6 page">
+Displaying 1 to 10 of 26 Listing
+
+<%=image_tag('page_icon.png')%>
+</div> 
+ 
+  <div class="col-lg-12 " >
+
+<div class="form-group col-lg-4 topmrggg22">
+    <label for="inputEmail3" class="col-sm-4 control-labelll ">Sort By </label>
+    <div class="btn-group  menunlefttt">
+  <button type="button" class="btn btn-default">Distance</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menunn" role="menu">
+    <li><a href="#">1965</a></li>
+    <li><a href="#">1988</a></li>
+    <li><a href="#">1970</a></li>
+    
+    <li><a href="#">1865</a></li>
+  </ul>
+</div>
+<div class="col-lg-5 pull-left checkjob chkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Ascending
+    </label>
+  </div></div>
+  </div>
+
+<div class="form-group col-lg-4 topmrggg22">
+    <label for="inputEmail3" class="col-sm-4 control-labelll ">Then By </label>
+    <div class="btn-group  menunlefttt">
+  <button type="button" class="btn btn-default">Distance</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menunn" role="menu">
+    <li><a href="#">1965</a></li>
+    <li><a href="#">1988</a></li>
+    <li><a href="#">1970</a></li>
+    
+    <li><a href="#">1865</a></li>
+  </ul>
+</div>
+<div class="col-lg-5 pull-left checkjob chkjob" >
+      <div class="checkbox education_checkbox2">
+    <label>
+      <input type="checkbox">Ascending
+    </label>
+  </div></div>
+  </div>
+<div id="all_jobs">
+<% if @jobs.present? %>
+  <%=render @jobs %>
+<% end %>
+ </div>       
+</div> 
+
+
+ 
+
+
+</div>
+
+<div class="col-lg-12 btnnextstep">
+  <button type="button" class="btn btn-success pull-left btn-nextstep bttn-leftmar">Make Payment</button>
+ 
+ </div>
+
+</div>
+
+<%=render 'home/footer'%>
+
+
+<script>
+
+   $(document).ready(function() {
+
+    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],5);
+    var googleLayer = new L.Google('ROADMAP');
+    map.addLayer(googleLayer);
+    <%if @jobs%>
+      <% @jobs.each do |j|%>
+      var  marker = new L.marker([<%=j.location.lat%>,<%=j.location.lng%>]);
+       map.addLayer(marker);
+     <% end %>
+    <% end  %>
+
+      $("#search_form").on("ajax:success", function(e, json, status, xhr) {
+
+        // alert('on page');
+            // map.remove();
+
+       $.each($.parseJSON(json), function(idx, obj) {
+            // alert(obj.id);
+          if (obj.lat && obj.lng){
+
+             var  marker = new L.marker([obj.lat,obj.lng]);
+              map.addLayer(marker);
+          }
+
+     });
+
+         $("#all_jobs").children().remove();
+
+        $.each($.parseJSON(json), function(idx, obj) {
+          var source = $("#some-template").html(); 
+          var template = Handlebars.compile(source); 
+          $('#all_jobs').append(template(obj));
+            
+
+
+      });
+
+
+
+    });
+});
+
+</script>
+
+
+
+<script id="some-template" type="text/x-handlebars-template">
+
+<div class="job">
+<div class="col-lg-12 topfilde borlist">
+    <br>
+
+    <div class="col-lg-2 col-lg-6">
+    <div class="form-group ">
+    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
+    <div class="col-sm-7">
+      <span class="form-control">{{id}}</span>
+    </div>
+  </div></div>
+  
+  
+  
+   <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{work_duration}}</span>
+    </div>
+  </div></div>
+    
+   <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{desired_wage}}</span>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{max_wage}}</span>
+    </div>
+  </div></div>
+  
+  </div>
+
+<div class="col-lg-12 topfilde1">
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
+    <div class="col-sm-9">
+      <span class="form-control">{{title}}</span>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
+    <div class="col-sm-4">
+      <span class="form-control">{{hours_per_day}}</span>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{start_date}}</span>
+    </div>
+  </div></div>
+  
+          
+     </div>
+
+
+  </div>
+</script>
+
+
+
+
+
+

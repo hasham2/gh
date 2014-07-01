@@ -16,6 +16,7 @@
 //= require jquery.ui.all
 //= require gmaps-auto-complete
 //= require bootstrap
+//= require handlebars
 
 //= require certifications
 //= require requirements
@@ -29,6 +30,9 @@
 //= require bootstrap-datetimepicker
 //= require carousel
 //= require simple-slider
+
+//= require autocomplete-rails
+
 
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl

@@ -332,13 +332,54 @@ $(document).ready(function(){
 		if($('#enable_fixed_price').is(":checked")){
 
 		  $('#job_fixed_price').prop('disabled',false);
+		  $('#desired_wage_is_firm').prop('disabled',true);
+		  
+		  $('#desired_wage').val('');
+		  $('#max_wage').val('');
+		  $('#desired_wage').prop('disabled',true);
+		  $('#max_wage').prop('disabled',true);
 		}
 		else{
 			$('#job_fixed_price').val('');
-			$('#job_fixed_price').prop('disabled',true);	
+			$('#job_fixed_price').prop('disabled',true);
+			$('#desired_wage').prop('disabled',false);
+			$('#max_wage').prop('disabled',false);
+			$('#desired_wage_is_firm').prop('disabled',false);
+
+				
 		}
 	});
+	if($('#enable_fixed_price').is(":checked")){
 
+	  $('#job_fixed_price').prop('disabled',false);
+	  $('#desired_wage_is_firm').prop('disabled',true);
+	  
+	  $('#desired_wage').val('');
+	  $('#max_wage').val('');
+	  $('#desired_wage').prop('disabled',true);
+	  $('#max_wage').prop('disabled',true);
+	}
+	else{
+		$('#job_fixed_price').val('');
+		$('#job_fixed_price').prop('disabled',true);
+		$('#desired_wage').prop('disabled',false);
+		$('#max_wage').prop('disabled',false);
+		$('#desired_wage_is_firm').prop('disabled',false);
+
+			
+	}
+/*****enable text field based upon selection of radio butoon in search ********/
+	$('.enable_checkbox').click(function(){
+		if($('#enable_radio_button_1').is(":checked")){
+	    $('#hourly_pay').attr('disabled',false);	
+	    $('#fixed_price').attr('disabled',true);	
+		}
+		if ($('#enable_radio_button_2').is(":checked")) {
+		$('#hourly_pay').attr('disabled',true);	
+	    $('#fixed_price').attr('disabled',false);	
+		};
+	  
+	});
  });
 
 
@@ -452,5 +493,108 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+/**********************validate formate of datetime field*******************************/
+	$('.validate_datetime').blur(function(){
+	var date = $(this).val();
+	if (date!= ''){
+	validate_date = date.split(' ')[0];
+	validate_time = date.split(' ')[1];
 
+	 var th = $(this);
+	  if (!isValidDate(validate_date)){
+	  	alert("Invalid date formate :"+validate_date);
+	  	 $('.validate_datetime').val('');
+	  }
+	  else if(!isValidTime(validate_time,th)){
+	  	// alert("Invalid Time formate =>"+validate_time);
+	  	 $('.validate_datetime').val('');
+	  }
+	  else{}
+	}
+	});
+	/**********************validate formate of date field*******************************/
+	$('.validate_date').blur(function(){
+	var validate_date = $(this).val();
+		if (validate_date!=''){
 
+	  if (!isValidDate(validate_date)){
+	  	alert("Invalid date formate :"+validate_date);
+	  	$('.validate_date').val('');
+	  	  // $('input[type="text"]')[4].focus();
+	  }
+	  }
+	});
+
+// Validates that the input string is a valid date formatted as "mm/dd/yyyy"
+function isValidDate(dateString)
+{
+    // First check for the pattern
+    if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString))
+    	// alert(dateString);
+        return false;
+
+    // Parse the date parts to integers
+    var parts = dateString.split("/");
+    var day = parseInt(parts[1], 10);
+    var month = parseInt(parts[0], 10);
+    var year = parseInt(parts[2], 10);
+
+    // Check the ranges of month and year
+    if(year < 1000 || year > 3000 || month == 0 || month > 12)
+        return false;
+
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Adjust for leap years
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLength[1] = 29;
+
+    // Check the range of the day
+    return day > 0 && day <= monthLength[month - 1];
+};
+
+// Validates that the input string is a valid time formatted as "HH:MM AP/M"
+function isValidTime (argument,th) {
+  re = /^(\d{1,2}):(\d{2}) ([AP]M)?$/; 
+
+   // alert(argument);
+   var pre  = th.val().split(' ')[1];
+   var post = th.val().split(' ')[2];
+   var complete_time= pre+' '+post;
+   // alert(complete_time);
+  if(complete_time != ''){
+    if(regs = complete_time.match(re)){
+  	  if(regs[3]) {
+  	  // 12-hour value between 1 and 12 
+        if(regs[1] < 1 || regs[1] > 12){
+	        alert("Invalid value for hours: " + regs[1]);
+	        //form.starttime.focus();
+	        return false; 
+        }
+      }
+      else{
+	      // 24-hour value between 0 and 23
+	      if(regs[1] > 23){
+	      alert("Invalid value for hours: " + regs[1]);
+	      //form.starttime.focus(); 
+	      return false; 
+	      } 
+      }
+    // minute value between 0 and 59 
+      if(regs[2] > 59){
+        alert("Invalid value for minutes: " + regs[2]); 
+        //form.starttime.focus();
+        return false;
+      }
+    }
+    else {
+      alert("Invalid time format: " + complete_time);
+      //form.starttime.focus(); 
+      return false;
+    }
+  }
+  // alert("All input fields have been validated!"); 
+  return true; 
+ }
+});
