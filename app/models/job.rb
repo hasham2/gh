@@ -20,12 +20,6 @@ class Job < ActiveRecord::Base
 
    def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certificate_ids)
 
-    # unless (max_distance.blank? && address.blank? && hourly_pay.blank? && earliest_start_date.blank? && max_days_listed.blank? && job_level.blank? && req_ids.blank?)
-    #  @jobs = Job.all
-
-    #  # binding.pry
-    # end
-
     unless max_distance.blank?
       @jobs = Array.new
       @locations_of_jobs = Location.near(address, max_distance,{:units => :km}).where(:locateable_type=>'Job')

@@ -1,32 +1,32 @@
 $(function () {
-    $('#datetimepicker1').datetimepicker();
+  $('#datetimepicker1').datetimepicker();
 });
 
 
 
 $(function () {
-    $('#datetimepicker5').datetimepicker({
-        pickTime: false
-    });
+  $('#datetimepicker5').datetimepicker({
+    pickTime: false
+  });
 });
 
 
 $(document).ready(function(){
-$('#req_delete1').click(function(){
-	$('#req1').val('');	
-})
+  $('#req_delete1').click(function(){
+   $('#req1').val('');	
+ })
 
-$('#req_delete2').click(function(){
-	$('#req2').val('');	
-})
+  $('#req_delete2').click(function(){
+   $('#req2').val('');	
+ })
 
-$('#req_delete3').click(function(){
-	$('#req3').val('');	
-})
+  $('#req_delete3').click(function(){
+   $('#req3').val('');	
+ })
 
-$('#req_delete4').click(function(){
-	$('#req4').val('');	
-})
+  $('#req_delete4').click(function(){
+   $('#req4').val('');	
+ })
 });
 
 
