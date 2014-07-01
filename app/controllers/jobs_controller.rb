@@ -159,8 +159,6 @@ def search
 
 
       @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
-
-
     end
 
 
