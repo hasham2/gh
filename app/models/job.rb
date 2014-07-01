@@ -18,7 +18,7 @@ class Job < ActiveRecord::Base
 
 
 
-   def self.my_search(max_distance, address, hourly_pay, earliest_start_date, max_days_listed, job_level, req_ids)
+   def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certificate_ids)
 
     # unless (max_distance.blank? && address.blank? && hourly_pay.blank? && earliest_start_date.blank? && max_days_listed.blank? && job_level.blank? && req_ids.blank?)
     #  @jobs = Job.all
@@ -43,13 +43,23 @@ class Job < ActiveRecord::Base
 
    unless hourly_pay.blank?
       hourly_pay_based_jobs = Array.new
-
+      # binding.pry 
      @jobs.collect do |j|
         if j.desired_wage.present? && j.desired_wage >= hourly_pay.to_f
          hourly_pay_based_jobs << j 
         end
       end
       @jobs = hourly_pay_based_jobs
+   end
+   unless fixed_price.blank?
+      fixed_price_based_jobs = Array.new
+       binding.pry 
+     @jobs.collect do |j|
+        if j.fixed_price.present? && j.fixed_price == fixed_price.to_f
+         fixed_price_based_jobs << j 
+        end
+      end
+      @jobs = fixed_price_based_jobs
    end
 
    unless max_days_listed.blank?
@@ -92,31 +102,43 @@ class Job < ActiveRecord::Base
         end
       end
       @jobs = job_level_based_jobs
-      binding.pry
+      # binding.pry
       
     end
-
     unless req_ids.blank?
+
        req_based_jobs = Array.new
            @jobs.each do |j|
               if j.requirements.present?
                 req_ids.each do |r_i|
+                   # binding.pry 
                   j.requirements.each do |r|
-                     
-
-                        if r.id == r_i.to_i
-                          
-                          req_based_jobs << j                        
-                        end
-
-                     end    
-                  end 
+                    if r.id == r_i.to_i  
+                    req_based_jobs << j                        
+                    end
+                  end    
+                end 
               end
-             
-           end          
-           @jobs = req_based_jobs.uniq
-   end
-
+          end          
+      @jobs = req_based_jobs.uniq
+    end
+    unless certificate_ids.blank?
+         # binding.pry
+       certifications_based_jobs = Array.new
+           @jobs.each do |j|
+            # binding.pry
+              if j.certifications.present?
+                certificate_ids.each do |r_i|
+                  j.certifications.each do |r|
+                    if r.id == r_i.to_i  
+                    certifications_based_jobs << j                        
+                    end
+                  end    
+                end 
+              end
+          end          
+      @jobs = certifications_based_jobs.uniq
+    end
 
 
    # binding.pry

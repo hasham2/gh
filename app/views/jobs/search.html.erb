@@ -51,36 +51,22 @@ Shift” OR “Weekends”) ">
     
 <div style="float: left; margin: 7px 0 0 !important; width: 366px;">  
 <div class="form-group">
-    
-      <%= label_tag :hourly_pay, "Hourly Pay        Min. ($/hr)", :class=>"col-sm-8 control-label btn_text"  %>
+    <input type="radio" id="enable_radio_button_1" checked="checked" name="mark" value="check" style="margin-top: 11px!important;" class="col-sm-1 enable_checkbox">
+      <%= label_tag :hourly_pay, "Hourly Pay        Min. ($/hr)", :class=>"col-sm-7 control-label btn_text"  %>
       <div class="col-sm-4">
           <%= text_field_tag :hourly_pay , nil, {:class=>'form-control'} %>
       </div>
   </div>
 </div>   
  
-<div style="float: left; margin: 7px 0 0 !important; width: 357px;">  
-<div class="form-group">
-    
-    <label>
-      <input type="checkbox">&nbsp;Fixed Price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min. ($)
-    </label>
- 
-    <div class="btn-group  menunlefttt pull-right">
-  <button type="button" class="btn btn-default btn-w">200</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menunn" role="menu">
-    <li><a href="#">7</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">8</a></li>
-    <li class="divider"></li>
-    <li><a href="#">10</a></li>
-  </ul>
-</div>
-  </div>
+<div style="float: left; margin: 7px 0 0 !important; width: 366px;">  
+  <div class="form-group">
+      <input type="radio" id="enable_radio_button_2" name="mark" value="check" style="margin-top: 11px!important;" class="col-sm-1 enable_checkbox">
+        <%= label_tag :fixed_price, "Fixed Price", :class=>"col-sm-7 control-label btn_text"  %>
+        <div class="col-sm-4">
+            <%= text_field_tag :fixed_price , nil, {:class=>'form-control',:disabled=>"disabled"} %>
+        </div>
+    </div> 
 </div>
 
 
@@ -155,41 +141,45 @@ Shift” OR “Weekends”) ">
       <div style="margin:10px 0 53px 0;">
     <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
     <%#= text_field_tag '' , nil, {id:"auto_complete",:class=>'form-control'} %>
-   <%=form_tag 'some/path' do %>
+   <%=form_tag '' do %>
    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-  <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req1",:class=>"form-control", :size => 75%>
+  <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_0', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+
 </div>
-  <% end %>
     </div>
     
     <div style="margin:10px 0 95px 0;">
     <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-     <%=form_tag 'some/path' do %>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req2",:class=>"form-control", :size => 75%>
+    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_1', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+ 
   </div>
-    <% end %>
     </div>
     
     
     <div style="margin:10px 0 140px 0;">
     <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-     <%=form_tag 'some/path' do %>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req3",:class=>"form-control", :size => 75%>
+    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_2', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+   
   </div>
-    <% end %>
     </div>
      
      <div style="margin:10px 0 70px 0;">
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-    <%=form_tag 'some/path' do %>
+
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-   <%=autocomplete_field_tag 'name', '', autocomplete_requirement_name_jobs_path,id:"req4",:class=>"form-control", :size => 75%>
+   <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_3', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+  
  </div>
    <% end %>
     </div>
-     
+    <div style="display:none;">
+      <%= check_box_tag 'certificate_ids[0]','', true %>
+        <%= check_box_tag 'certificate_ids[1]','', true %>
+         <%= check_box_tag 'certificate_ids[2]', '', true %>
+          <%= check_box_tag 'certificate_ids[3]','', true %>
+          </div>
      <div style="float: left; margin: 7px 0 0 !important;">  
 <div class="form-group">
     
@@ -412,43 +402,10 @@ Displaying 1 to 10 of 26 Listing
     map.addLayer(googleLayer);
 
 
-  //     $("#search_form").on("ajax:success", function(e, data, status, xhr) {
-    
-  // //     var jo = $.parseJSON(data);
 
-  // //     alert('The JSON object has this many elements: ' + jo.length);
-  //    for (var i = 0; i < data.length; i++) {
-  //            alert(data[i].id)
-  //          }
-
-
-     // $.getJSON(url_1, function(data) {
-     //         $.each(data, function() {
-     //             alert(this.id);
-     //         });
-     //       });
-
-    // });
 });
 
-  // <%@jobs.each do |j|%>
-  // var lat =<%=j.location.lat%>
-  //  var lng =<%=j.location.lng%>
-
-
-  // <%end%>
-
-  //  var planes = [
-  //   [40.7082024 , -74.0065449], [40.7055024 , -74.0065449]];
-  // for (var i = 0; i < planes.length; i++) {
-  //   marker = new L.marker([planes[i][0],planes[i][1]])
-  //     .addTo(map);
-  // }
-
-      // jQuery(document).ready(function() {
-      //    alert(autocomplete_items);
-      //     // $('#auto_complete').typeahead({source: autocomplete_items});
-      // });
+  
 
 
 </script>

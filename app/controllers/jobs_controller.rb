@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
-   autocomplete :requirement, :name,:full => true
+   autocomplete :certification, :name,:full => true,:column_name => 'title'
 
 
   def index
@@ -120,7 +120,7 @@ def search
 
 
 #   @autocomplete_items  = @auto
-# binding.pry 
+  # binding.pry 
 
   if params[:lat].blank? || params[:lng].blank?
       # Geocode the address
@@ -147,15 +147,18 @@ def search
     @max_days_listed = params[:max_days_listed]
     @earliest_start_date = params[:earliest_start_date]
     @job_level = params[:job_level]
-    @req_ids = params[:req_ids]
+    # binding.pry 
+    @fixed_price = params[:fixed_price]
+     @req_ids = params[:req_ids]
+     @certificate_ids = params[:certificate_ids].values rescue nil
+     if @certificate_ids != nil
+     @certificate_ids.reject! { |c| c.empty? }
+     end
+
+    if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
 
 
-
-
-    if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?)
-
-
-      @jobs= Job.my_search(@max_distance, @address,@hourly_pay, @earliest_start_date, @max_days_listed, @job_level, @req_ids)
+      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
 
 
     end
