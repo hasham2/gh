@@ -35,8 +35,10 @@ gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.1'
 gem 'jquery-turbolinks'
 gem 'jquery-fileupload-rails'
+
 gem 'rails4-autocomplete'
 gem 'kaminari'
+
 # Geolocations
 gem 'geocoder'
 gem 'google_timezone'

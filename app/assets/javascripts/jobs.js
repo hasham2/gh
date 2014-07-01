@@ -3,6 +3,7 @@ $(function () {
 });
 
 
+
 $(function () {
     $('#datetimepicker5').datetimepicker({
         pickTime: false
@@ -28,13 +29,7 @@ $('#req_delete4').click(function(){
 })
 });
 
-// $(document).ready(function(){
-//     $.ajax({
-//       method:'get',
-//       url:'./search',
-//       success:function(result){
 
-//       }
-
-//     });
-// });
+$(document).ready(function(){
+  $('#max_distance').val(25);
+});

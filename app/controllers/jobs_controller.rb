@@ -138,7 +138,7 @@ def search
     if params[:max_distance].present?
       @max_distance = params[:max_distance]
     else
-      @max_distance = 2500
+      @max_distance = 25
     end
 
 
@@ -147,6 +147,7 @@ def search
     @max_days_listed = params[:max_days_listed]
     @earliest_start_date = params[:earliest_start_date]
     @job_level = params[:job_level]
+
     # binding.pry 
     @fixed_price = params[:fixed_price]
      @req_ids = params[:req_ids]
@@ -156,34 +157,36 @@ def search
      end
 
     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
-
-
       @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
+      if @jobs
+        job_ids = Array.new
+        @jobs.each do |j|
+          job_ids<<j.id
+        end
+        @jobs = Job.where('id in (?)', job_ids).includes(location)
+        # binding.pry
+        end
+      
     end
 
 
-    if request.xhr? 
-      @locations = Array.new
-    @jobs.each do |j|
-      @locations << j.location
-    end  
-
-     respond_to do |format|
-
-     format.js  {render json: @locations}
-    end 
-
-   end 
 
 
+        if request.xhr? 
 
-    #     # @now = Date.today
-    #     # @before = Date.new(2014,05,06)
-    #     # @difference_in_days = ( @now - @before).to_i
+            @jobslist = @jobs.map do |j|
+              {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+            end
+            # json = @jobslist.to_json
 
+         respond_to do |format|
 
+          format.html{render @jobs}
+          format.js  {render json: @jobslist}
+            # binding.pry
+          end
 
-
+        end 
 
   end
   

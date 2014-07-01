@@ -40,7 +40,7 @@ Shift” OR “Weekends”) ">
 <div class="form-group">
     <%= label_tag :max_distance, "Maximum Distance(Kms)", :class=>"col-sm-8 control-label btn_text"  %>
       <div class="col-sm-4">
-          <%= text_field_tag :max_distance , nil, {:class=>'form-control', :value=>@max_distance} %>
+          <%= text_field_tag :max_distance , nil, {:class=>'form-control', :id=>'max_distance'} %>
       </div>
 
   </div>
@@ -294,81 +294,11 @@ Displaying 1 to 10 of 26 Listing
     </label>
   </div></div>
   </div>
-
+<div id="all_jobs">
 <% if @jobs.present? %>
-  <% @jobs.each do |j| %>
-<div class="job">
-<div class="col-lg-12 topfilde borlist">
-    <br>
-
-    <div class="col-lg-2 col-lg-6">
-    <div class="form-group ">
-    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
-    <div class="col-sm-7">
-      <span class="form-control"><%=j.id rescue "" %></span>
-    </div>
-  </div></div>
-  
-  
-  
-   <div class="col-lg-3">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.work_duration rescue "" %></span>
-    </div>
-  </div></div>
-    
-   <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.desired_wage rescue "" %></span>
-    </div>
-  </div></div>
-  
-  <div class="col-lg-3">
-    <div class="form-group">
-    <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.max_wage rescue "" %></span>
-    </div>
-  </div></div>
-  
-  </div>
-
-<div class="col-lg-12 topfilde1">
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
-    <div class="col-sm-9">
-      <span class="form-control"><%=j.title rescue "" %></span>
-    </div>
-  </div></div>
-  
-  
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
-    <div class="col-sm-4">
-      <span class="form-control"><%=j.hours_per_day rescue "" %></span>
-    </div>
-  </div></div>
-  
-  <div class="col-lg-4">
-    <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
-    <div class="col-sm-5">
-      <span class="form-control"><%=j.start_date rescue "" %></span>
-    </div>
-  </div></div>
-  
-          
-     </div>
-
- </div>    
-  <% end %> 
-<% end %>      
+  <%=render @jobs %>
+<% end %>
+ </div>       
 </div> 
 
 
@@ -386,28 +316,133 @@ Displaying 1 to 10 of 26 Listing
 
 <%=render 'home/footer'%>
 
-<%#= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
 
 <script>
-//alert(autocomplete_items);
-
-
-
-
 
    $(document).ready(function() {
 
-    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],13);
+    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],5);
     var googleLayer = new L.Google('ROADMAP');
     map.addLayer(googleLayer);
+    <%if @jobs%>
+      <% @jobs.each do |j|%>
+      var  marker = new L.marker([<%=j.location.lat%>,<%=j.location.lng%>]);
+       map.addLayer(marker);
+     <% end %>
+    <% end  %>
+
+      $("#search_form").on("ajax:success", function(e, json, status, xhr) {
+
+        // alert('on page');
+            // map.remove();
+
+       $.each($.parseJSON(json), function(idx, obj) {
+            // alert(obj.id);
+          if (obj.lat && obj.lng){
+
+             var  marker = new L.marker([obj.lat,obj.lng]);
+              map.addLayer(marker);
+          }
+
+     });
+
+         $("#all_jobs").children().remove();
+
+        $.each($.parseJSON(json), function(idx, obj) {
+          var source = $("#some-template").html(); 
+          var template = Handlebars.compile(source); 
+          $('#all_jobs').append(template(obj));
+            
+
+
+      });
 
 
 
+    });
 });
 
-  
-
-
 </script>
+
+
+
+<script id="some-template" type="text/x-handlebars-template">
+
+<div class="job">
+<div class="col-lg-12 topfilde borlist">
+    <br>
+
+    <div class="col-lg-2 col-lg-6">
+    <div class="form-group ">
+    <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
+    <div class="col-sm-7">
+      <span class="form-control">{{id}}</span>
+    </div>
+  </div></div>
+  
+  
+  
+   <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Work Duration (days)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{work_duration}}</span>
+    </div>
+  </div></div>
+    
+   <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Desired Wage ($/hr)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{desired_wage}}</span>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-3">
+    <div class="form-group">
+    <label class="col-sm-7 labl" for="inputPassword">Max Wage ($/hr)</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{max_wage}}</span>
+    </div>
+  </div></div>
+  
+  </div>
+
+<div class="col-lg-12 topfilde1">
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-3 labl" for="inputPassword">Job Title</label>
+    <div class="col-sm-9">
+      <span class="form-control">{{title}}</span>
+    </div>
+  </div></div>
+  
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
+    <div class="col-sm-4">
+      <span class="form-control">{{hours_per_day}}</span>
+    </div>
+  </div></div>
+  
+  <div class="col-lg-4">
+    <div class="form-group">
+    <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
+    <div class="col-sm-5">
+      <span class="form-control">{{start_date}}</span>
+    </div>
+  </div></div>
+  
+          
+     </div>
+
+
+  </div>
+</script>
+
+
+
+
 
 

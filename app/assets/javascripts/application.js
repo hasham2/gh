@@ -16,6 +16,7 @@
 //= require jquery.ui.all
 //= require gmaps-auto-complete
 //= require bootstrap
+//= require handlebars
 
 //= require certifications
 //= require requirements
