@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
-   autocomplete :certification, :name,:full => true,:column_name => 'title'
+  autocomplete :certification, :name,:full => true,:column_name => 'title'
 
 
   def index
@@ -150,51 +150,51 @@ def search
 
     # binding.pry 
     @fixed_price = params[:fixed_price]
-     @req_ids = params[:req_ids]
-     @certificate_ids = params[:certificate_ids].values rescue nil
-     if @certificate_ids != nil
+    @req_ids = params[:req_ids]
+    @certificate_ids = params[:certificate_ids].values rescue nil
+    if @certificate_ids != nil
      @certificate_ids.reject! { |c| c.empty? }
-     end
+   end
 
-    if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
-      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
-      if @jobs
-        job_ids = Array.new
-        @jobs.each do |j|
-          job_ids<<j.id
-        end
-        @jobs = Job.where('id in (?)', job_ids).includes(location)
+   if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
+    @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
+    if @jobs
+      job_ids = Array.new
+      @jobs.each do |j|
+        job_ids<<j.id
+      end
+      @jobs = Job.where('id in (?)', job_ids).includes(location)
         # binding.pry
-        end
+      end
       
     end
 
 
 
 
-        if request.xhr? 
+    if request.xhr?
+      if @jobs
+        @jobslist = @jobs.map do |j|
+          {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+        end
+      end 
 
-            @jobslist = @jobs.map do |j|
-              {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
-            end
-            # json = @jobslist.to_json
+      respond_to do |format|
 
-         respond_to do |format|
-
-          format.html{render @jobs}
-          format.js  {render json: @jobslist}
+        format.html{render @jobs}
+        format.js  {render json: @jobslist}
             # binding.pry
           end
 
         end 
 
-  end
-  
-  def make_primary_photo
-    @job_id = session[:job_id]
-    @job = Job.find(@job_id)
+      end
+      
+      def make_primary_photo
+        @job_id = session[:job_id]
+        @job = Job.find(@job_id)
 
-    @all_photos = @job.photos.all
+        @all_photos = @job.photos.all
       # make all photos unprimary
       @all_photos.each do |p|
         p.update_attributes(:is_primary=>nil) 
