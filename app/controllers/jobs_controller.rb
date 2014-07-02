@@ -114,6 +114,7 @@ end
   end
 
   def search
+    
       if params[:lat].blank? || params[:lng].blank?
           # Geocode the address
           resp = Geocoder.search("#{params['gmaps-input-address']}")
@@ -170,8 +171,6 @@ end
           end 
 
           respond_to do |format|
-
-            format.html{render @jobs}
             format.js  {render json: @jobslist}
                 # binding.pry
               end

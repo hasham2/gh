@@ -335,35 +335,67 @@ Displaying 1 to 10 of 26 Listing
        <% end %>
       <% end  %>
 
-      /*-----Handling Ajax Resposnse on the submit of Search Form-----*/
-      $("#search_form").on("ajax:success", function(e, json, status, xhr) {
-          /*Remove already placed markers FROM THE MAP*/
-           $.each(markers, function(idx, obj) {
-               map.removeLayer(markers[idx]);
-          });
-          /*----Remove already placed markers FROM THE ARRAY----*/
-          markers=[];
-          /*----Placing New Markers On the Map and on Markers Array----*/      
-           $.each($.parseJSON(json), function(idx, obj) {
-                // alert(obj.id);
-              if (obj.lat && obj.lng){
 
-                 var  marker = new L.marker([obj.lat,obj.lng]);
-                  map.addLayer(marker);
-                  markers.push(marker);
-              }
-          });
-           /*-------Removing Old Jobs from page-------*/
-           $("#all_jobs").children().remove();
-           /*---------Placing New Jobs on page---------*/
-           $.each($.parseJSON(json), function(idx, obj) {
-             var source = $("#some-template").html(); 
-             var template = Handlebars.compile(source); 
-             $('#all_jobs').append(template(obj));          
-          });
+      $("#search_form input").change(function(){
+          address_val = $('#gmaps-input-address').val();
+          max_distance_val = $('#max_distance').val();
+          hourly_pay_val = $('#hourly_pay').val();
+          fixed_price_val = $('#fixed_price').val();
+          max_days_listed_val = $('#max_days_listed').val();
+          earliest_start_date_val = $('#earliest_start_date').val();
+          job_level_val = $("#search_form input[name='job_level']:checked").val();
+          req_ids_vals = [];
+          $("#search_form input[name='req_ids[]']:checked").each(function() {
+              req_ids_vals.push($(this).val());
 
-    });
+          });
+        var data_to_send =   { max_distance:max_distance_val,
+                              hourly_pay:hourly_pay_val,
+                               fixed_price:fixed_price_val,
+                                max_days_listed:max_days_listed_val,
+                                 earliest_start_date:earliest_start_date_val,
+                                 job_level:job_level_val,
+                                 'gmaps-input-address':address_val,
+                                 req_ids:req_ids_vals }
+        $.ajax({
+           method:'get',
+           url:'./search',
+           data:data_to_send,
+           success:function(json){
+                    /*Remove already placed markers FROM THE MAP*/
+                     $.each(markers, function(idx, obj) {
+                         map.removeLayer(markers[idx]);
+                    });
+                    /*----Remove already placed markers FROM THE ARRAY----*/
+                    markers=[];
+                    /*----Placing New Markers On the Map and on Markers Array----*/      
+                     $.each($.parseJSON(json), function(idx, obj) {
+                          // alert(obj.id);
+                        if (obj.lat && obj.lng){
+
+                           var  marker = new L.marker([obj.lat,obj.lng]);
+                            map.addLayer(marker);
+                            markers.push(marker);
+                        }
+                    });
+
+                    /*-------Removing Old Jobs from page-------*/
+                    $("#all_jobs").children().remove();
+                    /*---------Placing New Jobs on page---------*/
+                    $.each($.parseJSON(json), function(idx, obj) {
+                      var source = $("#some-template").html(); 
+                      var template = Handlebars.compile(source); 
+                      $('#all_jobs').append(template(obj));          
+                   });
+           }
+         });
+
+
+      });
+
+
 });
+
 
 </script>
 
