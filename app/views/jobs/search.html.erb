@@ -320,44 +320,47 @@ Displaying 1 to 10 of 26 Listing
 <script>
 
    $(document).ready(function() {
+      /*-------Placing the Map on Page load in map div-------*/
+      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],7);
+      var googleLayer = new L.Google('ROADMAP');
+      map.addLayer(googleLayer);
+      /*Array to store markers placed on map*/
+      var markers = []
+      /*-----Placing Markers when page loads first time-----*/
+      <%if @jobs%>
+        <% @jobs.each do |j|%>
+        var  marker = new L.marker([<%=j.location.lat%>,<%=j.location.lng%>]);
+         map.addLayer(marker);
+         markers.push(marker);
+       <% end %>
+      <% end  %>
 
-    var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],5);
-    var googleLayer = new L.Google('ROADMAP');
-    map.addLayer(googleLayer);
-    <%if @jobs%>
-      <% @jobs.each do |j|%>
-      var  marker = new L.marker([<%=j.location.lat%>,<%=j.location.lng%>]);
-       map.addLayer(marker);
-     <% end %>
-    <% end  %>
-
+      /*-----Handling Ajax Resposnse on the submit of Search Form-----*/
       $("#search_form").on("ajax:success", function(e, json, status, xhr) {
+          /*Remove already placed markers FROM THE MAP*/
+           $.each(markers, function(idx, obj) {
+               map.removeLayer(markers[idx]);
+          });
+          /*----Remove already placed markers FROM THE ARRAY----*/
+          markers=[];
+          /*----Placing New Markers On the Map and on Markers Array----*/      
+           $.each($.parseJSON(json), function(idx, obj) {
+                // alert(obj.id);
+              if (obj.lat && obj.lng){
 
-        // alert('on page');
-            // map.remove();
-
-       $.each($.parseJSON(json), function(idx, obj) {
-            // alert(obj.id);
-          if (obj.lat && obj.lng){
-
-             var  marker = new L.marker([obj.lat,obj.lng]);
-              map.addLayer(marker);
-          }
-
-     });
-
-         $("#all_jobs").children().remove();
-
-        $.each($.parseJSON(json), function(idx, obj) {
-          var source = $("#some-template").html(); 
-          var template = Handlebars.compile(source); 
-          $('#all_jobs').append(template(obj));
-            
-
-
-      });
-
-
+                 var  marker = new L.marker([obj.lat,obj.lng]);
+                  map.addLayer(marker);
+                  markers.push(marker);
+              }
+          });
+           /*-------Removing Old Jobs from page-------*/
+           $("#all_jobs").children().remove();
+           /*---------Placing New Jobs on page---------*/
+           $.each($.parseJSON(json), function(idx, obj) {
+             var source = $("#some-template").html(); 
+             var template = Handlebars.compile(source); 
+             $('#all_jobs').append(template(obj));          
+          });
 
     });
 });
@@ -365,7 +368,7 @@ Displaying 1 to 10 of 26 Listing
 </script>
 
 
-
+<--!  Template to show Job on Search Page-->
 <script id="some-template" type="text/x-handlebars-template">
 
 <div class="job">

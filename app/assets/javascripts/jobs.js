@@ -33,3 +33,23 @@ $(document).ready(function(){
 $(document).ready(function(){
   $('#max_distance').val(25);
 });
+
+
+$(document).ready(function(){
+
+  /*****enable text field based upon selection of radio butoon in search ********/
+    $('.enable_checkbox').click(function(){
+      if($('#enable_radio_button_1').is(":checked")){
+        $('#hourly_pay').attr('disabled',false)
+        $('#fixed_price').attr('disabled',true).val('');   
+      }
+      if ($('#enable_radio_button_2').is(":checked")) {
+      $('#hourly_pay').attr('disabled',true).val(''); 
+        $('#fixed_price').attr('disabled',false); 
+      };
+      
+    });
+});
+
+
+

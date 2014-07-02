@@ -106,89 +106,79 @@ else
    format.js
  end
 end
-def destroy
-  @job = Job.find(params[:id])
-  if @job.destroy
-    redirect_to jobs_path, :notice=>'Job Deleted'
+  def destroy
+    @job = Job.find(params[:id])
+    if @job.destroy
+      redirect_to jobs_path, :notice=>'Job Deleted'
+    end
   end
-end
 
-def search
-  # @auto = Requirement.all
-  # @autocomplete_items =@auto.to_json
-
-
-
-#   @autocomplete_items  = @auto
-  # binding.pry 
-
-  if params[:lat].blank? || params[:lng].blank?
-      # Geocode the address
-      resp = Geocoder.search("#{params['gmaps-input-address']}")
-      @lat = resp.first.latitude rescue nil
-      @lng = resp.first.longitude rescue nil
-    else
-      @lat = params[:lat]
-      @lng = params[:lng]
-    end
-    #-------------------------------------------------------------#
-
-    @requirements = Requirement.where(:employer_id=>nil)
-    @address = params['gmaps-input-address']
-    if params[:max_distance].present?
-      @max_distance = params[:max_distance]
-    else
-      @max_distance = 25
-    end
-
-
-
-    @hourly_pay = params[:hourly_pay]
-    @max_days_listed = params[:max_days_listed]
-    @earliest_start_date = params[:earliest_start_date]
-    @job_level = params[:job_level]
-
-    # binding.pry 
-    @fixed_price = params[:fixed_price]
-    @req_ids = params[:req_ids]
-    @certificate_ids = params[:certificate_ids].values rescue nil
-    if @certificate_ids != nil
-     @certificate_ids.reject! { |c| c.empty? }
-   end
-
-   if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
-    @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
-    if @jobs
-      job_ids = Array.new
-      @jobs.each do |j|
-        job_ids<<j.id
+  def search
+      if params[:lat].blank? || params[:lng].blank?
+          # Geocode the address
+          resp = Geocoder.search("#{params['gmaps-input-address']}")
+          @lat = resp.first.latitude rescue nil
+          @lng = resp.first.longitude rescue nil
+      else
+        @lat = params[:lat]
+        @lng = params[:lng]
       end
-      @jobs = Job.where('id in (?)', job_ids).includes(location)
-        # binding.pry
+      #-------------------------------------------------------------#
+
+      @requirements = Requirement.where(:employer_id=>nil)
+      @address = params['gmaps-input-address']
+      if params[:max_distance].present?
+        @max_distance = params[:max_distance]
+      else
+        @max_distance = 25
       end
+
+      @hourly_pay = params[:hourly_pay]
+      @fixed_price = params[:fixed_price]
+      @max_days_listed = params[:max_days_listed]
+      @earliest_start_date = params[:earliest_start_date]
+      @job_level = params[:job_level]
+      @req_ids = params[:req_ids]
+
+      @certificate_ids = params[:certificate_ids].values rescue nil
+      if @certificate_ids != nil
+       @certificate_ids.reject! { |c| c.empty? }
+     end
+
+     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
+      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
       
-    end
+        if @jobs
+            job_ids = Array.new
+            @jobs.each do |j|
+              job_ids<<j.id
+            end
 
-
-
-
-    if request.xhr?
-      if @jobs
-        @jobslist = @jobs.map do |j|
-          {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+            @jobs = Job.where('id in (?)', job_ids).includes(location)
         end
+        
+      end
+
+
+
+
+      if request.xhr?
+          if @jobs
+            @jobslist = @jobs.map do |j|
+              {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+            end
+          end 
+
+          respond_to do |format|
+
+            format.html{render @jobs}
+            format.js  {render json: @jobslist}
+                # binding.pry
+              end
+
       end 
 
-      respond_to do |format|
-
-        format.html{render @jobs}
-        format.js  {render json: @jobslist}
-            # binding.pry
-          end
-
-        end 
-
-      end
+  end
       
       def make_primary_photo
         @job_id = session[:job_id]
