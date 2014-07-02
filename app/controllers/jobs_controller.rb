@@ -138,7 +138,7 @@ def search
     if params[:max_distance].present?
       @max_distance = params[:max_distance]
     else
-      @max_distance = 25
+      @max_distance = 2500
     end
 
 
@@ -158,36 +158,38 @@ def search
 
     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
       @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
+       
       if @jobs
         job_ids = Array.new
         @jobs.each do |j|
           job_ids<<j.id
         end
-        @jobs = Job.where('id in (?)', job_ids).includes(location)
-        # binding.pry
+       
+        @jobs = Job.where('id in (?)', job_ids)
+        # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
+        @jobs = @jobs.page(params[:page]).per(2)
+        
+       
         end
       
-    end
+    end    
+    if request.xhr? 
+        if @jobs
+        @jobslist = @jobs.map do |j|
+          {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+        end
+      end
+        # json = @jobslist.to_json
 
+     respond_to do |format|
 
+      format.html{render @jobs}
+      format.js  {render json: @jobslist}
+        # binding.pry
+      end
 
-
-        if request.xhr? 
-
-            @jobslist = @jobs.map do |j|
-              {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
-            end
-            # json = @jobslist.to_json
-
-         respond_to do |format|
-
-          format.html{render @jobs}
-          format.js  {render json: @jobslist}
-            # binding.pry
-          end
-
-        end 
-
+    end 
+    # @jobs = Job.all
   end
   
   def make_primary_photo

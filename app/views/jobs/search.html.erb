@@ -138,7 +138,7 @@ Shift” OR “Weekends”) ">
 <h2>Education and Certifications</h2>
 <br>
 
-      <div style="margin:10px 0 53px 0;">
+      <div style="margin:10px 0 53px 0;" class='delete_text'>
     <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
     <%#= text_field_tag '' , nil, {id:"auto_complete",:class=>'form-control'} %>
    <%=form_tag '' do %>
@@ -148,7 +148,7 @@ Shift” OR “Weekends”) ">
 </div>
     </div>
     
-    <div style="margin:10px 0 95px 0;">
+    <div style="margin:10px 0 95px 0;" class='delete_text'>
     <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
     <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_1', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
@@ -157,7 +157,7 @@ Shift” OR “Weekends”) ">
     </div>
     
     
-    <div style="margin:10px 0 140px 0;">
+    <div style="margin:10px 0 140px 0;" class='delete_text'>
     <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
     <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_2', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
@@ -165,7 +165,7 @@ Shift” OR “Weekends”) ">
   </div>
     </div>
      
-     <div style="margin:10px 0 70px 0;">
+     <div style="margin:10px 0 70px 0;" class='delete_text'>
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
 
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
@@ -242,7 +242,10 @@ Shift” OR “Weekends”) ">
 <div class="col-lg-6 page">
 Displaying 1 to 10 of 26 Listing
 
-<%=image_tag('page_icon.png')%>
+<%= paginate @jobs%>
+
+
+
 </div> 
  
   <div class="col-lg-12 " >
