@@ -138,7 +138,7 @@ def search
     if params[:max_distance].present?
       @max_distance = params[:max_distance]
     else
-      @max_distance = 2500
+      @max_distance = 25
     end
 
 
@@ -164,23 +164,19 @@ def search
         @jobs.each do |j|
           job_ids<<j.id
         end
-       
         @jobs = Job.where('id in (?)', job_ids)
         # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
-        @jobs = @jobs.page(params[:page]).per(2)
-        
-       
         end
-      
     end    
     if request.xhr? 
         if @jobs
+
         @jobslist = @jobs.map do |j|
           {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
         end
       end
         # json = @jobslist.to_json
-
+        @jobs = @jobs.page(params[:page]).per(2) if @jobs
      respond_to do |format|
 
       format.html{render @jobs}

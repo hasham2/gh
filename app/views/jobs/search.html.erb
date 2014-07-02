@@ -241,9 +241,11 @@ Shift” OR “Weekends”) ">
   
 <div class="col-lg-6 page">
 Displaying 1 to 10 of 26 Listing
-
+<%# binding.pry %>
+<% if @jobs%>
+ <!-- binding.pry  -->
 <%= paginate @jobs%>
-
+<% end %>
 
 
 </div> 
