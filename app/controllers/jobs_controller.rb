@@ -187,7 +187,21 @@ def search
     end 
     # @jobs = Job.all
   end
-  
+  def autocomplete_suggestion
+    
+    if params[:term]
+      
+      @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
+      # @certification = Certification.where('title LIKE ?', "%#{params[:term]}%")
+      # @requirements.merge(@certification)
+    else
+      @requirements = Requirement.all
+    end
+    respond_to do |format|  
+        format.json { render :json => @requirements.to_json }
+
+        end
+  end
   def make_primary_photo
     @job_id = session[:job_id]
     @job = Job.find(@job_id)

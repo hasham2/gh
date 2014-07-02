@@ -41,6 +41,7 @@ Gh::Application.routes.draw do
   resources :certifications
   resources :jobs do
      get :autocomplete_certification_name, :on => :collection
+     get :autocomplete_suggestion,:on =>:collection
      member do
       post 'make_primary_photo'
       post 'delete_photo'
