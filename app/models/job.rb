@@ -18,7 +18,7 @@ class Job < ActiveRecord::Base
 
 
 
-   def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certificate_ids)
+   def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certifications_and_requirements_ids)
 
     unless max_distance.blank?
       @jobs = Array.new
@@ -45,6 +45,7 @@ class Job < ActiveRecord::Base
       end
       @jobs = hourly_pay_based_jobs
    end
+
    unless fixed_price.blank?
       fixed_price_based_jobs = Array.new
       # binding.pry 
@@ -86,7 +87,6 @@ class Job < ActiveRecord::Base
       @jobs = earliest_start_date_based_jobs
     end
 
-
     unless job_level.blank?
       job_level_based_jobs = Array.new
      # @jobs = @jobs.where(:job_level=>job_level)
@@ -96,9 +96,9 @@ class Job < ActiveRecord::Base
         end
       end
       @jobs = job_level_based_jobs
-      # binding.pry
-      
+      # binding.pry    
     end
+
     unless req_ids.blank?
 
        req_based_jobs = Array.new
@@ -116,20 +116,21 @@ class Job < ActiveRecord::Base
           end          
       @jobs = req_based_jobs.uniq
     end
-    unless certificate_ids.blank?
+    
+    unless certifications_and_requirements_ids.blank?
          # binding.pry
        certifications_and_requirements_based_jobs = Array.new
            @jobs.each do |j|
             # binding.pry
               if j.certifications.present? or j.requirements.present?
-                certificate_ids.each do |r_i|
+                certifications_and_requirements_ids.each do |r_i|
                   j.certifications.each do |r|
                     if r.id == r_i.to_i  
                     certifications_and_requirements_based_jobs << j                        
                     end
                   end    
                 end 
-                certificate_ids.each do |r_i|
+                certifications_and_requirements_ids.each do |r_i|
                   j.requirements.each do |r|
                     if r.id == r_i.to_i  
                     certifications_and_requirements_based_jobs << j                        
@@ -139,6 +140,7 @@ class Job < ActiveRecord::Base
               end
           end          
       @jobs = certifications_and_requirements_based_jobs.uniq
+       # binding.pry 
     end
 
 

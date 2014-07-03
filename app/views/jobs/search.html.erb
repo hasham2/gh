@@ -361,9 +361,14 @@ Displaying 1 to 10 of 26 Listing
           max_days_listed_val = $('#max_days_listed').val();
           earliest_start_date_val = $('#earliest_start_date').val();
           job_level_val = $("#search_form input[name='job_level']:checked").val();
-          req_ids_vals = [];
+          req_ids_vals = [];     
           $("#search_form input[name='req_ids[]']:checked").each(function() {
               req_ids_vals.push($(this).val());
+
+          });
+          certificate_ids_vals = [];
+          $("#search_form input[name='certificate_ids[]']:checked").each(function() {
+              certificate_ids_vals.push($(this).val());
 
           });
         var data_to_send =   { max_distance:max_distance_val,
@@ -373,7 +378,8 @@ Displaying 1 to 10 of 26 Listing
                                  earliest_start_date:earliest_start_date_val,
                                  job_level:job_level_val,
                                  'gmaps-input-address':address_val,
-                                 req_ids:req_ids_vals }
+                                 req_ids:req_ids_vals,
+                                 certificate_ids:certificate_ids_vals }
         $.ajax({
            method:'get',
            url:'./search',

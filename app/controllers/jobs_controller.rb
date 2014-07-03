@@ -140,13 +140,13 @@ def search
       @job_level = params[:job_level]
       @req_ids = params[:req_ids]
 
-      @certificate_ids = params[:certificate_ids].values rescue nil
-      if @certificate_ids != nil
-       @certificate_ids.reject! { |c| c.empty? }
+      @certifications_and_requirements_ids = params[:certificate_ids]
+      if @certifications_and_requirements_ids != nil
+       @certifications_and_requirements_ids.reject! { |c| c.empty? }
      end
 
-     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
-      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
+     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present? || @req_ids.present? || @certifications_and_requirements_ids.present?)
+      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids, @certifications_and_requirements_ids)
 
       if @jobs
         job_ids = Array.new
@@ -173,10 +173,12 @@ def search
     end 
     # @jobs = Job.all
   end
+
+
   def autocomplete_suggestion
 
     if params[:term]  
-      @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
+      @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%").where(:employer_id=>nil)
       @certifications = Certification.where('title LIKE ?', "%#{params[:term]}%")
       if @certifications
         @certification_list = @certifications.map do |c|
