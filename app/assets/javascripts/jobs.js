@@ -12,21 +12,23 @@ $(function () {
 
 
 $(document).ready(function(){
-  $('#req_delete1').click(function(){
-   $('#req1').val('');	
- })
+$('#req_delete1').click(function(){
+	$(this).parent('.delete_text').find('input[type=text]').val('')
+	// $('#req1').val('');	
+})
 
-  $('#req_delete2').click(function(){
-   $('#req2').val('');	
- })
+$('#req_delete2').click(function(){
+	$(this).parent('.delete_text').find('input[type=text]').val('')
+})
 
-  $('#req_delete3').click(function(){
-   $('#req3').val('');	
- })
+$('#req_delete3').click(function(){
+	$(this).parent('.delete_text').find('input[type=text]').val('')
+})
 
-  $('#req_delete4').click(function(){
-   $('#req4').val('');	
- })
+$('#req_delete4').click(function(){
+	$(this).parent('.delete_text').find('input[type=text]').val('')
+})
+
 });
 
 

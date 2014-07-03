@@ -1,4 +1,8 @@
-
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker5').datetimepicker();
+            });
+        </script>
 <div class="container">
 <div class="row">
 <div class="container">
@@ -11,16 +15,17 @@
 
 </div>
 
-<%= form_tag("search", method: "get", :remote=>true, :id=>'search_form') do %>
+<%= form_tag("search", method: "get", :id=>'search_form') do %>
 <div class="container">
 
 <div class="col-lg-5 left_filter_outer pull-left">
 <h2>Filters</h2>
 
-   <div class="input-group input-group12">
-      <%= text_field_tag :'gmaps-input-address', nil, {:class=>'form-control', :type=>"Search", :placeholder=>"Where are you...", :value=>@address }%>
-       <div class="input-group-btn">
-           <button id ='search' class="btn btn-info" type='submit'>
+   <div class="input-group "> <!--class = input-group12-->
+      <%= text_field_tag :'gmaps-input-address', nil,{:class=>'form-control',:placeholder=>"Where are you...",
+        :value=>@address, :style=>'height:50px;' }%>
+       <div class="input-group-btn" >
+           <button id ='search' class="btn btn-info" style ='height:50px;'>
            <span class="glyphicon glyphicon-search"></span>
            </button>
        </div>
@@ -91,10 +96,14 @@ Shift” OR “Weekends”) ">
 </div>
 
 <div style="float: left; margin: 7px 0 0 !important; width: 363px;" >  
+
   <div class="form-group">    
-        <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-8 control-label btn_text"  %>
-        <div class="col-sm-4">
-            <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control', :placeholder=>'dd/mm/yyyy' } %>
+        <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-6 control-label btn_text"  %>
+        <div class="col-sm-6 input-group date" data-date-format="MM/DD/YYYY" id="datetimepicker5">
+            <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control start_date validate_date', :placeholder=>'mm//dd/yyyy' } %>
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
         </div>
     </div>
 </div>
@@ -123,7 +132,7 @@ Shift” OR “Weekends”) ">
 <h2>Job Requirements</h2>
 <br>
 <% @requirements.each do |r| %>
-<div class="col-lg-8 pull-left checkjob" >
+<div class="col-lg-6 pull-left checkjob" >
       <div class="checkbox education_checkbox">
     <label>
       <%= check_box_tag('req_ids[]', r.id )%>
@@ -138,17 +147,21 @@ Shift” OR “Weekends”) ">
 <h2>Education and Certifications</h2>
 <br>
 
-      <div style="margin:10px 0 53px 0;">
+      <div style="margin:10px 0 53px 0;" class='delete_text'>
     <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-    <%#= text_field_tag '' , nil, {id:"auto_complete",:class=>'form-control'} %>
+   
    <%=form_tag '' do %>
+
    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-  <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_0', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+    <%= text_field_tag '' , nil, {:id=>"select_origin",:class=>'form-control'} %>
+    <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
+  <%#=autocomplete_field_tag 'Certifications[]', '',autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_0', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+
 
 </div>
     </div>
     
-    <div style="margin:10px 0 95px 0;">
+    <div style="margin:10px 0 95px 0;" class='delete_text'>
     <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
     <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_1', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
@@ -157,7 +170,7 @@ Shift” OR “Weekends”) ">
     </div>
     
     
-    <div style="margin:10px 0 140px 0;">
+    <div style="margin:10px 0 140px 0;" class='delete_text'>
     <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
     <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_2', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
@@ -165,11 +178,12 @@ Shift” OR “Weekends”) ">
   </div>
     </div>
      
-     <div style="margin:10px 0 70px 0;">
+     <div style="margin:10px 0 70px 0;" class='delete_text'>
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
 
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_3', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+
   
  </div>
    <% end %>
@@ -241,8 +255,13 @@ Shift” OR “Weekends”) ">
   
 <div class="col-lg-6 page">
 Displaying 1 to 10 of 26 Listing
+<%# binding.pry %>
+<% if @jobs%>
+ <!-- binding.pry  -->
+<%#= paginate @jobs%>
+<% end %>
 
-<%=image_tag('page_icon.png')%>
+
 </div> 
  
   <div class="col-lg-12 " >
@@ -393,21 +412,20 @@ Displaying 1 to 10 of 26 Listing
 
       });
 
-
 });
 
 
 </script>
 
 
-<--!  Template to show Job on Search Page-->
+<!--  Template to show Job on Search Page-->
 <script id="some-template" type="text/x-handlebars-template">
 
 <div class="job">
 <div class="col-lg-12 topfilde borlist">
     <br>
 
-    <div class="col-lg-2 col-lg-6">
+    <div class="col-lg-2">
     <div class="form-group ">
     <label class="col-sm-5 labl" for="inputPassword">Job ID</label>
     <div class="col-sm-7">
@@ -475,9 +493,45 @@ Displaying 1 to 10 of 26 Listing
 
   </div>
 </script>
+<script type="text/javascript">
+    $(function() {
 
+ // Below is the name of the textfield that will be autocomplete    
+    $('input#select_origin').autocomplete({
+ // This shows the min length of charcters that must be typed before the autocomplete looks for a match.
+            minLength: 2,
+ // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
+            source: '<%= autocomplete_suggestion_jobs_path(:json) %>',
+  // This updates the textfield when you move the updown the suggestions list, with your keyboard. In our case it will reflect the same value that you see in the suggestions which is the person.given_name.
+            focus: function(event, ui) {            
+                $('#select_origin').val(ui.item.name);
+                return false;
+            },
+ // Once a value in the drop down list is selected, do the following:
+            select: function(event, ui) {
+ // place the person.given_name value into the textfield called 'select_origin'...
+                $('#select_origin').val(ui.item.name);
+ // and place the person.id into the hidden textfield called 'link_origin_id'. 
+        $('#link_origin_id').val(ui.item.id);
+                return false;
+            }
+        })
+ // The below code is straight from the jQuery example. It formats what data is displayed in the dropdown box, and can be customized.
+        .data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+          // alert();
+          // if (!item.length) {
+          // alert(item.name);
+            return $( "<li></li>" )
+                .data( "item.uiAutocomplete", item )
+ // For now which just want to show the person.given_name in the list.
+                .append( "<a>" + item.name + "</a>" )
+                .appendTo( ul );
+          // }  
 
+        };
 
+    });
+    </script>
 
 
 

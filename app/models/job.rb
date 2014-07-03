@@ -31,7 +31,7 @@ class Job < ActiveRecord::Base
       end
 
         if @jobs.blank?
-          return     
+          return @jobs     
         end
     end
 
@@ -73,8 +73,8 @@ class Job < ActiveRecord::Base
     unless earliest_start_date.blank?
      earliest_start_date_based_jobs = Array.new
 
-      day = earliest_start_date.split('/')[0].to_i
-      month = earliest_start_date.split('/')[1].to_i
+      month = earliest_start_date.split('/')[0].to_i
+      day = earliest_start_date.split('/')[1].to_i
       year = earliest_start_date.split('/')[2].to_i
       earliest = Date.new(year,month,day)
      @jobs.collect do |j|

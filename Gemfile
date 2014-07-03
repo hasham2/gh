@@ -39,6 +39,7 @@ gem 'jquery-fileupload-rails'
 gem 'rails4-autocomplete'
 gem 'kaminari'
 
+
 # Geolocations
 gem 'geocoder'
 gem 'google_timezone'
