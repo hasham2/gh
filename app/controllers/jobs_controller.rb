@@ -176,16 +176,17 @@ end
   end
   def autocomplete_suggestion
     
-    if params[:term]
+    # if params[:term]
       
-      @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
-      # @certification = Certification.where('title LIKE ?', "%#{params[:term]}%")
-      # @requirements.merge(@certification)
-    else
-      @requirements = Requirement.all
-    end
+      # @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
+      # @certifications = Certification.where('title LIKE ?', "%#{params[:term]}%")
+      
+      @req = Requirement.first
+    # else
+    #   @requirements = Requirement.all
+    # end
     respond_to do |format|  
-        format.json { render :json => @requirements.to_json }
+        format.json { render :json => @req}
 
 
         end
@@ -250,9 +251,11 @@ end
       params.require(:job).permit!    
     end  
     def is_employer
-      unless current_user.role == 'employer'
-        flash[:error] = "Access Dinied"
-        redirect_to root_path
+      if user_signed_in?
+        unless current_user.role == 'employer'
+          flash[:error] = "Access Dinied"
+          redirect_to root_path
+        end
       end
     end
-  end
+end
