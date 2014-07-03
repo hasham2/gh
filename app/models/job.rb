@@ -118,20 +118,27 @@ class Job < ActiveRecord::Base
     end
     unless certificate_ids.blank?
          # binding.pry
-       certifications_based_jobs = Array.new
+       certifications_and_requirements_based_jobs = Array.new
            @jobs.each do |j|
             # binding.pry
-              if j.certifications.present?
+              if j.certifications.present? or j.requirements.present?
                 certificate_ids.each do |r_i|
                   j.certifications.each do |r|
                     if r.id == r_i.to_i  
-                    certifications_based_jobs << j                        
+                    certifications_and_requirements_based_jobs << j                        
+                    end
+                  end    
+                end 
+                certificate_ids.each do |r_i|
+                  j.requirements.each do |r|
+                    if r.id == r_i.to_i  
+                    certifications_and_requirements_based_jobs << j                        
                     end
                   end    
                 end 
               end
           end          
-      @jobs = certifications_based_jobs.uniq
+      @jobs = certifications_and_requirements_based_jobs.uniq
     end
 
 
