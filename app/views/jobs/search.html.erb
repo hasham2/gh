@@ -340,7 +340,7 @@ Displaying 1 to 10 of 26 Listing
 
    $(document).ready(function() {
       /*-------Placing the Map on Page load in map div-------*/
-      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],7);
+      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],9);
       var googleLayer = new L.Google('ROADMAP');
       map.addLayer(googleLayer);
       /*Array to store markers placed on map*/
