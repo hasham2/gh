@@ -54,5 +54,10 @@ $(document).ready(function(){
 });
 
 
+$(function () {
+    $('#earliest_start_date_datepicker').datetimepicker();
+});
+
+
 
 
