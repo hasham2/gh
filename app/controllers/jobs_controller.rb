@@ -114,7 +114,6 @@ def destroy
 end
 
 def search
-  binding.pry 
   if params[:lat].blank? || params[:lng].blank?
           # Geocode the address
           resp = Geocoder.search("#{params['gmaps-input-address']}")
