@@ -371,24 +371,24 @@ Displaying 1 to 10 of 26 Listing
               certificate_ids_vals.push($(this).val());
 
           });
-        var data_to_send =   { max_distance:max_distance_val,
-                              hourly_pay:hourly_pay_val,
-                               fixed_price:fixed_price_val,
-                                max_days_listed:max_days_listed_val,
-                                 earliest_start_date:earliest_start_date_val,
-                                 job_level:job_level_val,
-                                 'gmaps-input-address':address_val,
-                                 req_ids:req_ids_vals,
-                                 certificate_ids:certificate_ids_vals }
-        $.ajax({
-           method:'get',
-           url:'./search',
-           data:data_to_send,
-           success:function(json){
-                  place_markers(json);
-                  place_jobs(json);
-           }
-         });
+          var data_to_send =   { max_distance:max_distance_val,
+                                hourly_pay:hourly_pay_val,
+                                 fixed_price:fixed_price_val,
+                                  max_days_listed:max_days_listed_val,
+                                   earliest_start_date:earliest_start_date_val,
+                                   job_level:job_level_val,
+                                   'gmaps-input-address':address_val,
+                                   req_ids:req_ids_vals,
+                                   certificate_ids:certificate_ids_vals }
+          $.ajax({
+             method:'get',
+             url:'./search',
+             data:data_to_send,
+             success:function(json){
+                    place_markers(json);
+                    place_jobs(json);
+             }
+           });
 
       }
 
@@ -503,6 +503,8 @@ Displaying 1 to 10 of 26 Listing
 
   </div>
 </script>
+
+
 <script type="text/javascript">
 /**************Auto complete certification and requiremtent in search************/
 $(function() {
@@ -544,9 +546,6 @@ $(function() {
     
   });
 
-
-
-   
     </script>
 
 
