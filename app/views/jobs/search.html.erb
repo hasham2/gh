@@ -94,7 +94,7 @@ Shift” OR “Weekends”) ">
 
   <div class="form-group">    
         <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-6 control-label btn_text"  %>
-        <div class="col-sm-6 input-group date" data-date-format="MM/DD/YYYY" id="datetimepicker5">
+        <div class="col-sm-6 input-group date" data-date-format="MM/DD/YYYY" id="earliest_start_date_datepicker">
             <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control start_date validate_date', :placeholder=>'mm//dd/yyyy' } %>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
@@ -349,6 +349,11 @@ Displaying 1 to 10 of 26 Listing
 
 
       $("#search_form input").change(function(){
+        go_for_search();
+      });
+
+
+      function go_for_search (){
           address_val = $('#gmaps-input-address').val();
           max_distance_val = $('#max_distance').val();
           hourly_pay_val = $('#hourly_pay').val();
@@ -374,36 +379,42 @@ Displaying 1 to 10 of 26 Listing
            url:'./search',
            data:data_to_send,
            success:function(json){
-                    /*Remove already placed markers FROM THE MAP*/
-                     $.each(markers, function(idx, obj) {
-                         map.removeLayer(markers[idx]);
-                    });
-                    /*----Remove already placed markers FROM THE ARRAY----*/
-                    markers=[];
-                    /*----Placing New Markers On the Map and on Markers Array----*/      
-                     $.each($.parseJSON(json), function(idx, obj) {
-                          // alert(obj.id);
-                        if (obj.lat && obj.lng){
-
-                           var  marker = new L.marker([obj.lat,obj.lng]);
-                            map.addLayer(marker);
-                            markers.push(marker);
-                        }
-                    });
-
-                    /*-------Removing Old Jobs from page-------*/
-                    $("#all_jobs").children().remove();
-                    /*---------Placing New Jobs on page---------*/
-                    $.each($.parseJSON(json), function(idx, obj) {
-                      var source = $("#some-template").html(); 
-                      var template = Handlebars.compile(source); 
-                      $('#all_jobs').append(template(obj));          
-                   });
+                  place_markers(json);
+                  place_jobs(json);
            }
          });
 
+      }
 
-      });
+      function place_markers(json){
+        /*Remove already placed markers FROM THE MAP*/
+         $.each(markers, function(idx, obj) {
+             map.removeLayer(markers[idx]);
+        });
+        /*----Remove already placed markers FROM THE ARRAY----*/
+        markers=[];
+        /*----Placing New Markers On the Map and on Markers Array----*/      
+         $.each($.parseJSON(json), function(idx, obj) {
+              // alert(obj.id);
+            if (obj.lat && obj.lng){
+
+               var  marker = new L.marker([obj.lat,obj.lng]);
+                map.addLayer(marker);
+                markers.push(marker);
+            }
+        });
+      }
+
+      function place_jobs(json){
+         /*-------Removing Old Jobs from page-------*/
+         $("#all_jobs").children().remove();
+         /*---------Placing New Jobs on page---------*/
+         $.each($.parseJSON(json), function(idx, obj) {
+           var source = $("#some-template").html(); 
+           var template = Handlebars.compile(source); 
+           $('#all_jobs').append(template(obj));          
+        });
+      }
 
 });
 
