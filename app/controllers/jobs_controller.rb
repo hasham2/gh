@@ -176,6 +176,7 @@ def search
   def autocomplete_suggestion
 
     if params[:term]  
+      params[:term] = params[:term].downcase
       @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
       @certifications = Certification.where('title LIKE ?', "%#{params[:term]}%")
       if @certifications

@@ -14,19 +14,23 @@ $(function () {
 $(document).ready(function(){
 $('#req_delete1').click(function(){
 	$(this).parent('.delete_text').find('input[type=text]').val('')
+  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
 	// $('#req1').val('');	
 })
 
 $('#req_delete2').click(function(){
 	$(this).parent('.delete_text').find('input[type=text]').val('')
+  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
 })
 
 $('#req_delete3').click(function(){
 	$(this).parent('.delete_text').find('input[type=text]').val('')
+  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
 })
 
 $('#req_delete4').click(function(){
 	$(this).parent('.delete_text').find('input[type=text]').val('')
+  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
 })
 
 });
@@ -54,5 +58,8 @@ $(document).ready(function(){
 });
 
 $(function () {
-    $('#earliest_start_date_datepicker').datetimepicker();
+    $('#earliest_start_date_datepicker').datetimepicker().change(function () {
+      //alert('hellow');
+    // console.log('hellow ');
+});
 });
