@@ -106,24 +106,24 @@ else
    format.js
  end
 end
-  def destroy
-    @job = Job.find(params[:id])
-    if @job.destroy
-      redirect_to jobs_path, :notice=>'Job Deleted'
-    end
+def destroy
+  @job = Job.find(params[:id])
+  if @job.destroy
+    redirect_to jobs_path, :notice=>'Job Deleted'
   end
+end
 
-  def search
-    
-      if params[:lat].blank? || params[:lng].blank?
+def search
+  binding.pry 
+  if params[:lat].blank? || params[:lng].blank?
           # Geocode the address
           resp = Geocoder.search("#{params['gmaps-input-address']}")
           @lat = resp.first.latitude rescue nil
           @lng = resp.first.longitude rescue nil
-      else
-        @lat = params[:lat]
-        @lng = params[:lng]
-      end
+        else
+          @lat = params[:lat]
+          @lng = params[:lng]
+        end
       #-------------------------------------------------------------#
 
       @requirements = Requirement.where(:employer_id=>nil)
@@ -148,7 +148,7 @@ end
 
      if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present?|| @req_ids.present?||@certificate_ids.present?)
       @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids,@certificate_ids)
-       
+
       if @jobs
         job_ids = Array.new
         @jobs.each do |j|
@@ -156,18 +156,18 @@ end
         end
         @jobs = Job.where('id in (?)', job_ids)
         # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
-        end
+      end
     end    
     if request.xhr? 
-        if @jobs
+      if @jobs
         @jobslist = @jobs.map do |j|
           {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
         end
       end
         # json = @jobslist.to_json
         @jobs = @jobs.page(params[:page]).per(2) if @jobs
-     respond_to do |format|
-      format.js  {render json: @jobslist}
+        respond_to do |format|
+          format.js  {render json: @jobslist}
         # binding.pry
       end
 
@@ -175,28 +175,33 @@ end
     # @jobs = Job.all
   end
   def autocomplete_suggestion
-    
-    # if params[:term]
-      
-      # @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
-      # @certifications = Certification.where('title LIKE ?', "%#{params[:term]}%")
-      
-      @req = Requirement.first
-    # else
-    #   @requirements = Requirement.all
-    # end
-    respond_to do |format|  
-        format.json { render :json => @req}
 
-
+    if params[:term]  
+      @requirements = Requirement.where('name LIKE ?', "%#{params[:term]}%")
+      @certifications = Certification.where('title LIKE ?', "%#{params[:term]}%")
+      if @certifications
+        @certification_list = @certifications.map do |c|
+          {:id => c.id, :name => c.title }
         end
+      end
+      if @requirements
+        @requirement_list = @requirements.map do |r|
+          {:id => r.id, :name => r.name }
+        end
+      end
+      @req = @requirement_list.concat(@certification_list)
+    end
+
+    respond_to do |format|  
+      format.json { render :json => @req}
+    end
   end
 
-      
-      def make_primary_photo
-        @job_id = session[:job_id]
-        @job = Job.find(@job_id)
-        @all_photos = @job.photos.all
+
+  def make_primary_photo
+    @job_id = session[:job_id]
+    @job = Job.find(@job_id)
+    @all_photos = @job.photos.all
       # make all photos unprimary
       @all_photos.each do |p|
         p.update_attributes(:is_primary=>nil) 
@@ -258,4 +263,4 @@ end
         end
       end
     end
-end
+  end

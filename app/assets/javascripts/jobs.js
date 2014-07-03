@@ -52,7 +52,3 @@ $(document).ready(function(){
       
     });
 });
-
-
-
-
