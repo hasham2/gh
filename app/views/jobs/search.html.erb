@@ -1,8 +1,3 @@
-<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker5').datetimepicker();
-            });
-        </script>
 <div class="container">
 <div class="row">
 <div class="container">
@@ -21,11 +16,11 @@
 <div class="col-lg-5 left_filter_outer pull-left">
 <h2>Filters</h2>
 
-   <div class="input-group "> <!--class = input-group12-->
+   <div class="input-group input-group12 "> <!--class = input-group12-->
       <%= text_field_tag :'gmaps-input-address', nil,{:class=>'form-control',:placeholder=>"Where are you...",
-        :value=>@address, :style=>'height:50px;' }%>
+        :value=>@address }%>
        <div class="input-group-btn" >
-           <button id ='search' class="btn btn-info" style ='height:50px;'>
+           <button id ='search' class="btn btn-info">
            <span class="glyphicon glyphicon-search"></span>
            </button>
        </div>
@@ -36,8 +31,8 @@
     <label for="inputEmail3" class="col-sm-2 control-label">Search 
 Criteria</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="“Richmond Hill” AND (“Day  
-Shift” OR “Weekends”) ">
+      <textarea rows="2" cols="30" placeholder="“Richmond Hill” AND (“Day  Shift” OR “Weekends”) " >
+      </textarea>
     </div>
   </div></div>
   
@@ -99,7 +94,7 @@ Shift” OR “Weekends”) ">
 
   <div class="form-group">    
         <%= label_tag :earliest_start_date, "Earliest Start Date", :class=>"col-sm-6 control-label btn_text"  %>
-        <div class="col-sm-6 input-group date" data-date-format="MM/DD/YYYY" id="datetimepicker5">
+        <div class="col-sm-6 input-group date" data-date-format="MM/DD/YYYY" id="earliest_start_date_datepicker">
             <%= text_field_tag :earliest_start_date , nil, {:class=>'form-control start_date validate_date', :placeholder=>'mm//dd/yyyy' } %>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
@@ -153,9 +148,9 @@ Shift” OR “Weekends”) ">
    <%=form_tag '' do %>
 
    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%= text_field_tag '' , nil, {:id=>"select_origin",:class=>'form-control'} %>
-    <input id="link_origin_id" name="link[origin_id]" type="hidden"/>
-  <%#=autocomplete_field_tag 'Certifications[]', '',autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_0', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+    <%= text_field_tag '' , nil, {:id=>"select_origin",:class=>'form-control req_certification_combine',} %>
+    <%= check_box_tag 'certificate_ids[]','', true,{:style=>"display:none;"} %>
+ 
 
 
 </div>
@@ -164,7 +159,9 @@ Shift” OR “Weekends”) ">
     <div style="margin:10px 0 95px 0;" class='delete_text'>
     <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_1', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+      <%= text_field_tag '' , nil, {:id=>"select_origin1",:class=>'form-control req_certification_combine'} %>
+      <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
+      
  
   </div>
     </div>
@@ -173,8 +170,9 @@ Shift” OR “Weekends”) ">
     <div style="margin:10px 0 140px 0;" class='delete_text'>
     <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_2', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
-   
+    <%= text_field_tag '' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
+    <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
+    
   </div>
     </div>
      
@@ -182,18 +180,13 @@ Shift” OR “Weekends”) ">
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
 
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-   <%=autocomplete_field_tag 'Certifications[]', '', autocomplete_certification_name_jobs_path, :update_elements => {:id => '#certificate_ids_3', :slogan => '#some_other_element'},:class=>"form-control", :size => 75%>
+   <%= text_field_tag '' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
+       <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
 
   
  </div>
    <% end %>
     </div>
-    <div style="display:none;">
-      <%= check_box_tag 'certificate_ids[0]','', true %>
-        <%= check_box_tag 'certificate_ids[1]','', true %>
-         <%= check_box_tag 'certificate_ids[2]', '', true %>
-          <%= check_box_tag 'certificate_ids[3]','', true %>
-          </div>
      <div style="float: left; margin: 7px 0 0 !important;">  
 <div class="form-group">
     
@@ -356,6 +349,14 @@ Displaying 1 to 10 of 26 Listing
 
 
       $("#search_form input").change(function(){
+        go_for_search();
+      });
+      $('#earliest_start_date_datepicker').datetimepicker().change(function () {
+           go_for_search();
+      });
+
+
+      function go_for_search (){
           address_val = $('#gmaps-input-address').val();
           max_distance_val = $('#max_distance').val();
           hourly_pay_val = $('#hourly_pay').val();
@@ -363,54 +364,67 @@ Displaying 1 to 10 of 26 Listing
           max_days_listed_val = $('#max_days_listed').val();
           earliest_start_date_val = $('#earliest_start_date').val();
           job_level_val = $("#search_form input[name='job_level']:checked").val();
-          req_ids_vals = [];
+          req_ids_vals = [];     
           $("#search_form input[name='req_ids[]']:checked").each(function() {
               req_ids_vals.push($(this).val());
 
           });
-        var data_to_send =   { max_distance:max_distance_val,
-                              hourly_pay:hourly_pay_val,
-                               fixed_price:fixed_price_val,
-                                max_days_listed:max_days_listed_val,
-                                 earliest_start_date:earliest_start_date_val,
-                                 job_level:job_level_val,
-                                 'gmaps-input-address':address_val,
-                                 req_ids:req_ids_vals }
-        $.ajax({
-           method:'get',
-           url:'./search',
-           data:data_to_send,
-           success:function(json){
-                    /*Remove already placed markers FROM THE MAP*/
-                     $.each(markers, function(idx, obj) {
-                         map.removeLayer(markers[idx]);
-                    });
-                    /*----Remove already placed markers FROM THE ARRAY----*/
-                    markers=[];
-                    /*----Placing New Markers On the Map and on Markers Array----*/      
-                     $.each($.parseJSON(json), function(idx, obj) {
-                          // alert(obj.id);
-                        if (obj.lat && obj.lng){
+          certificate_ids_vals = [];
+          $("#search_form input[name='certificate_ids[]']:checked").each(function() {
+              certificate_ids_vals.push($(this).val());
 
-                           var  marker = new L.marker([obj.lat,obj.lng]);
-                            map.addLayer(marker);
-                            markers.push(marker);
-                        }
-                    });
+          });
+          var data_to_send =   { max_distance:max_distance_val,
+                                hourly_pay:hourly_pay_val,
+                                 fixed_price:fixed_price_val,
+                                  max_days_listed:max_days_listed_val,
+                                   earliest_start_date:earliest_start_date_val,
+                                   job_level:job_level_val,
+                                   'gmaps-input-address':address_val,
+                                   req_ids:req_ids_vals,
+                                   certificate_ids:certificate_ids_vals }
+          $.ajax({
+             method:'get',
+             url:'./search',
+             data:data_to_send,
+             success:function(json){
+                    place_jobs(json);
+                    place_markers(json);
+                    
+             }
+           });
 
-                    /*-------Removing Old Jobs from page-------*/
-                    $("#all_jobs").children().remove();
-                    /*---------Placing New Jobs on page---------*/
-                    $.each($.parseJSON(json), function(idx, obj) {
-                      var source = $("#some-template").html(); 
-                      var template = Handlebars.compile(source); 
-                      $('#all_jobs').append(template(obj));          
-                   });
-           }
-         });
+      }
 
+      function place_markers(json){
+        /*Remove already placed markers FROM THE MAP*/
+         $.each(markers, function(idx, obj) {
+             map.removeLayer(markers[idx]);
+        });
+        /*----Remove already placed markers FROM THE ARRAY----*/
+        markers=[];
+        /*----Placing New Markers On the Map and on Markers Array----*/      
+         $.each($.parseJSON(json), function(idx, obj) {
+              // alert(obj.id);
+            if (obj.lat && obj.lng){
 
-      });
+               var  marker = new L.marker([obj.lat,obj.lng]);
+                map.addLayer(marker);
+                markers.push(marker);
+            }
+        });
+      }
+
+      function place_jobs(json){
+         /*-------Removing Old Jobs from page-------*/
+         $("#all_jobs").children().remove();
+         /*---------Placing New Jobs on page---------*/
+         $.each($.parseJSON(json), function(idx, obj) {
+           var source = $("#some-template").html(); 
+           var template = Handlebars.compile(source); 
+           $('#all_jobs').append(template(obj));          
+        });
+      }
 
 });
 
@@ -493,44 +507,49 @@ Displaying 1 to 10 of 26 Listing
 
   </div>
 </script>
+
+
 <script type="text/javascript">
-    $(function() {
+/**************Auto complete certification and requiremtent in search************/
+$(function() {
+  $('.req_certification_combine').focus(function(){
+    var select = $(this).attr('id');
+       $('#'+select).autocomplete({         
+               minLength: 1,
+    // This is the source of the auocomplete suggestions. In this case a list of names from the object controller, in JSON format.
+               source: '<%= autocomplete_suggestion_jobs_path(:json) %>',
+               focus: function(event, ui) {            
+                   $('#'+select).val(ui.item.name);
 
- // Below is the name of the textfield that will be autocomplete    
-    $('input#select_origin').autocomplete({
- // This shows the min length of charcters that must be typed before the autocomplete looks for a match.
-            minLength: 2,
- // This is the source of the auocomplete suggestions. In this case a list of names from the people controller, in JSON format.
-            source: '<%= autocomplete_suggestion_jobs_path(:json) %>',
-  // This updates the textfield when you move the updown the suggestions list, with your keyboard. In our case it will reflect the same value that you see in the suggestions which is the person.given_name.
-            focus: function(event, ui) {            
-                $('#select_origin').val(ui.item.name);
-                return false;
-            },
- // Once a value in the drop down list is selected, do the following:
-            select: function(event, ui) {
- // place the person.given_name value into the textfield called 'select_origin'...
-                $('#select_origin').val(ui.item.name);
- // and place the person.id into the hidden textfield called 'link_origin_id'. 
-        $('#link_origin_id').val(ui.item.id);
-                return false;
-            }
-        })
- // The below code is straight from the jQuery example. It formats what data is displayed in the dropdown box, and can be customized.
-        .data( "uiAutocomplete" )._renderItem = function( ul, item ) {
-          // alert();
-          // if (!item.length) {
-          // alert(item.name);
-            return $( "<li></li>" )
-                .data( "item.uiAutocomplete", item )
- // For now which just want to show the person.given_name in the list.
-                .append( "<a>" + item.name + "</a>" )
-                .appendTo( ul );
-          // }  
+                   return false;
+               },
+    // Once a value in the drop down list is selected, do the following:
+               select: function(event, ui) {
+    // place the object.name value into the textfield called 'select_origin'...
+                   $('#'+select).val(ui.item.name);
+    // and place the object.id into the hidden textfield called 'link_origin_id'.
+    $('#'+select).siblings('input[type="checkbox"]').val(ui.item.id)
+          // $(this).parent('.delete_text').find('input[type=checkbox]').val(ui.item.id)
+            
+           // $('#link_origin_id').val(ui.item.id);
+                   return false;
+               }
+           })
+    // The below code is straight from the jQuery example. It formats what data is displayed in the dropdown box, and can be customized.
+           .data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+               return $( "<li></li>" )
+                   .data( "item.uiAutocomplete", item )
+    // For now which just want to show the object.name in the list.
+                   .append( "<a>" + item.name + "</a>" )
+                   .appendTo( ul );
+             // }  
 
-        };
+           };
 
-    });
+       });
+    
+  });
+
     </script>
 
 
