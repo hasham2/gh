@@ -16,11 +16,11 @@
 <div class="col-lg-5 left_filter_outer pull-left">
 <h2>Filters</h2>
 
-   <div class="input-group "> <!--class = input-group12-->
+   <div class="input-group input-group12 "> <!--class = input-group12-->
       <%= text_field_tag :'gmaps-input-address', nil,{:class=>'form-control',:placeholder=>"Where are you...",
-        :value=>@address, :style=>'height:50px;' }%>
+        :value=>@address }%>
        <div class="input-group-btn" >
-           <button id ='search' class="btn btn-info" style ='height:50px;'>
+           <button id ='search' class="btn btn-info">
            <span class="glyphicon glyphicon-search"></span>
            </button>
        </div>
@@ -31,8 +31,8 @@
     <label for="inputEmail3" class="col-sm-2 control-label">Search 
 Criteria</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="“Richmond Hill” AND (“Day  
-Shift” OR “Weekends”) ">
+      <textarea rows="2" cols="30" placeholder="“Richmond Hill” AND (“Day  Shift” OR “Weekends”) " >
+      </textarea>
     </div>
   </div></div>
   
@@ -351,6 +351,9 @@ Displaying 1 to 10 of 26 Listing
       $("#search_form input").change(function(){
         go_for_search();
       });
+      $('#earliest_start_date_datepicker').datetimepicker().change(function () {
+           go_for_search();
+      });
 
 
       function go_for_search (){
@@ -385,8 +388,9 @@ Displaying 1 to 10 of 26 Listing
              url:'./search',
              data:data_to_send,
              success:function(json){
-                    place_markers(json);
                     place_jobs(json);
+                    place_markers(json);
+                    
              }
            });
 
@@ -511,7 +515,7 @@ $(function() {
   $('.req_certification_combine').focus(function(){
     var select = $(this).attr('id');
        $('#'+select).autocomplete({         
-               minLength: 2,
+               minLength: 1,
     // This is the source of the auocomplete suggestions. In this case a list of names from the object controller, in JSON format.
                source: '<%= autocomplete_suggestion_jobs_path(:json) %>',
                focus: function(event, ui) {            

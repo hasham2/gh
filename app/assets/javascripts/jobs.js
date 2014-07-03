@@ -56,10 +56,3 @@ $(document).ready(function(){
       
     });
 });
-
-$(function () {
-    $('#earliest_start_date_datepicker').datetimepicker().change(function () {
-      alert('hellow');
-    console.log('hellow ');
-});
-});

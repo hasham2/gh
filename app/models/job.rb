@@ -138,7 +138,8 @@ class Job < ActiveRecord::Base
                   end    
                 end 
               end
-          end          
+          end   
+          # binding.pry        
       @jobs = certifications_and_requirements_based_jobs.uniq
        # binding.pry 
     end
