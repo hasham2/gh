@@ -42,7 +42,7 @@
 //= require turbolinks
 
 //= require_tree .
-
+L.Icon.Default.imagePath = '/assets/images';
 jQuery(function() {
    $('#user_certificate_list').tokenInput('./tags.json', {
     propertyToSearch: 'title'
