@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:search, :show]
   before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
   autocomplete :certification, :name,:full => true,:column_name => 'title'
 
@@ -27,17 +28,30 @@ class JobsController < ApplicationController
     @employer_job_id = params[:employer_job_id]
     @job = Job.find(params[:id])
 
-    @user_primary_photo = current_user.photos.where(:is_primary=>true)
+    
+
+    if @job.user && @job.user.employer
+      #Business Name
+      @business_name = @job.user.employer.business_name
+      #Member Since
+      @member_since = @job.user.created_at
+      # Employer's Primary Image
+      @user_primary_photo = @job.user.photos.where(:is_primary=>true)
+
+      # Active Jobs of Employer
+      @active_listings = @job.user.jobs.where(:active_job=>true).count
+      # Total Jobs of Employer
+      @total_listings = @job.user.jobs.count
+      
+    end
+
 
     # Total Views of a Job
     @counter = @job.views  
-    @counter = @counter
+    @counter = @counter+1
     @job.update_attributes(:views=>@counter)
 
-    # Active Jobs of Employer
-    @active_listings = current_user.jobs.where(:active_job=>true).count
-    # Total Jobs of Employer
-    @total_listings = current_user.jobs.count
+
   end
 
   def edit
@@ -140,13 +154,13 @@ def search
       @job_level = params[:job_level]
       @req_ids = params[:req_ids]
 
-      @certifications_and_requirements_ids = params[:certificate_ids]
-      if @certifications_and_requirements_ids != nil
-       @certifications_and_requirements_ids.reject! { |c| c.empty? }
+      @certifications_and_requirements_vals = params[:certificate_vals]
+      if @certifications_and_requirements_vals != nil
+       @certifications_and_requirements_vals.reject! { |c| c.empty? }
      end
 
-     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present? || @req_ids.present? || @certifications_and_requirements_ids.present?)
-      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids, @certifications_and_requirements_ids)
+     if (@max_distance.present? ||  @hourly_pay.present? || @earliest_start_date.present? || @max_days_listed.present? || @job_level.present? || @req_ids.present? || @certifications_and_requirements_vals.present?)
+      @jobs= Job.my_search(@max_distance, @address,@hourly_pay,@fixed_price ,@earliest_start_date, @max_days_listed, @job_level, @req_ids, @certifications_and_requirements_vals)
 
       if @jobs
         job_ids = Array.new
@@ -160,7 +174,7 @@ def search
     if request.xhr? 
       if @jobs
         @jobslist = @jobs.map do |j|
-          {:id => j.id, :title => j.title ,:start_date=>j.start_date,:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
+          {:id => j.id, :title => j.title ,:start_date=>j.start_date.try(:strftime, '%d %b %Y'),:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
         end
       end
         # json = @jobslist.to_json
@@ -256,13 +270,12 @@ def search
     private
     def job_params
       params.require(:job).permit!    
-    end  
+    end
+
     def is_employer
-      if user_signed_in?
         unless current_user.role == 'employer'
-          flash[:error] = "Access Dinied"
+          # flash[:error] = "Access Dinied"
           redirect_to root_path
         end
-      end
     end
   end

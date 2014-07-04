@@ -18,7 +18,7 @@ class Job < ActiveRecord::Base
 
 
 
-   def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certifications_and_requirements_ids)
+   def self.my_search(max_distance, address, hourly_pay, fixed_price,earliest_start_date, max_days_listed, job_level, req_ids,certifications_and_requirements_vals)
 
     unless max_distance.blank?
       @jobs = Array.new
@@ -117,31 +117,41 @@ class Job < ActiveRecord::Base
       @jobs = req_based_jobs.uniq
     end
     
-    unless certifications_and_requirements_ids.blank?
-         # binding.pry
-       certifications_and_requirements_based_jobs = Array.new
-           @jobs.each do |j|
-            # binding.pry
-              if j.certifications.present? or j.requirements.present?
-                certifications_and_requirements_ids.each do |r_i|
-                  j.certifications.each do |r|
-                    if r.id == r_i.to_i  
-                    certifications_and_requirements_based_jobs << j                        
+    unless certifications_and_requirements_vals.blank?
+      certifications_and_requirements_based_jobs = Array.new
+          # Converting @jobs Array to Active Records Object
+            job_ids = Array.new
+            @jobs.each do |j|
+              job_ids<<j.id
+            end
+            @jobs = Job.where('id in (?)', job_ids)
+
+                c_and_r_vals = certifications_and_requirements_vals
+                # Filtering on the basis of Reqiurements and Certifications
+                c_and_r_vals.each do |v|
+                    # Filtering on the basis of Reqiurements
+                    @jobs.each do |j|             
+                       if j.requirements.present?
+                        req = j.requirements.where('name LIKE ?', "%"+v+"%")
+                          unless req.blank?
+                           certifications_and_requirements_based_jobs << j 
+                          end       
+                        end
                     end
-                  end    
-                end 
-                certifications_and_requirements_ids.each do |r_i|
-                  j.requirements.each do |r|
-                    if r.id == r_i.to_i  
-                    certifications_and_requirements_based_jobs << j                        
+                    # Filtering on the basis of Certicications
+                    @jobs.each do |j|             
+                       if j.certifications.present?
+                        cert = j.certifications.where('title LIKE ?', "%"+v+"%")
+                          unless cert.blank?
+                           certifications_and_requirements_based_jobs << j 
+                          end       
+                        end
                     end
-                  end    
-                end 
-              end
-          end   
-          # binding.pry        
-      @jobs = certifications_and_requirements_based_jobs.uniq
-       # binding.pry 
+
+
+                end
+
+            @jobs = certifications_and_requirements_based_jobs.uniq
     end
 
 
