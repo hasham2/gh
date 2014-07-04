@@ -148,10 +148,7 @@ Criteria</label>
    <%=form_tag '' do %>
 
    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%= text_field_tag '' , nil, {:id=>"select_origin",:class=>'form-control req_certification_combine',} %>
-    <%= check_box_tag 'certificate_ids[]','', true,{:style=>"display:none;"} %>
- 
-
+    <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin",:class=>'form-control req_certification_combine',} %>
 
 </div>
     </div>
@@ -159,10 +156,7 @@ Criteria</label>
     <div style="margin:10px 0 95px 0;" class='delete_text'>
     <button type="button" id="req_delete2" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-      <%= text_field_tag '' , nil, {:id=>"select_origin1",:class=>'form-control req_certification_combine'} %>
-      <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
-      
- 
+      <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin1",:class=>'form-control req_certification_combine'} %> 
   </div>
     </div>
     
@@ -170,9 +164,7 @@ Criteria</label>
     <div style="margin:10px 0 140px 0;" class='delete_text'>
     <button type="button" id="req_delete3" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
      <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-    <%= text_field_tag '' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
-    <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
-    
+    <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>  
   </div>
     </div>
      
@@ -180,8 +172,7 @@ Criteria</label>
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
 
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-   <%= text_field_tag '' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
-       <%= check_box_tag 'certificate_ids[]','', true ,{:style=>"display:none;"}%>
+   <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
 
   
  </div>
@@ -369,9 +360,9 @@ Displaying 1 to 10 of 26 Listing
               req_ids_vals.push($(this).val());
 
           });
-          certificate_ids_vals = [];
-          $("#search_form input[name='certificate_ids[]']:checked").each(function() {
-              certificate_ids_vals.push($(this).val());
+          certificate_vals = [];
+          $("#search_form input[name='certificate_ids[]']").each(function() {
+              certificate_vals.push($(this).val());
 
           });
           var data_to_send =   { max_distance:max_distance_val,
@@ -382,7 +373,7 @@ Displaying 1 to 10 of 26 Listing
                                    job_level:job_level_val,
                                    'gmaps-input-address':address_val,
                                    req_ids:req_ids_vals,
-                                   certificate_ids:certificate_ids_vals }
+                                   certificate_vals:certificate_vals }
           $.ajax({
              method:'get',
              url:'./search',
@@ -485,19 +476,22 @@ Displaying 1 to 10 of 26 Listing
   </div></div>
   
   
-  <div class="col-lg-4">
+  <div class="col-lg-3">
     <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Hours per day</label>
-    <div class="col-sm-4">
+    <label class="col-sm-6 labl" for="inputPassword">Hours per day</label>
+    <div class="col-sm-6">
       <span class="form-control">{{hours_per_day}}</span>
     </div>
   </div></div>
   
-  <div class="col-lg-4">
+  <div class="col-lg-5">
     <div class="form-group">
-    <label class="col-sm-4 labl" for="inputPassword">Start Date</label>
+    <label class="col-sm-3 labl" for="inputPassword">Start Date</label>
     <div class="col-sm-5">
       <span class="form-control">{{start_date}}</span>
+    </div>
+    <div class="col-sm-4">
+      <span class="form-control"><a href="./{{id}}">View Job</a></span>
     </div>
   </div></div>
   
