@@ -146,8 +146,13 @@ def search
       else
         @max_distance = 25
       end
-
-      @hourly_pay = params[:hourly_pay]
+      
+      if params[:hourly_pay].present?
+        @hourly_pay = params[:hourly_pay]
+      else
+        @hourly_pay = 0
+      end  
+      
       @fixed_price = params[:fixed_price]
       @max_days_listed = params[:max_days_listed]
       @earliest_start_date = params[:earliest_start_date]

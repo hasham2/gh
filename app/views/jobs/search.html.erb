@@ -20,7 +20,7 @@
       <%= text_field_tag :'gmaps-input-address', nil,{:class=>'form-control',:placeholder=>"Where are you...",
         :value=>@address }%>
        <div class="input-group-btn" >
-           <button id ='search' class="btn btn-info">
+           <button type='button' id ='search' class="btn btn-info">
            <span class="glyphicon glyphicon-search"></span>
            </button>
        </div>
@@ -142,11 +142,8 @@ Criteria</label>
 <h2>Education and Certifications</h2>
 <br>
 
-      <div style="margin:10px 0 53px 0;" class='delete_text'>
+    <div style="margin:10px 0 53px 0;" class='delete_text'>
     <button type="button" id="req_delete1" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
-   
-   <%=form_tag '' do %>
-
    <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
     <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin",:class=>'form-control req_certification_combine',} %>
 
@@ -172,11 +169,10 @@ Criteria</label>
     <button type="button" id="req_delete4" class="btn btn-success pull-right btn-educationdelete btn_f">Delete</button>
 
     <div class="col-sm-9 pull-left" style="margin:-27px 0 0 0;">
-   <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin2",:class=>'form-control req_certification_combine'} %>
+   <%= text_field_tag 'certificate_ids[]' , nil, {:id=>"select_origin3",:class=>'form-control req_certification_combine'} %>
 
   
  </div>
-   <% end %>
     </div>
      <div style="float: left; margin: 7px 0 0 !important;">  
 <div class="form-group">
@@ -329,23 +325,63 @@ Displaying 1 to 10 of 26 Listing
       map.addLayer(googleLayer);
       /*Array to store markers placed on map*/
       var markers = []
-      /*-----Placing Markers when page loads first time-----*/
+      /*-----==================Placing Markers when page loads first time-======================----*/
       <%if @jobs%>
         <% @jobs.each do |j|%>
-        var  marker = new L.marker([<%=j.location.lat%>,<%=j.location.lng%>]);
+              var marker = new L.Marker([<%=j.location.lat%>,<%=j.location.lng%>], {
+           win_url: <%=j.id %>
+       });
          map.addLayer(marker);
          markers.push(marker);
+
+           // By clicking the particular marker Show page of Job will be opend in new Tab
+           marker.on('click',function(){              
+               window.open('./'+this.options.win_url);
+                // console.log(this.options);
+           });
        <% end %>
       <% end  %>
-
-
+      /* ===============Go For Search ==========*/ 
       $("#search_form input").change(function(){
         go_for_search();
       });
       $('#earliest_start_date_datepicker').datetimepicker({pickTime: false}).change(function () {
            go_for_search();
       });
+      $("#search").click(function(){
+        go_for_search();
+      });
 
+/* ===============Certification's Delete Buttons Functionailty========Start==========*/ 
+      $('#req_delete1').click(function(){
+        $(this).parent('.delete_text').find('input[type=text]').val('');
+        /*Hide the Delete Button After Deleting the value*/
+        $(this).hide();
+        // $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
+        go_for_search();
+      });
+
+      $('#req_delete2').click(function(){
+        $(this).parent('.delete_text').find('input[type=text]').val('');
+        /*Hide the Delete Button After Deleting the value*/
+        $(this).hide();
+        go_for_search();
+      });
+
+      $('#req_delete3').click(function(){
+        $(this).parent('.delete_text').find('input[type=text]').val('');
+        /*Hide the Delete Button After Deleting the value*/
+        $(this).hide();
+        go_for_search();
+      });
+
+      $('#req_delete4').click(function(){
+        $(this).parent('.delete_text').find('input[type=text]').val('');
+        /*Hide the Delete Button After Deleting the value*/
+        $(this).hide();
+        go_for_search();
+      });
+/* ===============Certification's Delete Buttons Functionailty========End==========*/
 
       function go_for_search (){
           address_val = $('#gmaps-input-address').val();
@@ -399,9 +435,20 @@ Displaying 1 to 10 of 26 Listing
               // alert(obj.id);
             if (obj.lat && obj.lng){
 
-               var  marker = new L.marker([obj.lat,obj.lng]);
+              var marker = new L.Marker([obj.lat,obj.lng], {
+                   win_url: obj.id
+               });
                 map.addLayer(marker);
                 markers.push(marker);
+
+                /*==By clicking the particular marker Show page of Job will be opend in new Tab==*/
+                marker.on('click',function(){              
+                    window.open('./'+this.options.win_url);
+                     // console.log(this.options);
+                });
+
+
+
             }
         });
       }
@@ -543,8 +590,12 @@ $(function() {
        });
     
   });
-
     </script>
 
+    <style>
+    .ui-autocomplete-loading {
+      background: white url("/assets/loader.gif") right center no-repeat;
+    }
+    </style>
 
 
