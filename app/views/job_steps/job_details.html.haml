@@ -39,7 +39,7 @@
           .form-group
             %label.col-sm-4.labl{:for => "inputPassword"} Posting Date
             .col-sm-6
-              = j.date_field :updated_at, :class=>"form-control",:value=>j.object.updated_at.try(:strftime, '%d %b %Y'), :disabled=>"true"
+              = j.text_field :updated_at, :class => "form-control", :value => (j.object.persisted? ? j.object.updated_at.strftime('%m/%d/%Y') : Time.now.strftime('%m/%d/%Y')), :disabled => true
         .col-lg-4
           .form-group
             = j.label :start_date, 'Start Date' ,:class=>"col-sm-3 labl"              
@@ -131,9 +131,9 @@
                   = builder.label :time_zone, 'TimeZone' ,:class=>"col-sm-2 labl"
                   .col-sm-9
                     - if @user_time_zone.nil?
-                      = builder.time_zone_select :time_zone, nil, {}, {:class => 'form-control time_zone_field',:required=>true}
+                      = builder.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {}, {:class => 'form-control time_zone_field',:required=>true}
                     - else
-                      = builder.time_zone_select :time_zone, nil, {default: @user_time_zone}, {:class => 'form-control time_zone_field',:required=>true}
+                      = builder.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {default: @user_time_zone}, {:class => 'form-control time_zone_field',:required=>true}
             .col-lg-6.j-jobz
               .form-group
                 = builder.label :zip, 'Job Location Postal/Zip Code' ,:class=>"col-sm-6 labl"
