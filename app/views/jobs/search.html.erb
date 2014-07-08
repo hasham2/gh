@@ -324,7 +324,7 @@ Displaying 1 to 10 of 26 Listing
 
    $(document).ready(function() {
       /*-------Placing the Map on Page load in map div-------*/
-      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],9);
+      var map = L.map('map').setView(["<%=lat_from_request%>","<%=lng_from_request%>"],12);
       var googleLayer = new L.Google('ROADMAP');
       map.addLayer(googleLayer);
       /*Array to store markers placed on map*/
@@ -342,7 +342,7 @@ Displaying 1 to 10 of 26 Listing
       $("#search_form input").change(function(){
         go_for_search();
       });
-      $('#earliest_start_date_datepicker').datetimepicker().change(function () {
+      $('#earliest_start_date_datepicker').datetimepicker({pickTime: false}).change(function () {
            go_for_search();
       });
 
