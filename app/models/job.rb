@@ -50,7 +50,7 @@ class Job < ActiveRecord::Base
       fixed_price_based_jobs = Array.new
       # binding.pry 
      @jobs.collect do |j|
-        if j.fixed_price.present? && j.fixed_price == fixed_price.to_f
+        if j.fixed_price.present? && j.fixed_price >= fixed_price.to_f
          fixed_price_based_jobs << j 
         end
       end

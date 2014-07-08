@@ -11,29 +11,7 @@ $(function () {
 });
 
 
-$(document).ready(function(){
-$('#req_delete1').click(function(){
-	$(this).parent('.delete_text').find('input[type=text]').val('')
-  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
-	// $('#req1').val('');	
-})
 
-$('#req_delete2').click(function(){
-	$(this).parent('.delete_text').find('input[type=text]').val('')
-  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
-})
-
-$('#req_delete3').click(function(){
-	$(this).parent('.delete_text').find('input[type=text]').val('')
-  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
-})
-
-$('#req_delete4').click(function(){
-	$(this).parent('.delete_text').find('input[type=text]').val('')
-  $(this).parent('.delete_text').find('input[type="checkbox"]').val('')
-})
-
-});
 
 
 $(document).ready(function(){
@@ -56,3 +34,23 @@ $(document).ready(function(){
       
     });
 });
+
+
+$(document).ready(function(){
+
+  $("#search_form input[name='certificate_ids[]']").each(function() {
+      /*Hide Delete Button if Corresponding TextBox is Empty*/
+      if ($(this).val()=='') {
+        $(this).parent().parent('.delete_text').find('button').hide();
+      }
+  });
+  /*Show Delete Button if Corresponding TextBox is not Emm*/
+  $("#search_form input[name='certificate_ids[]']").change(function(){
+    $(this).parent().parent('.delete_text').find('button').show();
+
+  });
+
+});
+
+
+
