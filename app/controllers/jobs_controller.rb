@@ -1,21 +1,25 @@
 class JobsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:search, :show]
-  before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
+  before_filter :authenticate_user!, :except => [:search, :show, :state_response]
+  #before_filter :is_employer,  :except => [:search, :show,:make_primary_photo]
+  after_action :verify_authorized, :except => [:search, :show, :make_primary_photo, :autocomplete_suggestion, :state_response, :make_primary_photo, :save_photo_caption, :delete_photo]
   autocomplete :certification, :name,:full => true,:column_name => 'title'
 
 
   def index
     @jobs = current_user.jobs.all.order(:id)
+    authorize @jobs
   end
 
   def new
     @user = current_user
     @job = @user.jobs.build
+    authorize @job
   end
 
   def create
     @user = current_user
     @job = @user.jobs.build
+    authorize @job
     if @job.save
       session[:job_id] = @job.id
       redirect_to job_steps_path
@@ -28,7 +32,7 @@ class JobsController < ApplicationController
     @employer_job_id = params[:employer_job_id]
     @job = Job.find(params[:id])
 
-    
+
 
     if @job.user && @job.user.employer
       #Business Name
@@ -42,12 +46,12 @@ class JobsController < ApplicationController
       @active_listings = @job.user.jobs.where(:active_job=>true).count
       # Total Jobs of Employer
       @total_listings = @job.user.jobs.count
-      
+
     end
 
 
     # Total Views of a Job
-    @counter = @job.views  
+    @counter = @job.views
     @counter = @counter+1
     @job.update_attributes(:views=>@counter)
 
@@ -56,15 +60,16 @@ class JobsController < ApplicationController
 
   def edit
     @employer_job_id = params[:employer_job_id]
-    
+
     @job = Job.find(params[:id])
+    authorize @job
     session[:job_id] = params[:id]
-    
-    if current_user.employer == nil 
+
+    if current_user.employer == nil
       @business_name = ''
     else
       @business_name = current_user.employer.business_name
-    end 
+    end
 
     if @job.location == nil
       @job.build_location
@@ -72,7 +77,7 @@ class JobsController < ApplicationController
       @job.location
     end
 
-    if @job.metrics.empty? 
+    if @job.metrics.empty?
       5.times{@job.metrics.build}
     else
       if @job.metrics.count < 5
@@ -91,23 +96,24 @@ class JobsController < ApplicationController
     end
     @employer_id = current_user.employer.id
     @universal_and_employer_requirements = Requirement.where({:employer_id=>[nil,@employer_id]})
-    @counter = @job.views  
+    @counter = @job.views
   end
+
   def update
    @job = Job.find(params[:id])
-
+   authorize @job
    if params[:job][:photos_attributes]
-    @old_primary_photo = @job.photos.where(:is_primary => true)   
+    @old_primary_photo = @job.photos.where(:is_primary => true)
     @old_primary_photo.each do |p|
-      p.update_attributes(:is_primary=>nil) 
-    end   
+      p.update_attributes(:is_primary=>nil)
+    end
 
     @new_image = params[:job][:photos_attributes]["0"][:image]
     @is_primary = params[:job][:photos_attributes]["0"][:is_primary]
     @job.photos.create(:is_primary=>@is_primary,:image=>@new_image)
     @primary_photo = @job.photos.where(:is_primary => true)
   end
-else  
+else
   @done = @job.update_attributes(job_params)
   if @done
     flash[:notice]="Job Successfully updated"
@@ -122,6 +128,7 @@ else
 end
 def destroy
   @job = Job.find(params[:id])
+  authorize @job
   if @job.destroy
     redirect_to jobs_path, :notice=>'Job Deleted'
   end
@@ -146,13 +153,13 @@ def search
       else
         @max_distance = 25
       end
-      
+
       if params[:hourly_pay].present?
         @hourly_pay = params[:hourly_pay]
       else
         @hourly_pay = 0
-      end  
-      
+      end
+
       @fixed_price = params[:fixed_price]
       @max_days_listed = params[:max_days_listed]
       @earliest_start_date = params[:earliest_start_date]
@@ -175,8 +182,8 @@ def search
         @jobs = Job.where('id in (?)', job_ids)
         # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
       end
-    end    
-    if request.xhr? 
+    end
+    if request.xhr?
       if @jobs
         @jobslist = @jobs.map do |j|
           {:id => j.id, :title => j.title ,:start_date=>j.start_date.try(:strftime, '%d %b %Y'),:hours_per_day=>j.hours_per_day,:max_wage=>j.max_wage,:desired_wage=>j.desired_wage,:work_duration=>j.work_duration, :lat => j.location.lat, :lng => j.location.lng }
@@ -189,7 +196,7 @@ def search
         # binding.pry
       end
 
-    end 
+    end
     # @jobs = Job.all
   end
 
@@ -213,7 +220,7 @@ def search
       @req = @requirement_list.concat(@certification_list)
     end
 
-    respond_to do |format|  
+    respond_to do |format|
       format.json { render :json => @req}
     end
   end
@@ -225,8 +232,8 @@ def search
     @all_photos = @job.photos.all
       # make all photos unprimary
       @all_photos.each do |p|
-        p.update_attributes(:is_primary=>nil) 
-      end 
+        p.update_attributes(:is_primary=>nil)
+      end
       # make unique primary photo
       @make_primary_photo = @job.photos.find(params[:value])
       @make_primary_photo.update_attributes(:is_primary=>true)
@@ -236,8 +243,9 @@ def search
       @photos = @job.photos.where(:is_primary => nil)
       respond_to do |format|
         format.js
-      end 
+      end
     end
+
     def delete_photo
       @job_id = session[:job_id]
       @job = Job.find(@job_id)
@@ -246,7 +254,7 @@ def search
       @photos = @job.photos.where(:is_primary => nil)
       respond_to do |format|
         format.js
-      end   
+      end
     end
 
     def save_photo_caption
@@ -271,12 +279,14 @@ def search
         format.js
       end
     end
-    
+
     private
+
     def job_params
-      params.require(:job).permit!    
+      params.require(:job).permit!
     end
 
+    # This is not needed at all, we use pundit for authorization
     def is_employer
         unless current_user.role == 'employer'
           # flash[:error] = "Access Dinied"
