@@ -54,6 +54,7 @@
           if (current_StartTime <= previous_EndTime){
             alert("Start time can not overlapped!");
             ref_start_date.val('');
+            return false;
           }
         }
       }
@@ -63,13 +64,13 @@
             alert("End time must be after Start time");
             ref_end_date.val('');
             current_end_time=null;
+            return false;
           }
         }  
       $(this).closest('fieldset').nextAll("fieldset").each(function( index ) {
           var prev_end_time = $(this).closest('fieldset').find('.end_date').val();
           var prev_start_time = $(this).closest('fieldset').find('.start_date').val();
           var pre_day = $(this).closest('fieldset').find('.day_of_week').val();
-           console.log(prev_end_time+"==="+prev_start_time+"====="+pre_day);
         
         var previous_StartTime  = new Date("1/1/2007 " + prev_start_time);
         var previous_EndTime = new Date("1/1/2007 " + prev_end_time);
@@ -81,17 +82,87 @@
             if (current_StartTime <= previous_EndTime){
               alert("Start time can not be overlapped!");
               ref_start_date.val('');
+              return false;
             }
           }
           if (current_end_time&& current_start_time) {
             if (!(current_Endtime > current_StartTime)){
               alert("End time must be after Start time");
               ref_end_date.val('');
+              return false;
             }
           }  
         }
       });
     });
+  $('select.day_of_week').change(function(){
+
+    var ref_start_date = $(this).closest('fieldset:visible').find('.start_date');
+    var ref_end_date   = $(this).closest('fieldset:visible').find('.end_date');
+    var current_start_time =  $(this).closest('fieldset:visible').find('.start_date').val();
+    var current_end_time =  $(this).closest('fieldset:visible').find('.end_date').val();
+    var current_day = $(this).closest('fieldset:visible').find('.day_of_week').val();
+    
+    var current_StartTime_outside = new Date("1/1/2007 " + current_start_time);
+    var current_Endtime_outside = new Date("1/1/2007 " + current_end_time);
+
+    $(this).closest('fieldset:visible').prevAll("fieldset:visible").each(function( index ) {
+      var prev_end_time = $(this).closest('fieldset:visible').find('.end_date').val();
+      var prev_start_time = $(this).closest('fieldset:visible').find('.start_date').val();
+      var pre_day = $(this).closest('fieldset:visible').find('.day_of_week').val();
+    
+    var previous_StartTime  = new Date("1/1/2007 " + prev_start_time);
+    var previous_EndTime = new Date("1/1/2007 " + prev_end_time);
+
+    var current_StartTime = new Date("1/1/2007 " + current_start_time);
+    var current_Endtime = new Date("1/1/2007 " + current_end_time);
+
+    if (current_day === pre_day ){
+      if (current_start_time) {
+        if (current_StartTime <= previous_EndTime){
+          alert("Start time can not overlapped!");
+          ref_start_date.val('');
+          return false;
+        }
+      }
+    }
+    });
+      if (current_end_time&& current_start_time) {
+        if (!(current_Endtime_outside >current_StartTime_outside)){
+          alert("End time must be after Start time");
+          ref_end_date.val('');
+          current_end_time=null;
+          return false;
+        }
+      }  
+    $(this).closest('fieldset').nextAll("fieldset").each(function( index ) {
+        var prev_end_time = $(this).closest('fieldset').find('.end_date').val();
+        var prev_start_time = $(this).closest('fieldset').find('.start_date').val();
+        var pre_day = $(this).closest('fieldset').find('.day_of_week').val();
+      
+      var previous_StartTime  = new Date("1/1/2007 " + prev_start_time);
+      var previous_EndTime = new Date("1/1/2007 " + prev_end_time);
+
+      var current_StartTime = new Date("1/1/2007 " + current_start_time);
+      var current_Endtime = new Date("1/1/2007 " + current_end_time);
+      if (current_day === pre_day ){
+        if (current_start_time) {
+          if (current_StartTime <= previous_EndTime){
+            alert("Start time can not be overlapped!");
+            ref_start_date.val('');
+            return false;
+          }
+        }
+        if (current_end_time&& current_start_time) {
+          if (!(current_Endtime > current_StartTime)){
+            alert("End time must be after Start time");
+            ref_end_date.val('');
+            return false;
+          }
+        }  
+      }
+    });
+  });
   $('.end_time_picker').datetimepicker({
     pickDate: false
   });
