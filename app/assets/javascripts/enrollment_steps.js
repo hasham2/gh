@@ -47,7 +47,7 @@ jQuery(function() {
     time = new Date().getTime();
     regexp = new RegExp($(this).data('id'), 'g');
     $(this).before($(this).data('fields').replace(regexp, time));
-     
+
       switch (last_visible_select_val) {
         case 'm':
            $(this).parent().parent().find("select:last").val('t');
@@ -75,20 +75,16 @@ jQuery(function() {
           break;
       }
 
-    
+
 
     return event.preventDefault();
   });
-   if($('fieldset').is(":visible")){
+
+  if($('fieldset').is(":visible")){
    	// $('a.add_standard_fields').attr('disabled',true)
-   }
-});
+  }
 
 /* ============================ADD standards workhour fields===============*/
-
-jQuery(function() {
-
-
 
   $("form").on("click", ".add_standard_fields", function(event) {
 
@@ -130,7 +126,7 @@ jQuery(function() {
        return event.preventDefault();
     } else {
         //Do nothing
-    } 
+    }
 
   });
 
@@ -144,7 +140,7 @@ jQuery(function() {
     var last_selected_end_date_val = $('fieldset:visible:last').find('.end_date').val();
     // alert(last_selected_start_date_val);
     // alert(last_selected_end_date_val);
- 
+
     var regexp, time;
     time = new Date().getTime();
     regexp = new RegExp($(this).data('id'), 'g');
@@ -193,56 +189,51 @@ jQuery(function() {
       }
     return event.preventDefault();
   });
+
    if($('fieldset').is(":visible")){
     // $('a.add_standard_fields').attr('disabled',true)
    }
-});
-// $(document).ready(function(){
-//   $('input.start_date').change(function(){
-//     alert($(this).val());
-//   })
-// });
-/*Comparing dates*/
-$(document).ready(function(){
+
+   /*Comparing dates*/
+
     $('.zip_code_field').change(function(){
         var country = $('#user_location_attributes_country').val();
         var postal_or_zip = $('.zip_code_field').val();
         /*Validation for US ZipCode */
-        if (country == 'United States'){
+        if (country === 'United States'){
               var zipcode_regex = /^\d{5}$/;
               if (zipcode_regex.test($.trim(postal_or_zip)) == false){
-                  alert('Invalid Zip Code');
-              }         
+                  alert('Invalid Zip Code'); //cant we show this in red coloured label
+              }
         }
         /*Validation for Canadian postal Code */
-        else if (country == 'Canada'){
+        else if (country === 'Canada'){
               var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
               if (regex.test(postal_or_zip) == false){
-                alert('Invalid Postal Code');
+                alert('Invalid Postal Code'); //cant we show this in a red coloured label
               }
         }
 
-    });     
-});
-/*Comparing dates*/
-$(document).ready(function(){
+    });
+
+    /*Comparing dates*/
     $('.zip_code_field').change(function(){
         var country = $('#job_location_attributes_country').val();
         var postal_or_zip = $('.zip_code_field').val();
         /*Validation for US ZipCode */
-        if (country == 'United States'){
+        if (country === 'United States'){
               var zipcode_regex = /^\d{5}$/;
               if (zipcode_regex.test($.trim(postal_or_zip)) == false){
                   alert('Invalid Zip Code');
-              }         
+              }
         }
         /*Validation for Canadian postal Code */
-        else if (country == 'Canada'){
+        else if (country === 'Canada'){
               var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
               if (regex.test(postal_or_zip) == false){
                 alert('Invalid Postal Code');
               }
         }
 
-    });     
+    });
 });
