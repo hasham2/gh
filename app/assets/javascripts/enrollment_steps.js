@@ -1,3 +1,4 @@
+
 /* ============= Detele the Workhours field in Enrollment availibility ==========================*/
 jQuery(function() {
   $('form').on('click', '.remove_fields', function(event) {
@@ -196,7 +197,11 @@ jQuery(function() {
     // $('a.add_standard_fields').attr('disabled',true)
    }
 });
-
+// $(document).ready(function(){
+//   $('input.start_date').change(function(){
+//     alert($(this).val());
+//   })
+// });
 /*Comparing dates*/
 $(document).ready(function(){
     $('.zip_code_field').change(function(){

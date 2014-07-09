@@ -180,7 +180,7 @@ def search
           job_ids<<j.id
         end
         @jobs = Job.where('id in (?)', job_ids)
-        # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
+         # @jobs=@jobs.paginate(:page => params[:page], :per_page => 2)
       end
     end
     if request.xhr?
@@ -190,7 +190,7 @@ def search
         end
       end
         # json = @jobslist.to_json
-        @jobs = @jobs.page(params[:page]).per(2) if @jobs
+       # @jobs = @jobs.page(params[:page]).per(2) if @jobs
         respond_to do |format|
           format.js  {render json: @jobslist}
         # binding.pry
